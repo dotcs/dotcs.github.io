@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  /* @apply text-lg; */
+}
+
+@keyframes tick {
+    0% { opacity: 1 }
+    50% { opacity: 0 }
+    100% { opacity: 0 }
+}
+
+.x-logo-ticker {
+  @apply font-bold;
+  animation-name: tick;
+  animation-duration: 1s;
+  animation-timing-function: steps(1,end);
+  animation-iteration-count: infinite;
+}
+.x-link {
+  @apply border-b-2 border-teal-400;
+}
+.x-link:focus {
+  @apply border-teal-600;
+}
+.x-link:hover {
+  @apply border-orange-400;
+}
+
+.x-post {
+  @apply leading-7;
+}
+
+.x-post a {
+  @apply border-b-2 border-teal-400;
+}
+.x-post a:focus {
+  @apply border-teal-600;
+}
+.x-post a:hover {
+  @apply border-orange-400;
+}
+.x-post h2 {
+  @apply text-2xl mt-10 mb-4;
+}
+.x-post h3 {
+  @apply text-xl mt-4 mb-2;
+}
+.x-post ul {
+  @apply list-disc ml-8 my-6;
+}
+.x-post ol {
+  @apply list-decimal ml-8 my-6;
+}
+.x-post li {
+  @apply mt-1 mb-2;
+}
+.x-post p {
+  @apply mt-1 mb-4;
+}
+.x-post blockquote {
+  @apply pl-2 border-l-4 border-teal-400 p-4 my-4 italic bg-gray-100;
+}
+.x-post code {
+  @apply bg-gray-200 p-1 rounded-sm;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.x-post pre,
+.x-post pre[class*="language-"] {
+  @apply bg-gray-200 p-2 text-sm;
+  overflow-x: auto;
+}
+.x-post pre > code,
+.x-post pre > code[class*="language-"] {
+  @apply p-0;
+  white-space: inherit;
+  word-wrap: normal;
+}
+.x-post figure {
+  @apply shadow inline-block mx-auto;
+}
+.x-post figure.kg-card.kg-code-card {
+    margin-left: inherit;
+    margin-right: inherit;
+    width: 100%;
+}
+.x-post figure > pre {
+  @apply my-0;
+}
+.x-post figcaption {
+  @apply p-4 text-gray-800 text-sm text-center;
+}
+.x-post table {
+  @apply border;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+}
+.x-post table > thead th {
+  @apply bg-gray-300;
+}
+.x-post table th,
+.x-post table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 3rem;
+}
+.x-post table > tbody > tr:nth-child(odd) {
+}
+.x-post table > tbody > tr:nth-child(even) {
+  @apply m-2 bg-gray-200;
+}
+.x-post hr {
+  @apply my-6;
+}
+.x-post .x-table-wrapper {
+  @apply overflow-auto my-4;
+}
+.x-post .x-figure-wrapper {
+  @apply flex my-4 ;
+}
+.x-post .x-headline-anchor {
+  @apply border-0 text-gray-400;
+  margin-left: -1.5rem;
+  font-size: .75em;
+}
+.x-post .x-headline-anchor:hover {
+  @apply text-gray-800;
+}
+
+/* 
+ * -------------------------------------------------------------------------------- 
+ * prism.js Tweaks 
+ * -------------------------------------------------------------------------------- 
+ */
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  background: inherit !important;
+}
