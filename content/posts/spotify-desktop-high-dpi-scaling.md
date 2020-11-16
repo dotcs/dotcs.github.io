@@ -7,8 +7,8 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2019-11-12T16:45:00Z"
+updated_at: "2019-11-12T16:45:00Z"
 ---
 
 When using a HiDPI screen, such as the MacBook Pro with Retina display, Spotify Desktop may not automatically detect the correct scaling factor.

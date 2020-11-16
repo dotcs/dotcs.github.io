@@ -7,8 +7,8 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-04-01T14:38:00Z"
+updated_at: "2020-04-01T14:38:00Z"
 ---
 
 I use [mutt] to manage my emails and access them from the terminal.

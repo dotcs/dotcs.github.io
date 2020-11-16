@@ -7,8 +7,8 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2019-11-11T21:03:00Z"
+updated_at: "2019-11-11T21:03:00Z"
 ---
 
 As a previous macOS user I am used to call `open <anything>` in a terminal to open the current file or folder with the standard tool.

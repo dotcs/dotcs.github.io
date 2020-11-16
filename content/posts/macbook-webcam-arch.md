@@ -7,11 +7,13 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-04-0118:07:00Z"
+updated_at: "2020-04-0118:07:00Z"
 ---
 
 I'm running [Manjaro Linux][manjaro] (an [Arch Linux][arch] derivative) on my MacbookPro12,1 (Retina, 13-inch, Early 2015).
+
+![Image source: support.apple.com, 2020/04/01](/posts/macbook-webcam-arch/macbook-pro.png)
 
 I was astonished how many things just worked out-of-the-box.
 Kudos to the Arch and Manjaro teams for their great work!

@@ -6,8 +6,8 @@ keywords:
   - nextcloud
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-05-11T11:28:00Z"
+updated_at: "2020-05-11T11:28:00Z"
 ---
 
 I recently changed the database in my personal Nextcloud instance.

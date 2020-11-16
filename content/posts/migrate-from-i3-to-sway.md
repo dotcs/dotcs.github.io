@@ -6,8 +6,8 @@ keywords:
   - notes
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-11-15T09:52:00Z"
+updated_at: "2020-11-15T09:52:00Z"
 ---
 
 I recently changed from the Linux display server protocol [X.org Server][xserver] to [Wayland][wayland] on one of my machines.

@@ -7,8 +7,8 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-04-01T09:36:00Z"
+updated_at: "2020-04-01T09:36:00Z"
 ---
 
 I love the sun – especially in Spring when temperatures are not too hot and taking a sunbath is a real pleasure. And I love working in the sun, which is often a challenge because of the poor contrast - especially if, like me, you like to use dark themes.
