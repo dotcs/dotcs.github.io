@@ -1,2 +1,0 @@
-Custom configuration:
-https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascript+bash+django+groovy+java+json+json5+makefile+markdown+markup-templating+nginx+python+jsx+tsx+regex+scala+sql+typescript+vim+wiki+xquery+yaml&plugins=line-numbers
