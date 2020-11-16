@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import Link from 'next/link'
 
-import { Post } from '../../types';
+import { PostAttributesExt } from '../../types';
 
-export interface PostItemProps extends Post {
+export interface PostItemProps {
+    attributes: PostAttributesExt
 }
 
 export const PostItem: FC<PostItemProps> = (props) => (

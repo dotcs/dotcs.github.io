@@ -5,18 +5,19 @@ import Head from 'next/head';
 import { GetStaticProps } from 'next'
 
 import { Page as PageCmp } from '../components/page/page';
-import { PostItem } from '../components/postItem/postItem';
+import { PostItem, PostItemProps } from '../components/postItem/postItem';
 import { PageSettings, Post } from '../types';
 import { getAllPosts } from '../utils/parser';
 import { pageSettings } from '../content/settings';
 
 export interface PageProps {
-  posts: Post[];
+  posts: PostItemProps[];
   settings: PageSettings;
 }
 
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const posts = getAllPosts();
+  const posts = getAllPosts()
+    .map(({attributes, ...rest}) => ({ attributes }));  // keep only the attributes
   posts.reverse();
   return {
     props: { posts, settings: pageSettings }
