@@ -1,9 +1,9 @@
-import fm, { FrontMatterResult } from 'front-matter';
+import fm from 'front-matter';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
-import { PostAttributesExt } from '../types';
+import { Post, TagCount } from '../types';
 
 // TODO: relative paths
 const posts_dir = path.join('content', 'posts');
@@ -11,10 +11,10 @@ const pages_dir = path.join('content', 'pages');
 
 type ContentType = 'post' | 'page';
 
-const _getAllPostsOrPages = (type: ContentType): FrontMatterResult<PostAttributesExt>[] => {
+const _getAllPostsOrPages = (type: ContentType): Post[] => {
     const dir = type === 'post' ? posts_dir : pages_dir;
     const files = fs.readdirSync(dir);
-    const contents: FrontMatterResult<PostAttributesExt>[] = 
+    const contents: Post[] = 
         files.map(f => parseFile(path.join(dir, f)));
     for (let content of contents) {
         content.attributes.keywords = _.sortedUniq(content.attributes.keywords.sort());
@@ -24,18 +24,18 @@ const _getAllPostsOrPages = (type: ContentType): FrontMatterResult<PostAttribute
 
 }
 
-export const getAllPages = (): FrontMatterResult<PostAttributesExt>[] => {
+export const getAllPages = (): Post[] => {
     return _getAllPostsOrPages('page');
 }
 
-export const getAllPosts = (): FrontMatterResult<PostAttributesExt>[] => {
+export const getAllPosts = (): Post[] => {
     return _getAllPostsOrPages('post');
 }
 
-const parseFile = (p: string): FrontMatterResult<PostAttributesExt> => {
+const parseFile = (p: string): Post => {
     const content = fs.readFileSync(p, 'utf-8');
 
-    const parsed: FrontMatterResult<PostAttributesExt> = fm(content);
+    const parsed: Post = fm(content);
     // Slug is missing at this point. It will be added in next line.
     parsed.attributes.slug = path.basename(p).split('.')[0];
     return parsed;
@@ -60,3 +60,23 @@ export const getAllPostSlugs = (): string[] => {
 export const getAllPageSlugs = (): string[] => {
     return _getAllSlugs('page');
 };
+
+export const getTagCounts = (): TagCount[] => {
+  const tagCounter = getAllPosts().reduce((acc, p) => {
+    for (let kw of p.attributes.keywords) {
+      if (acc[kw]) {
+        acc[kw] += 1;
+      } else {
+        acc[kw] = 1;
+      }
+    }
+    return acc;
+  }, {} as {[key: string]: number});
+  const tags: TagCount[] = 
+    _.sortBy(Object.keys(tagCounter).map(slug => ({ slug, count: tagCounter[slug] })), 'slug');
+  return tags;
+}
+
+export const getPostsByTag = (tag: string): Post[] => {
+    return getAllPosts().filter(p => p.attributes.keywords.includes(tag));
+}
