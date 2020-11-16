@@ -1,13 +1,13 @@
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
 
-const debug = process.env.NODE_ENV !== 'production';
+const ghPages = process.env.DEPLOY_TARGET === 'gh-pages';
 
 const mod = withCSS(withFonts({
   enableSvg: true
 }));
 
 module.exports = {
-  assetPrefix: !debug ? '/dotcs.github.io/' : '',
+  assetPrefix: ghPages ? '/dotcs.github.io/' : '',
   ...mod,
 };
