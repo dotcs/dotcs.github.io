@@ -56,8 +56,8 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
     </Head>
     <PageCmp settings={settings}>
       <div className="px-4 lg:px-24 py-4">
-        <h1 className="text-3xl font-semibold mb-2">{post.attributes.title}</h1>
-        <p className="font-thin mb-8 text-sm">posted on {post.attributes.published_at.substr(0, '2000-01-01'.length)} by {post.attributes.authors.join(', ')}</p>
+        <h1 className="text-3xl font-semibold">{post.attributes.title}</h1>
+        <p className="font-thin mb-4 text-sm">posted on {post.attributes.published_at.substr(0, '2000-01-01'.length)} by {post.attributes.authors.join(', ')}</p>
         <Markdown className="x-post" text={post.body} />
       </div>
     </PageCmp>

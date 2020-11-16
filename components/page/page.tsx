@@ -1,16 +1,16 @@
-import { SFC } from 'react';
+import { FC } from 'react';
 import Head from 'next/head';
 
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
-import { GhostContentSettings, PageSettings } from '../../types';
+import { PageSettings } from '../../types';
 import useCSS from '../../hooks/useCSS';
 
 export interface PageProps {
     settings: PageSettings;
 }
 
-export const Page: SFC<PageProps> = (props) => {
+export const Page: FC<PageProps> = (props) => {
     useCSS('/fonts/line-awesome/1.3.0/css/line-awesome.min.css');
 
     return (
