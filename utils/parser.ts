@@ -3,13 +3,21 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
-import { Post, TagCount } from '../types';
+import { ContentType, Post, TagCount } from '../types';
 
 // TODO: relative paths
 const posts_dir = path.join('content', 'posts');
 const pages_dir = path.join('content', 'pages');
 
-type ContentType = 'post' | 'page';
+const parseFile = (p: string): Post => {
+    const content = fs.readFileSync(p, 'utf-8');
+
+    const parsed: Post = fm(content);
+    // Slug is missing at this point. It will be added in next line.
+    parsed.attributes.slug = path.basename(p).split('.')[0];
+    return parsed;
+};
+
 
 const _getAllPostsOrPages = (type: ContentType): Post[] => {
     const dir = type === 'post' ? posts_dir : pages_dir;
@@ -31,15 +39,6 @@ export const getAllPages = (): Post[] => {
 export const getAllPosts = (): Post[] => {
     return _getAllPostsOrPages('post');
 }
-
-const parseFile = (p: string): Post => {
-    const content = fs.readFileSync(p, 'utf-8');
-
-    const parsed: Post = fm(content);
-    // Slug is missing at this point. It will be added in next line.
-    parsed.attributes.slug = path.basename(p).split('.')[0];
-    return parsed;
-};
 
 export const getAllTags = (): string[] => {
     const contents = getAllPosts();

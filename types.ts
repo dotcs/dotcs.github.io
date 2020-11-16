@@ -1,5 +1,7 @@
 import { FrontMatterResult } from "front-matter";
 
+export type ContentType = 'post' | 'page';
+
 export interface PostAttributes {
     title: string;
     excerpt: string;
