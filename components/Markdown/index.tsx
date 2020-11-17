@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import MarkdownIt from 'markdown-it';
 import markdownItTocAndAnchor from "markdown-it-toc-and-anchor"
+import markdownItFootnote from 'markdown-it-footnote';
 import hljs from 'highlight.js';
 
 export interface MarkdownProps {
@@ -25,7 +26,7 @@ const md = new MarkdownIt({
 }).use(markdownItTocAndAnchor, {
     anchorLinkSymbol: '#',
     anchorLinkSymbolClassName: 'hidden sm:inline-block x-headline-anchor',
-});
+}).use(markdownItFootnote);
 
 const Markdown: FC<MarkdownProps> = (props) => {
     const html = md.render(props.text);
