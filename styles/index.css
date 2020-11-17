@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* purgecss start ignore */
 html {
   /* @apply text-lg; */
 }
@@ -139,15 +140,4 @@ html {
   @apply text-gray-800;
 }
 
-/* 
- * -------------------------------------------------------------------------------- 
- * prism.js Tweaks 
- * -------------------------------------------------------------------------------- 
- */
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  background: inherit !important;
-}
+/* purgecss end ignore */

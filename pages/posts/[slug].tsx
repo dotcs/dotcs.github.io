@@ -8,8 +8,6 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { Page as PageCmp } from '../../components/page/page';
 import { PageSettings, Post } from '../../types';
-import useScript from '../../hooks/useScript';
-import useCSS from '../../hooks/useCSS';
 import { getAllPosts, getAllPostSlugs } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';
 import Markdown from '../../components/Markdown';
