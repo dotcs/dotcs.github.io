@@ -26,4 +26,7 @@ export interface PageSettings {
     title: string;
     baseUrl: string;
     description: string;
+    twitterHandle: string;
+    githubHandle: string;
+    themeColor: string;
 }

@@ -28,7 +28,7 @@ export const Page: FC<PageProps> = (props) => (
   <>
     <Head>
       <meta property="og:description" content={props.settings.description} />
-      <title>dotcs - Weblog</title>
+      <title>{props.settings.title}- Weblog</title>
     </Head>
     <PageCmp settings={props.settings}>
       <div className="px-4 lg:px-24 py-4">

@@ -5,6 +5,7 @@ import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { PageSettings } from '../../types';
 import useCSS from '../../hooks/useCSS';
+import Container from '../Container';
 
 export interface PageProps {
     settings: PageSettings;
@@ -20,19 +21,19 @@ export const Page: FC<PageProps> = (props) => {
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest" />
-                <meta name="theme-color" content="#38b2ac" />
+                <meta name="theme-color" content={props.settings.themeColor} />
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content={props.settings.title} />
                 <meta property="og:type" content="website" />
-                <link rel="alternate" type="application/rss+xml" title="dotcs.me" href={`${props.settings.baseUrl}/feeds/rss`}></link>
-                <link rel="me" href="https://github.com/dotcs" />
-                <link rel="me" href="https://twitter.com/dotcsDE" />
+                <link rel="alternate" type="application/rss+xml" title={props.settings.title} href={`${props.settings.baseUrl}/feeds/rss`}></link>
+                <link rel="me" href={"https://github.com/" + props.settings.githubHandle} />
+                <link rel="me" href={"https://twitter.com/" + props.settings.twitterHandle} />
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />
-                <div className="bg-white container mx-auto flex-grow">
+                <Container className="bg-white flex-grow">
                     {props.children}
-                </div>
+                </Container>
                 <Footer />
             </div>
         </>

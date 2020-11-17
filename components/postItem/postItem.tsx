@@ -2,6 +2,8 @@ import { FC } from 'react';
 import Link from 'next/link'
 
 import { PostAttributesExt } from '../../types';
+import TagList from '../TagList';
+import DateMeta from '../DateMeta';
 
 export interface PostItemProps {
     attributes: PostAttributesExt
@@ -14,21 +16,13 @@ export const PostItem: FC<PostItemProps> = (props) => (
                 <a className="x-link">{props.attributes.title}</a>
             </Link>
         </h2>
-        <p className="font-thin mb-2 text-sm">
-            posted on {props.attributes.published_at.substr(0, '2020-01-01'.length)} by {props.attributes.authors.join(', ')}
-        </p>
+        <DateMeta
+            className="text-sm font-light mb-2"
+            published_at={props.attributes.published_at}
+            updated_at={props.attributes.updated_at}
+            authors={props.attributes.authors}
+        />
         <p className="mb-2">{props.attributes.excerpt}</p>
-        <div className="text-sm">
-            <i className="las la-tags align-middle" />
-            <ul className="inline-block text-gray-800">
-                {props.attributes.keywords.map(keyword => (
-                    <li key={keyword} className="inline-block ml-2">
-                        <Link href="/tags/[slug]" as={`/tags/${keyword}`}>
-                            <a className="x-link">{keyword}</a>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <TagList tags={props.attributes.keywords} className="text-sm font-light" />
     </div>
 );

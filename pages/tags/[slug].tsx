@@ -46,9 +46,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
     <>
       <Head>
           <meta property="og:title" content={props.tag} />
-          {/* {page.excerpt && 
-              <meta property="og:description" content={page.excerpt} />
-          } */}
+          <meta property="og:description" content={"Posts that are tagged with: " + props.tag} />
           <meta property="og:url" content={`${props.settings.baseUrl}/tags/${props.tag}`} />
           {/*
           <meta property="og:image" content="" />
@@ -60,7 +58,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
       </Head>
       <Page settings={props.settings}>
         <div className="px-4 lg:px-24 py-4">
-            <h1 className="text-xl mt-2 mb-8">Tag: <span className="">{props.tag}</span></h1>
+            <h1 className="text-xl mt-2 mb-8">Tag: <span className="font-bold">{props.tag}</span></h1>
             {props.posts.map(post => <PostItem key={post.attributes.slug} {...post} />)}
         </div>
       </Page>
