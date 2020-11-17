@@ -7,17 +7,19 @@ import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 
 import { Page as PageCmp } from '../../components/page/page';
-import { PageSettings, Post } from '../../types';
+import { PageSettings, Post as PostType } from '../../types';
 import { getAllPosts, getAllPostSlugs } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';
 import Markdown from '../../components/Markdown';
+import PostMeta from '../../components/PostMeta';
+import Post from '../../components/Post';
 
 interface StaticParams extends ParsedUrlQuery {
   slug: string;
 }
 
 export interface PageProps {
-  post: Post;
+  post: PostType;
   settings: PageSettings;
 }
 
@@ -40,9 +42,9 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
   <>
     <Head>
       <meta property="og:title" content={post.attributes.title} />
-      {/* {post.excerpt && 
-              <meta property="og:description" content={post.excerpt} />
-          } */}
+      {post.attributes.excerpt && 
+          <meta property="og:description" content={post.attributes.excerpt} />
+      }
       <meta property="og:url" content={`${settings.baseUrl}/pages/${post.attributes.slug}`} />
       {/*
           <meta property="og:image" content="" />
@@ -53,11 +55,7 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
       <title>{post.attributes.title} - {settings.title}</title>
     </Head>
     <PageCmp settings={settings}>
-      <div className="px-4 lg:px-24 py-4">
-        <h1 className="text-3xl font-semibold">{post.attributes.title}</h1>
-        <p className="font-thin mb-4 text-sm">posted on {post.attributes.published_at.substr(0, '2000-01-01'.length)} by {post.attributes.authors.join(', ')}</p>
-        <Markdown className="x-post" text={post.body} />
-      </div>
+        <Post className="px-4 lg:px-24 py-4" post={post} />
     </PageCmp>
   </>
 );

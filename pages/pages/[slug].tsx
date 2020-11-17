@@ -8,9 +8,8 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { Page as PageCmp } from '../../components/page/page';
 import { PageSettings, Post } from '../../types';
-import { getAllPages, getAllPageSlugs, getAllPosts } from '../../utils/parser';
+import { getAllPages, getAllPageSlugs } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';
-import { settings } from 'cluster';
 import Markdown from '../../components/Markdown';
 
 interface StaticParams extends ParsedUrlQuery {
@@ -21,16 +20,6 @@ export interface PageProps {
     page: Post;
     settings: PageSettings;
 }
-
-// export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//     const { settings } = await fetchSettings();
-//     const { slug } = query;
-//     const { pages } = await fetchBackend(`/content/pages/slug/${slug}`);
-//     if (!pages) {
-//         return { props: { page: null, settings } };
-//     }
-//     return { props: { page: pages[0], settings } };
-// }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
   const paths = getAllPageSlugs().map(slug => ({ params: { slug }}));
