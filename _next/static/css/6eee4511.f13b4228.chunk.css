@@ -14046,6 +14046,10 @@ html {
   border-color: #4fd1c5;
 }
 
+.x-link:visited {
+  border-color: #b794f4;
+}
+
 .x-link:focus {
   border-color: #319795;
 }
@@ -14061,6 +14065,11 @@ html {
 .x-post a {
   border-bottom-width: 2px;
   border-color: #4fd1c5;
+}
+
+.x-post a:visited {
+  border-bottom-width: 2px;
+  border-color: #b794f4;
 }
 
 .x-post a:focus {
@@ -14124,6 +14133,7 @@ html {
   border-radius: 0.125rem;
   white-space: pre-wrap;
   word-wrap: break-word;
+  font-size: 0.9rem;
 }
 
 .x-post pre,
