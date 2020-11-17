@@ -7,10 +7,7 @@ module.exports = {
         ...isProduction && {
             '@fullhuman/postcss-purgecss': {
                 content: [
-                    './components/*.{ts,tsx}',
-                    './components/**/*.{ts,tsx}',
-                    './pages/*.{ts,tsx}',
-                    './pages/**/*.{ts,tsx}',
+                    './src/**/*.{ts,tsx}',
                 ],
                 safelist: [
                     // Custom component definitions
