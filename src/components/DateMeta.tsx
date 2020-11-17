@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 export interface DateMetaProps {
     published_at: string;
@@ -19,12 +19,15 @@ const DateMeta: FC<DateMetaProps> = (props) => {
     const isUpdated = props.updated_at !== props.published_at;
 
     return (
-        <p className={props.className}>posted on <MetaTime time={props.published_at} /> by {props.authors.join(', ')}
-            {isUpdated && 
-                <>, last updated on <MetaTime time={props.updated_at} /></>
-            }
+        <p className={props.className}>
+            posted on <MetaTime time={props.published_at} /> by {props.authors.join(', ')}
+            {isUpdated && (
+                <>
+                    , last updated on <MetaTime time={props.updated_at} />
+                </>
+            )}
         </p>
     );
-}
+};
 
 export default DateMeta;

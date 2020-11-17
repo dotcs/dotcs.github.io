@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
-import { pageSettings } from '../content/settings';
+import { pageSettings } from '../settings';
 
 export interface HeaderState {
     menuVisible: boolean;
@@ -11,12 +11,14 @@ export interface HeaderProps {
     pages?: {
         title: string;
         href: string;
-    }[]
+    }[];
 }
 
 export const BurgerIcon: FC = () => (
     <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+        <title>Menu</title>
+        <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+    </svg>
 );
 
 export const Header: FC<HeaderProps> = (props) => {
@@ -36,13 +38,16 @@ export const Header: FC<HeaderProps> = (props) => {
                 <div className="block lg:hidden">
                     <button
                         className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
-                        onClick={() => setMenuVisible(!menuVisible)}>
+                        onClick={() => setMenuVisible(!menuVisible)}
+                    >
                         <BurgerIcon />
                     </button>
                 </div>
-                <div className={cx('w-full block flex-grow lg:flex lg:items-center lg:w-auto', {hidden: !menuVisible})}>
+                <div
+                    className={cx('w-full block flex-grow lg:flex lg:items-center lg:w-auto', { hidden: !menuVisible })}
+                >
                     <div className="lg:flex-grow">
-                        {props.pages.map(item => (
+                        {props.pages.map((item) => (
                             <Link href={item.href} key={item.href}>
                                 <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-8">
                                     {item.title}
@@ -61,7 +66,7 @@ Header.defaultProps = {
         { title: 'Blog', href: '/' },
         { title: 'Tags', href: '/tags' },
         { title: 'About me', href: '/pages/about-me' },
-    ]
-}
+    ],
+};
 
 export default Header;

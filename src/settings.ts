@@ -1,4 +1,4 @@
-import { PageSettings } from '../types';
+import { PageSettings } from './types';
 
 export const pageSettings: PageSettings = {
     title: 'dotcs.me',
@@ -7,4 +7,4 @@ export const pageSettings: PageSettings = {
     twitterHandle: 'dotcsDE',
     githubHandle: 'dotcs',
     themeColor: '#38b2ac',
-}
+};

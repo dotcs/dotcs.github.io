@@ -25,19 +25,22 @@ const Page: FC<PageProps> = (props) => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content={props.settings.title} />
                 <meta property="og:type" content="website" />
-                <link rel="alternate" type="application/rss+xml" title={props.settings.title} href={`${props.settings.baseUrl}/feeds/rss`}></link>
-                <link rel="me" href={"https://github.com/" + props.settings.githubHandle} />
-                <link rel="me" href={"https://twitter.com/" + props.settings.twitterHandle} />
+                <link
+                    rel="alternate"
+                    type="application/rss+xml"
+                    title={props.settings.title}
+                    href={`${props.settings.baseUrl}/feeds/rss`}
+                ></link>
+                <link rel="me" href={'https://github.com/' + props.settings.githubHandle} />
+                <link rel="me" href={'https://twitter.com/' + props.settings.twitterHandle} />
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />
-                <Container className="bg-white flex-grow">
-                    {props.children}
-                </Container>
+                <Container className="bg-white flex-grow">{props.children}</Container>
                 <Footer />
             </div>
         </>
     );
-}
+};
 
 export default Page;

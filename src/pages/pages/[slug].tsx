@@ -1,18 +1,18 @@
-import '../../styles/index.css'
+import '../../styles/index.css';
 
 import { FC } from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 
 import PageCmp from '../../components/Page';
 import { PageSettings, Post } from '../../types';
 import { getAllPages, getAllPageSlugs } from '../../utils/parser';
-import { pageSettings } from '../../content/settings';
+import { pageSettings } from '../../settings';
 import Markdown from '../../components/Markdown';
 
 interface StaticParams extends ParsedUrlQuery {
-  slug: string;
+    slug: string;
 }
 
 export interface PageProps {
@@ -21,27 +21,25 @@ export interface PageProps {
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  const paths = getAllPageSlugs().map(slug => ({ params: { slug }}));
-  return {
-    paths,
-    fallback: false,
-  };
+    const paths = getAllPageSlugs().map((slug) => ({ params: { slug } }));
+    return {
+        paths,
+        fallback: false,
+    };
 };
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({ params }) => {
-  const page = getAllPages().find(p => p.attributes.slug === params.slug);
-  return {
-    props: { page, settings: pageSettings }
-  };
-}
+    const page = getAllPages().find((p) => p.attributes.slug === params.slug);
+    return {
+        props: { page, settings: pageSettings },
+    };
+};
 
 export const Page: FC<PageProps> = ({ page, settings }) => (
     <>
         <Head>
             <meta property="og:title" content={page.attributes.title} />
-            {page.attributes.excerpt && 
-                <meta property="og:description" content={page.attributes.excerpt} />
-            }
+            {page.attributes.excerpt && <meta property="og:description" content={page.attributes.excerpt} />}
             <meta property="og:url" content={`${settings.baseUrl}/pages/${page.attributes.slug}`} />
             {/*
             <meta property="og:image" content="" />
@@ -49,7 +47,9 @@ export const Page: FC<PageProps> = ({ page, settings }) => (
             <meta property="og:image:height" content="" />
             */}
 
-            <title>{page.attributes.title} - {settings.title}</title>
+            <title>
+                {page.attributes.title} - {settings.title}
+            </title>
         </Head>
         <PageCmp settings={settings}>
             <div className="px-4 lg:px-24 py-4">

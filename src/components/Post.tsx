@@ -1,13 +1,13 @@
-import { FC } from "react";
-import { Post as PostType } from "../types";
-import DateMeta from "./DateMeta";
-import Markdown from "./Markdown";
-import TagList from "./TagList";
+import { FC } from 'react';
+import { Post as PostType } from '../types';
+import DateMeta from './DateMeta';
+import Markdown from './Markdown';
+import TagList from './TagList';
 
 export interface PostProps {
     post: PostType;
     className?: string;
-};
+}
 
 const Post: FC<PostProps> = (props) => (
     <div className={props.className}>
