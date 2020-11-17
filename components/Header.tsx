@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
-import { pageSettings } from '../../content/settings';
+import { pageSettings } from '../content/settings';
 
 export interface HeaderState {
     menuVisible: boolean;
@@ -63,3 +63,5 @@ Header.defaultProps = {
         { title: 'About me', href: '/pages/about-me' },
     ]
 }
+
+export default Header;

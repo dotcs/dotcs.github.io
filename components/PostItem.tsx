@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import Link from 'next/link'
 
-import { PostAttributesExt } from '../../types';
-import TagList from '../TagList';
-import DateMeta from '../DateMeta';
+import { PostAttributesExt } from '../types';
+import TagList from './TagList';
+import DateMeta from './DateMeta';
 
 export interface PostItemProps {
     attributes: PostAttributesExt

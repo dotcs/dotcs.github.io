@@ -3,10 +3,9 @@ import '../../styles/index.css'
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head';
-import ErrorPage from 'next/error';
 import { ParsedUrlQuery } from 'querystring';
 
-import { Page as PageCmp } from '../../components/page/page';
+import PageCmp from '../../components/Page';
 import { PageSettings, Post } from '../../types';
 import { getAllPages, getAllPageSlugs } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';

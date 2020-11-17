@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-export const Footer: FC = () => (
+const Footer: FC = () => (
     <div className="p-4 mt-8 bg-white text-center antialiased text text-gray-700 border-t-2">
         <div className="container mx-auto">
             <p>
@@ -48,3 +48,5 @@ export const Footer: FC = () => (
         </div>
     </div>
 );
+
+export default Footer;

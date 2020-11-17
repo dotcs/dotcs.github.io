@@ -6,8 +6,8 @@ import Head from 'next/head';
 import ErrorPage from 'next/error';
 import { ParsedUrlQuery } from 'querystring';
 
-import { Page } from '../../components/page/page';
-import { PostItem } from '../../components/postItem/postItem';
+import PageCmp from '../../components/Page';
+import { PostItem } from '../../components/PostItem';
 import { PageSettings, Post } from '../../types';
 import { getAllTags, getPostsByTag } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';
@@ -56,12 +56,12 @@ export const TagPage: FC<TagPageProps> = (props) => {
 
           <title>Tag: {props.tag} - {props.settings.title}</title>
       </Head>
-      <Page settings={props.settings}>
+      <PageCmp settings={props.settings}>
         <div className="px-4 lg:px-24 py-4">
             <h1 className="text-xl mt-2 mb-8">Tag: <span className="font-bold">{props.tag}</span></h1>
             {props.posts.map(post => <PostItem key={post.attributes.slug} {...post} />)}
         </div>
-      </Page>
+      </PageCmp>
     </>
   );
 }

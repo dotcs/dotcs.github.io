@@ -6,12 +6,10 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 
-import { Page as PageCmp } from '../../components/page/page';
+import PageCmp from '../../components/Page';
 import { PageSettings, Post as PostType } from '../../types';
 import { getAllPosts, getAllPostSlugs } from '../../utils/parser';
 import { pageSettings } from '../../content/settings';
-import Markdown from '../../components/Markdown';
-import PostMeta from '../../components/PostMeta';
 import Post from '../../components/Post';
 
 interface StaticParams extends ParsedUrlQuery {

@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import Head from 'next/head';
 
-import { Header } from '../header/header';
-import { Footer } from '../footer/footer';
-import { PageSettings } from '../../types';
-import useCSS from '../../hooks/useCSS';
-import Container from '../Container';
+import Header from './Header';
+import Footer from './Footer';
+import { PageSettings } from '../types';
+import useCSS from '../hooks/useCSS';
+import Container from './Container';
 
 export interface PageProps {
     settings: PageSettings;
 }
 
-export const Page: FC<PageProps> = (props) => {
+const Page: FC<PageProps> = (props) => {
     useCSS('/fonts/line-awesome/1.3.0/css/line-awesome.min.css');
 
     return (
@@ -39,3 +39,5 @@ export const Page: FC<PageProps> = (props) => {
         </>
     );
 }
+
+export default Page;

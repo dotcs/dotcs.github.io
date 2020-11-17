@@ -4,9 +4,9 @@ import { FC } from 'react';
 import Head from 'next/head';
 import { GetStaticProps } from 'next'
 
-import { Page as PageCmp } from '../components/page/page';
-import { PostItem, PostItemProps } from '../components/postItem/postItem';
-import { PageSettings, Post } from '../types';
+import PageCmp from '../components/Page';
+import { PostItem, PostItemProps } from '../components/PostItem';
+import { PageSettings } from '../types';
 import { getAllPosts } from '../utils/parser';
 import { pageSettings } from '../content/settings';
 
