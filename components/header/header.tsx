@@ -33,6 +33,9 @@ export const Header: FC<{}> = props => {
                         {/* <Link href="/pages/[slug]" as="/pages/blogroll">
                     <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Blogroll</a>
                 </Link> */}
+                        <Link href="/tags">
+                            <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Tags</a>
+                        </Link>
                         <Link href="/pages/[slug]" as="/pages/about-me">
                             <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">About me</a>
                         </Link>
