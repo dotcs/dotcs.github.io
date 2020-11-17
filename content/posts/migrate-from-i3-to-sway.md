@@ -6,8 +6,8 @@ keywords:
   - notes
 authors:
   - dotcs
-published_at: "2020-01-01T00:00:00Z"
-updated_at: "2020-01-01T01:00:00Z"
+published_at: "2020-11-15T09:52:00Z"
+updated_at: "2020-11-15T09:52:00Z"
 ---
 
 I recently changed from the Linux display server protocol [X.org Server][xserver] to [Wayland][wayland] on one of my machines.
@@ -56,7 +56,7 @@ output eDP-1 scale 1.3
 
 To list connected displays use `swaymsg -t get_outputs` which in my case now (after the change) shows as:
 
-```
+```console
 $ swaymsg -t get_outputs   
 Output eDP-1 'Apple Computer Inc Color LCD 0x00000000' (focused)
   Current mode: 2560x1600 @ 59.972000 Hz
@@ -181,7 +181,7 @@ WantedBy=default.target
 
 Also configure the pam environment in `~/.pam_environment`:
 
-```
+```bash
 SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 ```
 
@@ -210,7 +210,7 @@ mode "$mode_system" {
 
 which utilizes the script located in `~/.local/scripts/sway-exit.sh`
 
-```
+```bash
 #!/bin/sh
 lock() {
     swaylock -f -c 000000

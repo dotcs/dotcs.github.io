@@ -3,35 +3,21 @@ import '../styles/index.css'
 import { FC } from 'react';
 import Head from 'next/head';
 import { GetStaticProps } from 'next'
-import { ParsedUrlQuery } from 'querystring';
 
 import { Page as PageCmp } from '../components/page/page';
-import { PostItem } from '../components/postItem/postItem';
-import { GhostContentSettings, PageSettings, Post } from '../types';
+import { PostItem, PostItemProps } from '../components/postItem/postItem';
+import { PageSettings, Post } from '../types';
 import { getAllPosts } from '../utils/parser';
 import { pageSettings } from '../content/settings';
 
 export interface PageProps {
-  posts: Post[];
+  posts: PostItemProps[];
   settings: PageSettings;
 }
 
-// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-//   const { settings } = await fetchSettings();
-//   const { posts, meta } = await fetchBackend('/content/posts', { include: ['authors', 'tags'] });
-//   return { props: { posts, pagination: meta.pagination, settings } };
-// }
-
-// export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-//   const paths = getAllSlugs().map(slug => ({ params: { slug }}));
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// };
-
 export const getStaticProps: GetStaticProps<PageProps> = async () => {
-  const posts = getAllPosts();
+  const posts = getAllPosts()
+    .map(({attributes, ...rest}) => ({ attributes }));  // keep only the attributes
   posts.reverse();
   return {
     props: { posts, settings: pageSettings }

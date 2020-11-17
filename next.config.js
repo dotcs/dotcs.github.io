@@ -1,10 +1,13 @@
 const withCSS = require('@zeit/next-css');
 const withFonts = require('next-fonts');
 
-module.exports = withCSS(withFonts({
-  enableSvg: true,
-  webpack(config, options) {
-    return config;
-  }
+const ghPages = process.env.DEPLOY_TARGET === 'gh-pages';
+
+const mod = withCSS(withFonts({
+  enableSvg: true
 }));
 
+module.exports = {
+  assetPrefix: ghPages ? '/dotcs.github.io/' : '',
+  ...mod,
+};

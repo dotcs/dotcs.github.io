@@ -125,7 +125,7 @@ html {
 }
 .x-post .x-headline-anchor {
   @apply border-0 text-gray-400;
-  margin-left: -1.5rem;
+  margin-left: -1.0rem;
   font-size: .75em;
 }
 .x-post .x-headline-anchor:hover {

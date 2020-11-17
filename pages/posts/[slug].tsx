@@ -1,4 +1,5 @@
 import '../../styles/index.css'
+import 'highlight.js/styles/vs.css';
 
 import { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -18,12 +19,12 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export interface PageProps {
-    post: Post;
-    settings: PageSettings;
+  post: Post;
+  settings: PageSettings;
 }
 
 export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
-  const paths = getAllPostSlugs().map(slug => ({ params: { slug }}));
+  const paths = getAllPostSlugs().map(slug => ({ params: { slug } }));
   return {
     paths,
     fallback: false,
@@ -37,36 +38,31 @@ export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({ 
   };
 }
 
-export const Page: FC<PageProps> = ({ post, settings }) => {
-    useCSS('/prism/1.19.0/prism.css', { noScript: false });
-    useScript('/prism/1.19.0/prism.js');
+export const Page: FC<PageProps> = ({ post, settings }) => (
+  <>
+    <Head>
+      <meta property="og:title" content={post.attributes.title} />
+      {/* {post.excerpt && 
+              <meta property="og:description" content={post.excerpt} />
+          } */}
+      <meta property="og:url" content={`${settings.baseUrl}/pages/${post.attributes.slug}`} />
+      {/*
+          <meta property="og:image" content="" />
+          <meta property="og:image:width" content="" />
+          <meta property="og:image:height" content="" />
+          */}
 
-    return (
-        <>
-            <Head>
-                <meta property="og:title" content={post.attributes.title} />
-                {/* {post.excerpt && 
-                    <meta property="og:description" content={post.excerpt} />
-                } */}
-                <meta property="og:url" content={`${settings.baseUrl}/pages/${post.attributes.slug}`} />
-                {/*
-                <meta property="og:image" content="" />
-                <meta property="og:image:width" content="" />
-                <meta property="og:image:height" content="" />
-                */}
-
-                <title>{post.attributes.title} - {settings.title}</title>
-            </Head>
-            <PageCmp settings={settings}>
-                <div className="px-4 lg:px-24 py-4">
-                    <h1 className="text-3xl font-semibold mb-2">{post.attributes.title}</h1>
-                    <p className="font-thin mb-8 text-sm">posted on {post.attributes.published_at.substr(0, '2000-01-01'.length)} by {post.attributes.authors.join(', ')}</p>
-                    <Markdown className="x-post" text={post.body} />
-                </div>
-            </PageCmp>
-        </>
-    );
-}
+      <title>{post.attributes.title} - {settings.title}</title>
+    </Head>
+    <PageCmp settings={settings}>
+      <div className="px-4 lg:px-24 py-4">
+        <h1 className="text-3xl font-semibold">{post.attributes.title}</h1>
+        <p className="font-thin mb-4 text-sm">posted on {post.attributes.published_at.substr(0, '2000-01-01'.length)} by {post.attributes.authors.join(', ')}</p>
+        <Markdown className="x-post" text={post.body} />
+      </div>
+    </PageCmp>
+  </>
+);
 
 export default Page;
 

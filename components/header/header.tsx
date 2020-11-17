@@ -1,4 +1,4 @@
-import { SFC, useState } from 'react';
+import { FC, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 
@@ -6,7 +6,7 @@ export interface HeaderState {
     menuVisible: boolean;
 }
 
-export const Header: SFC<{}> = props => {
+export const Header: FC<{}> = props => {
     const [menuVisible, setMenuVisible] = useState(false);
     return (
         <div className="bg-teal-500">
@@ -37,11 +37,11 @@ export const Header: SFC<{}> = props => {
                             <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">About me</a>
                         </Link>
                     </div>
-                    <div>
+                    {/* <div>
                         <Link href="/pages/[slug]" as="/pages/sponsoring">
                             <a className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Sponsor me</a>
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
             </nav>
         </div>
