@@ -18,27 +18,24 @@ const parseFile = (p: string): Post => {
     return parsed;
 };
 
-
 const _getAllPostsOrPages = (type: ContentType): Post[] => {
     const dir = type === 'post' ? posts_dir : pages_dir;
     const files = fs.readdirSync(dir);
-    const contents: Post[] = 
-        files.map(f => parseFile(path.join(dir, f)));
-    for (let content of contents) {
+    const contents: Post[] = files.map((f) => parseFile(path.join(dir, f)));
+    for (const content of contents) {
         content.attributes.keywords = _.sortedUniq(content.attributes.keywords.sort());
     }
     const sortedContent = _.sortBy(contents, 'attributes.published_at');
     return sortedContent;
-
-}
+};
 
 export const getAllPages = (): Post[] => {
     return _getAllPostsOrPages('page');
-}
+};
 
 export const getAllPosts = (): Post[] => {
     return _getAllPostsOrPages('post');
-}
+};
 
 export const getAllTags = (): string[] => {
     const contents = getAllPosts();
@@ -61,21 +58,23 @@ export const getAllPageSlugs = (): string[] => {
 };
 
 export const getTagCounts = (): TagCount[] => {
-  const tagCounter = getAllPosts().reduce((acc, p) => {
-    for (let kw of p.attributes.keywords) {
-      if (acc[kw]) {
-        acc[kw] += 1;
-      } else {
-        acc[kw] = 1;
-      }
-    }
-    return acc;
-  }, {} as {[key: string]: number});
-  const tags: TagCount[] = 
-    _.sortBy(Object.keys(tagCounter).map(slug => ({ slug, count: tagCounter[slug] })), 'slug');
-  return tags;
-}
+    const tagCounter = getAllPosts().reduce((acc, p) => {
+        for (const kw of p.attributes.keywords) {
+            if (acc[kw]) {
+                acc[kw] += 1;
+            } else {
+                acc[kw] = 1;
+            }
+        }
+        return acc;
+    }, {} as { [key: string]: number });
+    const tags: TagCount[] = _.sortBy(
+        Object.keys(tagCounter).map((slug) => ({ slug, count: tagCounter[slug] })),
+        'slug'
+    );
+    return tags;
+};
 
 export const getPostsByTag = (tag: string): Post[] => {
-    return getAllPosts().filter(p => p.attributes.keywords.includes(tag));
-}
+    return getAllPosts().filter((p) => p.attributes.keywords.includes(tag));
+};

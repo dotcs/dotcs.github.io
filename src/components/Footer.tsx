@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import Link from 'next/link';
 
-export const Footer: FC = () => (
+const Footer: FC = () => (
     <div className="p-4 mt-8 bg-white text-center antialiased text text-gray-700 border-t-2">
         <div className="container mx-auto">
             <p>
-                All work licensed under 
+                All work licensed under
                 <Link href="/pages/[slug]" as="/pages/license-information">
                     <a className="mx-1 text-xl align-middle">
-                        <i className="lab la-creative-commons" title="Creative commons" /> 
+                        <i className="lab la-creative-commons" title="Creative commons" />
                         <i className="lab la-creative-commons-by" title="Attribution" />
                         <i className="lab la-creative-commons-sa" title="Share alike" />
                     </a>
@@ -48,3 +48,5 @@ export const Footer: FC = () => (
         </div>
     </div>
 );
+
+export default Footer;

@@ -1,4 +1,4 @@
-import { FrontMatterResult } from "front-matter";
+import { FrontMatterResult } from 'front-matter';
 
 export type ContentType = 'post' | 'page';
 
@@ -18,12 +18,15 @@ export interface PostAttributesExt extends PostAttributes {
 export type Post = FrontMatterResult<PostAttributesExt>;
 
 export interface TagCount {
-  slug: string;
-  count: number;
+    slug: string;
+    count: number;
 }
 
 export interface PageSettings {
     title: string;
     baseUrl: string;
     description: string;
+    twitterHandle: string;
+    githubHandle: string;
+    themeColor: string;
 }
