@@ -22,6 +22,9 @@ html {
 .x-link {
   @apply border-b-2 border-teal-400;
 }
+.x-link:visited {
+  @apply border-purple-400;
+}
 .x-link:focus {
   @apply border-teal-600;
 }
@@ -35,6 +38,9 @@ html {
 
 .x-post a {
   @apply border-b-2 border-teal-400;
+}
+.x-post a:visited {
+  @apply border-b-2 border-purple-400;
 }
 .x-post a:focus {
   @apply border-teal-600;
@@ -67,6 +73,7 @@ html {
   @apply bg-gray-200 p-1 rounded-sm;
   white-space: pre-wrap;
   word-wrap: break-word;
+  font-size: 0.9rem;
 }
 .x-post pre,
 .x-post pre[class*="language-"] {
