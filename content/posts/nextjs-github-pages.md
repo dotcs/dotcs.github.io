@@ -1,13 +1,14 @@
 ---
 title: How to deploy a Next.js application to GitHub pages
-excerpt: 
+excerpt: In this post I discuss which tweaks are necessary to deploy a Next.js project exported as static HTML files to GitHub pages. 
 keywords:
   - tech
+  - notes
   - next.js
 authors:
   - dotcs
 published_at: "2020-11-16T22:56:02+01:00"
-updated_at: "2020-11-16T22:56:02+01:00"
+updated_at: "2020-11-17T08:40:38+01:00"
 ---
 
 [Next.js] is becoming very popular - for good reasons.
