@@ -57,7 +57,7 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
     // text.
     return `
         <div class="text-center bg-gray-100 py-2">
-            <div class="overflow-x-scroll px-1">
+            <div class="overflow-x-auto px-1">
                 ${defaultRendering}
             </div>
             <div class="italic text-gray-700">${alt}</div>
