@@ -109,6 +109,10 @@ code {
  * Remove the border on images inside links in IE 10.
  */
 
+img {
+  border-style: none;
+}
+
 /* Forms
    ========================================================================== */
 
@@ -348,6 +352,10 @@ html {
  * https://github.com/tailwindcss/tailwindcss/issues/362
  */
 
+img {
+  border-style: solid;
+}
+
 button {
   cursor: pointer;
 }
@@ -402,7 +410,7 @@ code {
  * https://github.com/mozdevs/cssremedy/issues/14
  */
 
-
+img,
 svg {
   display: block;
   vertical-align: middle;
@@ -414,6 +422,11 @@ svg {
  *
  * https://github.com/mozdevs/cssremedy/issues/14
  */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 .container {
   width: 100%;
@@ -447,6 +460,12 @@ svg {
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.bg-gray-100 {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
 .bg-teal-500 {
@@ -559,6 +578,10 @@ svg {
   font-size: 1.25rem;
 }
 
+.text-2xl {
+  font-size: 1.5rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
 }
@@ -621,8 +644,17 @@ svg {
   margin-bottom: 3rem;
 }
 
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
 .p-4 {
   padding: 1rem;
+}
+
+.px-1 {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .py-2 {
@@ -695,6 +727,10 @@ svg {
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
+.italic {
+  font-style: italic;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -714,6 +750,12 @@ svg {
 
 .w-full {
   width: 100%;
+}
+
+@-webkit-keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes spin {
@@ -1027,6 +1069,13 @@ html {
 
   .sm\:mb-0 {
     margin-bottom: 0;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .md\:text-3xl {
+    font-size: 1.875rem;
   }
 }
 
