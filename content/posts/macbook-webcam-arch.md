@@ -7,8 +7,8 @@ keywords:
   - tech
 authors:
   - dotcs
-published_at: "2020-04-0118:07:00Z"
-updated_at: "2020-04-0118:07:00Z"
+published_at: "2020-04-01T18:07:00Z"
+updated_at: "2020-04-01T18:07:00Z"
 ---
 
 I'm running [Manjaro Linux][manjaro] (an [Arch Linux][arch] derivative) on my MacbookPro12,1 (Retina, 13-inch, Early 2015).
