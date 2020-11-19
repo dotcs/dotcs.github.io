@@ -1,0 +1,997 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>dotcs.me</title>
+  <link href="https://dotcs.me/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://dotcs.me" rel="alternate" type="text/html"/>
+  <updated>2020-11-19T22:03:20.265Z</updated>
+  <author>
+    <name>dotcs</name>
+  </author>
+  <id>https://dotcs.me/</id>
+  <entry>
+    <title>Pi-hole User Group Management</title>
+    <published>2020-11-18T08:10:34+01:00</published>
+    <updated>2020-11-18T08:10:34+01:00</updated>
+    <id>https://dotcs.me/posts/pihole-group-mgmt</id>
+    <link href="https://dotcs.me/posts/pihole-group-mgmt"/>
+    <summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
+This means that by default all devices share the same filter lists, so effectively ads are blocked on all devices.&lt;/p&gt;
+&lt;p&gt;This setup is most likely the setup most people need and prefer.
+For our home it's not working, because some devices should see clear and unfiltered DNS entries.
+Let's see how we can exclude certain devices from the filter lists.&lt;/p&gt;
+&lt;h2 id="pi-hole-group-management"&gt;&lt;a class="markdownIt-Anchor" href="#pi-hole-group-management"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Pi-hole Group Management&lt;/h2&gt;
+&lt;p&gt;Since &lt;a href="https://pi-hole.net/2020/05/10/pi-hole-v5-0-is-here/#page-content"&gt;Pi-hole v5.0&lt;/a&gt;, which has been released in 2020-05, groups can be configured.
+Known devices can be put into groups which can have different filter lists assigned to them.
+The group management can be found under &lt;code&gt;http(s)://my-pi.hole/admin/groups.php&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In my setup I created a group for all my devices which I named &lt;code&gt;dotcs&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-groups.png" alt="Pi-hole Admin: Group management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Group management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;By default this group does nothing.
+First devices need to be assigned to the group.
+Those settings can be found under &lt;code&gt;http(s)://my-pi.hole/admin/groups-clients.php&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-devices.png" alt="Pi-hole Admin: Device management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Device management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;After that the adlists need to be configured and attached to the group.
+In my case I removed all of the lists from the &lt;code&gt;default&lt;/code&gt; group and attached them only to the &lt;code&gt;dotcs&lt;/code&gt; group.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-adlists.png" alt="Pi-hole Admin: Adlist management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Adlist management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;With this configuration all devices listed in the &lt;code&gt;dotcs&lt;/code&gt; group see filtered DNS entries whereas all other devices see unfiltered DNS entries.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Thanks to the Pi-hole developers for this awesome feature and please consider &lt;a href="https://pi-hole.net/donate/"&gt;donating to the project&lt;/a&gt; if you like it.&lt;/em&gt;&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="notes"/>
+    <category term="pihole"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>How to deploy a Next.js application to GitHub pages</title>
+    <published>2020-11-16T22:56:02+01:00</published>
+    <updated>2020-11-17T08:40:38+01:00</updated>
+    <id>https://dotcs.me/posts/nextjs-github-pages</id>
+    <link href="https://dotcs.me/posts/nextjs-github-pages"/>
+    <summary>In this post I discuss which tweaks are necessary to deploy a Next.js project exported as static HTML files to GitHub pages.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/nextjs-github-pages">&lt;p&gt;&lt;a href="https://nextjs.org"&gt;Next.js&lt;/a&gt; is becoming very popular - for good reasons.
+To me it's one of the best frameworks out there to create all kinds of web pages that are based on &lt;a href="https://reactjs.org"&gt;React&lt;/a&gt;.
+Since Next.js does allow for full server-side rendering and &lt;a href="https://nextjs.org/docs/advanced-features/static-html-export"&gt;static html exports&lt;/a&gt;, pages can be rendered completely on the server and delivered to the client as dump static HTML pages with a little bit of CSS and JavaScript where needed.
+This makes them perfectly suitable to be hosted on &lt;a href="https://pages.github.com"&gt;GitHub pages&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My first thought was: Yeah, easy let's do this quickly.
+But not so fast!
+I've leared that there are a few things that require tweaks.&lt;/p&gt;
+&lt;h2 id="use-github-actions-to-build-and-export-nextjs-pages"&gt;&lt;a class="markdownIt-Anchor" href="#use-github-actions-to-build-and-export-nextjs-pages"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Use GitHub Actions to build and export Next.js pages&lt;/h2&gt;
+&lt;p&gt;I use GitHub actions to build the static pages.
+The corresponding project setting is set to deliver pages from the &lt;code&gt;gh-pages&lt;/code&gt; branch.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/nextjs-github-pages/github-pages-settings.png" alt="GitHub Pages settings to deliver from branch gh-pages" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;GitHub Pages settings to deliver from branch gh-pages&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;The corresponding &lt;code&gt;.github/workflows/gh-pages.yml&lt;/code&gt; is simple.
+Note that the &lt;code&gt;npm run export&lt;/code&gt; script has an enviroment variable &lt;code&gt;DEPLOY_TARGET: gh-pages&lt;/code&gt; attached to it.
+This env variable will be used in the second step.
+In the deploy step the branch is set to &lt;code&gt;gh-pages&lt;/code&gt; and we deliver results from the &lt;code&gt;out&lt;/code&gt; folder, which is the default target folder for the &lt;code&gt;next export&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;Also note that the pipelie creates the (empty) file &lt;code&gt;out/.nojekyll&lt;/code&gt;.
+This is necessary to bypass Jekyll processing on GitHub pages as mentioned &lt;a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"&gt;here&lt;/a&gt;.
+Otherwise folders that start with an underscore are ignored, but Next.js puts merged assets, e.g. CSS and JS files, into a folder &lt;code&gt;_next&lt;/code&gt;. 😵&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Build&lt;/span&gt; &lt;span class="hljs-string"&gt;and&lt;/span&gt; &lt;span class="hljs-string"&gt;Deploy&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;on:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;push:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;branches:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;master&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;jobs:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;build-and-deploy:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;runs-on:&lt;/span&gt; &lt;span class="hljs-string"&gt;ubuntu-latest&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;steps:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Checkout&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;actions/checkout@v2.3.1&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;with:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;persist-credentials:&lt;/span&gt; &lt;span class="hljs-literal"&gt;false&lt;/span&gt;
+
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Install&lt;/span&gt; &lt;span class="hljs-string"&gt;and&lt;/span&gt; &lt;span class="hljs-string"&gt;Build&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;actions/setup-node@v1&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;install&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;run&lt;/span&gt; &lt;span class="hljs-string"&gt;build&lt;/span&gt;     &lt;span class="hljs-comment"&gt;# runs `next build`&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;run&lt;/span&gt; &lt;span class="hljs-string"&gt;export&lt;/span&gt;    &lt;span class="hljs-comment"&gt;# runs `next export`&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;env:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;CI:&lt;/span&gt; &lt;span class="hljs-literal"&gt;true&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;DEPLOY_TARGET:&lt;/span&gt; &lt;span class="hljs-string"&gt;gh-pages&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;touch&lt;/span&gt; &lt;span class="hljs-string"&gt;out/.nojekyll&lt;/span&gt;
+
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Deploy&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;JamesIves/github-pages-deploy-action@3.7.1&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;with:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;GITHUB_TOKEN:&lt;/span&gt; &lt;span class="hljs-string"&gt;${{&lt;/span&gt; &lt;span class="hljs-string"&gt;secrets.GITHUB_TOKEN&lt;/span&gt; &lt;span class="hljs-string"&gt;}}&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;BRANCH:&lt;/span&gt; &lt;span class="hljs-string"&gt;gh-pages&lt;/span&gt;  &lt;span class="hljs-comment"&gt;# The branch the action should deploy to.&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;FOLDER:&lt;/span&gt; &lt;span class="hljs-string"&gt;out&lt;/span&gt;       &lt;span class="hljs-comment"&gt;# The folder the action should deploy.&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;CLEAN:&lt;/span&gt; &lt;span class="hljs-literal"&gt;true&lt;/span&gt;       &lt;span class="hljs-comment"&gt;# Automatically remove deleted files from the deploy branch&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="rewrite-paths-to-static-files"&gt;&lt;a class="markdownIt-Anchor" href="#rewrite-paths-to-static-files"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Rewrite paths to static files&lt;/h2&gt;
+&lt;p&gt;When serving websites via &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt; any static assets must point to &lt;code&gt;&amp;lt;username&amp;gt;.github.io/&amp;lt;projectname&amp;gt;&lt;/code&gt; with &lt;code&gt;&amp;lt;projectname&amp;gt;&lt;/code&gt; being the name of the repository (typically again &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt;).
+GitHub Pages rewrites some paths internally, so that they &lt;strong&gt;appear&lt;/strong&gt; to come from &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt;, but things will not work out if the &lt;code&gt;&amp;lt;projectname&amp;gt;&lt;/code&gt; part is missing.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;next export&lt;/code&gt; allows to set a &lt;code&gt;assetPrefix&lt;/code&gt;, which tweaking the URL paths and re-write them from &lt;code&gt;/&lt;/code&gt; to &lt;code&gt;/&amp;lt;assetPrefix&amp;gt;/&lt;/code&gt;.
+This can be configured in the project's &lt;code&gt;next.config.js&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;const&lt;/span&gt; ghPages = process.env.DEPLOY_TARGET === &lt;span class="hljs-string"&gt;&amp;#x27;gh-pages&amp;#x27;&lt;/span&gt;;
+
+&lt;span class="hljs-built_in"&gt;module&lt;/span&gt;.exports = {
+  &lt;span class="hljs-attr"&gt;assetPrefix&lt;/span&gt;: ghPages ? &lt;span class="hljs-string"&gt;&amp;#x27;/dotcs.github.io/&amp;#x27;&lt;/span&gt; : &lt;span class="hljs-string"&gt;&amp;#x27;&amp;#x27;&lt;/span&gt;   &lt;span class="hljs-comment"&gt;// customize this value&lt;/span&gt;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With this line in place we detect if we're executed by the GitHub Action runner and re-write paths accordingly.&lt;/p&gt;
+&lt;h2 id="success"&gt;&lt;a class="markdownIt-Anchor" href="#success"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Success&lt;/h2&gt;
+&lt;p&gt;With those tweaks Next.js pages can be hosted via GitHub pages easily.
+You just need to be aware of them. 😉&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="next.js"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>Migrate from i3 to sway</title>
+    <published>2020-11-15T09:52:00Z</published>
+    <updated>2020-11-19T21:13:28+01:00</updated>
+    <id>https://dotcs.me/posts/migrate-from-i3-to-sway</id>
+    <link href="https://dotcs.me/posts/migrate-from-i3-to-sway"/>
+    <summary>This post describes my migration from i3 (X.org Server) to Sway (Wayland).</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/migrate-from-i3-to-sway">&lt;p&gt;I recently changed from the Linux display server protocol &lt;a href="https://en.wikipedia.org/wiki/X.Org_Server"&gt;X.org Server&lt;/a&gt; to &lt;a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)"&gt;Wayland&lt;/a&gt; on one of my machines.
+My favorite window manager &lt;a href="https://i3wm.org/"&gt;i3&lt;/a&gt; is not compatible with Wayland though, so I had to search for an alternative.
+Luckily there is a drop-in replacement for i3 available which is named &lt;a href="https://swaywm.org/"&gt;Sway&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Sway is very similar to i3, it even uses the same syntax for the config, so the change required only a few tweaks which I will now talk about.
+I can also recommend to read the &lt;a href="https://wiki.archlinux.org/index.php/Sway"&gt;Sway article on the Arch Wiki&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;At this let's take a brief moment to say &amp;quot;Thank you&amp;quot; to all contributors of Sway and Wayland and maintainers of the corresponding packages in the various distros out there. ♥&lt;/p&gt;
+&lt;h2 id="installation"&gt;&lt;a class="markdownIt-Anchor" href="#installation"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Installation&lt;/h2&gt;
+&lt;p&gt;Installation of sway under Arch Linux is easy.
+It's as simple as:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;yay -S sway
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="copy-configuration"&gt;&lt;a class="markdownIt-Anchor" href="#copy-configuration"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Copy configuration&lt;/h2&gt;
+&lt;p&gt;Sway searches it's configuration in &lt;code&gt;~/.config/sway/config&lt;/code&gt; so I copied my i3 config there.
+All changes go into this config file.&lt;/p&gt;
+&lt;h2 id="adjust-configuration"&gt;&lt;a class="markdownIt-Anchor" href="#adjust-configuration"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Adjust configuration&lt;/h2&gt;
+&lt;p&gt;After the configuration has been copied use a separate TTY to try our sway and its configuration.
+Remember that &lt;code&gt;&amp;lt;SUPER&amp;gt; + SHIFT + c&lt;/code&gt; does reload your configuration which is quite handy for trying things out.
+Also &lt;code&gt;swaymsg&lt;/code&gt; can be used to send messages to sway, so for example the following command would set the scaling 2 for all output devices.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;swaymsg output &amp;quot;*&amp;quot; scale 2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="screen-output-resolution"&gt;&lt;a class="markdownIt-Anchor" href="#screen-output-resolution"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Screen output resolution&lt;/h3&gt;
+&lt;p&gt;I'm working with a HiDPI screen which was detected correctly in Sway.
+But I found the scaling factor of 2, which is the default in HiDPI screens, too much.
+Although it's not recommended to use float values here, I found a scaling factor of 1.3 to fit my needs, so I added this line to my config:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;# Screen scaling (default is 2)
+output eDP-1 scale 1.3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To list connected displays use &lt;code&gt;swaymsg -t get_outputs&lt;/code&gt; which in my case now (after the change) shows as:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; swaymsg -t get_outputs   &lt;/span&gt;
+Output eDP-1 &amp;#x27;Apple Computer Inc Color LCD 0x00000000&amp;#x27; (focused)
+  Current mode: 2560x1600 @ 59.972000 Hz
+  Position: 0,0
+  Scale factor: 1.300000
+  Scale filter: linear
+  Subpixel hinting: unknown
+  Transform: normal
+  Workspace: 4
+  Max render time: off
+  Adaptive sync: disabled
+  Available modes:
+    2560x1600 @ 59.972000 Hz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="background-images-with-automatic-rotation"&gt;&lt;a class="markdownIt-Anchor" href="#background-images-with-automatic-rotation"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Background images with automatic rotation&lt;/h3&gt;
+&lt;p&gt;I like to have randomly chosen background images that change every now and then.
+Sway makes it easy to implement this.
+I added the following line to my config which executes a script during start.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;exec --no-startup-id ~/.local/scripts/sway-rotate-bg-image.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The script itself doesn't do much.
+It lists all files in a certain folder, shuffles the names and selects one of them.
+It updates the background on all attached displays image via &lt;code&gt;swaymsg&lt;/code&gt; and then pauses for 300 seconds (=5min) before the next iteration.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/usr/bin/env bash&lt;/span&gt;
+IMG_DIR=~/wallpapers
+&lt;span class="hljs-keyword"&gt;while&lt;/span&gt; &lt;span class="hljs-literal"&gt;true&lt;/span&gt;;
+&lt;span class="hljs-keyword"&gt;do&lt;/span&gt;
+    IMG=`ls -t1 &lt;span class="hljs-variable"&gt;$IMG_DIR&lt;/span&gt;/* | shuf | head -n 1`
+    swaymsg output &lt;span class="hljs-string"&gt;&amp;quot;*&amp;quot;&lt;/span&gt; &lt;span class="hljs-built_in"&gt;bg&lt;/span&gt; &lt;span class="hljs-variable"&gt;$IMG&lt;/span&gt; fill; sleep 300
+&lt;span class="hljs-keyword"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="detect-idle-state-and-lock-screen"&gt;&lt;a class="markdownIt-Anchor" href="#detect-idle-state-and-lock-screen"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Detect idle state and lock screen&lt;/h3&gt;
+&lt;p&gt;To automatically lock the screen there are luckily two programs available that do the heavy-lifting.
+They are called swayidle and swaylock and can be installed in Arch via:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;yay -S swayidle swaylock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The following script is taken from the &lt;code&gt;swayidle&lt;/code&gt; manpage:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;This will lock your screen after 300 seconds of inactivity, then turn off your displays after another 300 seconds, and turn your screens back on when resumed. It will also lock your screen before your computer goes to sleep.&lt;/p&gt;
+&lt;p&gt;To make sure swayidle waits for swaylock to lock the screen before it releases the inhibition lock, the -w options is used in swayidle, and -f in swaylock.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;exec --no-startup-id swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg &amp;quot;output * dpms off&amp;quot;' \
+    resume 'swaymsg &amp;quot;output * dpms on&amp;quot;' \
+    before-sleep 'swaylock -f -c 000000'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="screen-backlight-keys"&gt;&lt;a class="markdownIt-Anchor" href="#screen-backlight-keys"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Screen backlight keys&lt;/h3&gt;
+&lt;p&gt;In my i3 setup I used &lt;code&gt;xbacklight&lt;/code&gt; to change the backlight of my screen.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;bindsym XF86MonBrightnessUp exec xbacklight +10
+bindsym XF86MonBrightnessDown exec xbacklight -10
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This of course won't work anymore in Wayland, so I replaced the old configuration with &lt;code&gt;brightnessctl&lt;/code&gt; which needs to be installed first:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;yay -S brightnessctl
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The syntax of &lt;code&gt;brightnessctrl&lt;/code&gt; differs slightly:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="keyboard-bindings"&gt;&lt;a class="markdownIt-Anchor" href="#keyboard-bindings"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Keyboard bindings&lt;/h3&gt;
+&lt;p&gt;For me one key on the keyboard is completely superfluous: capslock.
+In my systems I either deactivate this key or map it to ESC if possible.
+Having ESC closer to the home row is benefitial to me - especially when working a lot with vim.
+This can done with xkb_options.&lt;/p&gt;
+&lt;p&gt;Another interesting setting is the key repeat delay and rate, which can be tuned also quite easily.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;input &amp;quot;type:keyboard&amp;quot; {
+    # Capslock key should work as escape key
+    xkb_options caps:escape
+
+    repeat_delay 350
+    repeat_rate 45
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="ssh-agent"&gt;&lt;a class="markdownIt-Anchor" href="#ssh-agent"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; SSH Agent&lt;/h3&gt;
+&lt;p&gt;To automatically start the SSH agent I use a systemd service which is placed in &lt;code&gt;~/.config/systemd/user/ssh-agent.service&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Description&lt;/span&gt;=SSH key agent
+
+&lt;span class="hljs-section"&gt;[Service]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Type&lt;/span&gt;=simple
+&lt;span class="hljs-attr"&gt;Environment&lt;/span&gt;=SSH_AUTH_SOCK=%t/ssh-agent.socket
+&lt;span class="hljs-comment"&gt;# DISPLAY required for ssh-askpass to work&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Environment&lt;/span&gt;=DISPLAY=:&lt;span class="hljs-number"&gt;0&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;ExecStart&lt;/span&gt;=/usr/bin/ssh-agent -D -a &lt;span class="hljs-variable"&gt;$SSH_AUTH_SOCK&lt;/span&gt;
+
+&lt;span class="hljs-section"&gt;[Install]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;WantedBy&lt;/span&gt;=default.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Also configure the pam environment in &lt;code&gt;~/.pam_environment&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;SSH_AUTH_SOCK DEFAULT=&lt;span class="hljs-string"&gt;&amp;quot;&lt;span class="hljs-variable"&gt;${XDG_RUNTIME_DIR}&lt;/span&gt;/ssh-agent.socket&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then start the service and enable it for future system starts: &lt;code&gt;systemctl --user enable --now ssh-agent.service&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id="exit-script"&gt;&lt;a class="markdownIt-Anchor" href="#exit-script"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Exit script&lt;/h3&gt;
+&lt;p&gt;Finally I updated my exit script that allows me to lock my screen, suspend, shutdown or reboot my machine, etc.&lt;/p&gt;
+&lt;p&gt;The Sway configuration looks as this&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;set $mode_system System (1) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (d) shutdown
+mode &amp;quot;$mode_system&amp;quot; {
+    bindsym l exec --no-startup-id ~/.local/scripts/sway-exit.sh lock, mode &amp;quot;default&amp;quot;
+    bindsym e exec --no-startup-id ~/.local/scripts/sway-exit.sh logout, mode &amp;quot;default&amp;quot;
+    bindsym s exec --no-startup-id ~/.local/scripts/sway-exit.sh suspend, mode &amp;quot;default&amp;quot;
+    bindsym h exec --no-startup-id ~/.local/scripts/sway-exit.sh hibernate, mode &amp;quot;default&amp;quot;
+    bindsym r exec --no-startup-id ~/.local/scripts/sway-exit.sh reboot, mode &amp;quot;default&amp;quot;
+    bindsym d exec --no-startup-id ~/.local/scripts/sway-exit.sh shutdown, mode &amp;quot;default&amp;quot;
+    # back to normal: Enter or Escape
+    bindsym Return mode &amp;quot;default&amp;quot;
+    bindsym Escape mode &amp;quot;default&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;which utilizes the script located in &lt;code&gt;~/.local/scripts/sway-exit.sh&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class="hljs-function"&gt;&lt;span class="hljs-title"&gt;lock&lt;/span&gt;&lt;/span&gt;() {
+    swaylock -f -c 000000
+}
+
+&lt;span class="hljs-keyword"&gt;case&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;&lt;span class="hljs-variable"&gt;$1&lt;/span&gt;&amp;quot;&lt;/span&gt; &lt;span class="hljs-keyword"&gt;in&lt;/span&gt;
+    lock)
+        lock
+        ;;
+    &lt;span class="hljs-built_in"&gt;logout&lt;/span&gt;)
+        swaymsg &lt;span class="hljs-built_in"&gt;exit&lt;/span&gt;
+        ;;
+    &lt;span class="hljs-built_in"&gt;suspend&lt;/span&gt;)
+        lock &amp;amp;&amp;amp; systemctl &lt;span class="hljs-built_in"&gt;suspend&lt;/span&gt;
+        ;;
+    hibernate)
+        lock &amp;amp;&amp;amp; systemctl hibernate
+        ;;
+    reboot)
+        systemctl reboot
+        ;;
+    shutdown)
+        systemctl poweroff
+        ;;
+    *)
+        &lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;Usage: &lt;span class="hljs-variable"&gt;$0&lt;/span&gt; {lock|logout|suspend|hibernate|reboot|shutdown}&amp;quot;&lt;/span&gt;
+        &lt;span class="hljs-built_in"&gt;exit&lt;/span&gt; 2
+&lt;span class="hljs-keyword"&gt;esac&lt;/span&gt;
+
+&lt;span class="hljs-built_in"&gt;exit&lt;/span&gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id="notifications"&gt;&lt;a class="markdownIt-Anchor" href="#notifications"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Notifications&lt;/h3&gt;
+&lt;p&gt;In i3 I used &lt;a href="https://dunst-project.org/"&gt;dunst&lt;/a&gt; to handle notifications.
+Unfortunately it's not &lt;a href="https://github.com/dunst-project/dunst/issues/264"&gt;yet ready&lt;/a&gt; to work with wayland.
+I found &lt;a href="https://github.com/emersion/mako"&gt;mako&lt;/a&gt; to be a good replacement.&lt;br&gt;
+Using &lt;code&gt;mako&lt;/code&gt; is dead simple.
+After installation an additional line &lt;code&gt;exec mako&lt;/code&gt; in the sway config file does the job.&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+  </entry>
+  <entry>
+    <title>Automate tasks with docker-compose and systemd</title>
+    <published>2020-05-22T15:57:00Z</published>
+    <updated>2020-05-22T15:57:00Z</updated>
+    <id>https://dotcs.me/posts/automate-tasks-with-systemd</id>
+    <link href="https://dotcs.me/posts/automate-tasks-with-systemd"/>
+    <summary>This article shows how tasks that have been encapsulated in Docker containers can be controlled by systemd timers. In case of an error a separate systemd service is triggered which sends a mail which contains the last view lines from the journal log.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/automate-tasks-with-systemd">&lt;p&gt;I have several tasks encapsulated in Docker containers which I need to trigger on a regular basis.
+The scheduling can be done with systemd.
+Both tools together have proven to be a quite powerful combination.&lt;/p&gt;
+&lt;h2 id="example-backup-service"&gt;&lt;a class="markdownIt-Anchor" href="#example-backup-service"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Example: Backup service&lt;/h2&gt;
+&lt;p&gt;Let's assume we have a backup service that lives in &lt;code&gt;/opt/backup&lt;/code&gt;.
+This folder contains a &lt;code&gt;docker-compose.yaml&lt;/code&gt; file which contains the configuration of a backup service.&lt;/p&gt;
+&lt;p&gt;We need one systemd unit for the service and one for the timer.
+Both are shown below.
+The setup is pretty straight forward.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# /etc/systemd/system/backup.service&lt;/span&gt;
+&lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Description&lt;/span&gt;=Backup service
+&lt;span class="hljs-attr"&gt;Requires&lt;/span&gt;=docker.service
+&lt;span class="hljs-attr"&gt;After&lt;/span&gt;=docker.service
+
+&lt;span class="hljs-comment"&gt;# Send mail in case of an error&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;OnFailure&lt;/span&gt;=status-email-user@%n.service
+
+&lt;span class="hljs-section"&gt;[Service]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;WorkingDirectory&lt;/span&gt;=/opt/backup
+
+&lt;span class="hljs-attr"&gt;ExecStart&lt;/span&gt;=/usr/local/bin/docker-compose up
+
+&lt;span class="hljs-section"&gt;[Install]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;WantedBy&lt;/span&gt;=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# /etc/systemd/system/backup.timer&lt;/span&gt;
+&lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Description&lt;/span&gt;=Timer for backup service
+&lt;span class="hljs-attr"&gt;Requires&lt;/span&gt;=backup.service
+
+&lt;span class="hljs-section"&gt;[Timer]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Unit&lt;/span&gt;=backup.service
+
+&lt;span class="hljs-comment"&gt;# Time to wait after booting before we run first time&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;OnBootSec&lt;/span&gt;=&lt;span class="hljs-number"&gt;10&lt;/span&gt;min
+
+&lt;span class="hljs-comment"&gt;# Define a calendar event (see `man systemd.time`)&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;OnCalendar&lt;/span&gt;=*-*-* &lt;span class="hljs-number"&gt;03&lt;/span&gt;:&lt;span class="hljs-number"&gt;00&lt;/span&gt;:&lt;span class="hljs-number"&gt;00&lt;/span&gt; Europe/Berlin
+
+&lt;span class="hljs-section"&gt;[Install]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;WantedBy&lt;/span&gt;=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The service unit has a &lt;code&gt;OnFailure&lt;/code&gt; hook which runs a separate systemd service in case the exit code of the service is non-zero.
+This idea comes from the &lt;a href="https://wiki.archlinux.org/index.php/Systemd/Timers#As_a_cron_replacement"&gt;Arch Wiki&lt;/a&gt;.&lt;br&gt;
+The status email service can be configured in a generic way such that it can be re-used in other systemd services as well.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# /etc/systemd/system/status-email-user@.service&lt;/span&gt;
+&lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Description&lt;/span&gt;=Status Email for %i to user
+
+&lt;span class="hljs-section"&gt;[Service]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Type&lt;/span&gt;=&lt;span class="hljs-literal"&gt;on&lt;/span&gt;eshot
+&lt;span class="hljs-attr"&gt;ExecStart&lt;/span&gt;=/usr/local/bin/systemd-email email@example.com %i
+&lt;span class="hljs-attr"&gt;User&lt;/span&gt;=nobody
+&lt;span class="hljs-attr"&gt;Group&lt;/span&gt;=systemd-journal
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;/usr/local/bin/systemd-email&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/bin/sh&lt;/span&gt;
+
+/usr/bin/mail -Ssendwait -t &amp;lt;&amp;lt;&lt;span class="hljs-string"&gt;ERRMAIL
+To: $1
+From: Monitor (systemd) &amp;lt;alert@example.tld&amp;gt;
+Subject: $2
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+
+$(systemctl status --full &amp;quot;$2&amp;quot;)
+ERRMAIL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally the timer needs to be started/enabled as usual:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;systemctl start backup.timer
+systemctl &lt;span class="hljs-built_in"&gt;enable&lt;/span&gt; backup.timer
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="show-logs"&gt;&lt;a class="markdownIt-Anchor" href="#show-logs"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Show logs&lt;/h2&gt;
+&lt;p&gt;Logs can be read with &lt;code&gt;journalctl&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;journalctl -b -u backup.service
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>Nextcloud: Migrate from SQLite to PostgreSQL</title>
+    <published>2020-05-11T11:28:00Z</published>
+    <updated>2020-05-11T11:28:00Z</updated>
+    <id>https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql</id>
+    <link href="https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql"/>
+    <summary>This article describes how to migrate a Docker based Nextcloud instance from SQLite to PostgeSQL.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql">&lt;p&gt;I recently changed the database in my personal Nextcloud instance.
+Migrating databases is quite simple and took about an hour in my instance (~70GB of data).
+I noticed a huge improvement in speed when using the PostgreSQL database – especially when it comes to concurrent access of multiple users.&lt;/p&gt;
+&lt;p&gt;I'm running Nextcloud in a Docker container, so this post describes the procedure when using Docker containers.
+It might be slightly different in cases where Nextcloud has been directly installed to the server.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I have done the migration in Nextcloud 18.0.4. Older or newer versions might differ, so please be careful.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="step-0-preparations"&gt;&lt;a class="markdownIt-Anchor" href="#step-0-preparations"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 0: Preparations&lt;/h2&gt;
+&lt;p&gt;Make sure to backup old data – especially the SQLite database file.
+In case the migration will fail your original database will be left untouched, but still it's good to have a backup in case things are messed up accidentally.&lt;/p&gt;
+&lt;h2 id="step-1-stop-routing-traffic-to-the-nextcloud-instance"&gt;&lt;a class="markdownIt-Anchor" href="#step-1-stop-routing-traffic-to-the-nextcloud-instance"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 1: Stop routing traffic to the Nextcloud instance&lt;/h2&gt;
+&lt;p&gt;Make sure to stop any traffic to the instance.
+In my case I disabled the rules in the reverse proxy which sits in front of my Nextcloud application, so that the instance does not receive any traffic and thus updates/modifications during the migration phase.&lt;/p&gt;
+&lt;h2 id="step-2-add-database-to-docker-composeyaml"&gt;&lt;a class="markdownIt-Anchor" href="#step-2-add-database-to-docker-composeyaml"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 2: Add database to &lt;code&gt;docker-compose.yaml&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Let's first add a database to our &lt;code&gt;docker-compose.yaml&lt;/code&gt;.
+The sample below shows the absolute minimum configuration to run a Nextcloud instance with a PostgreSQL database.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-attr"&gt;services:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;nextcloud:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;image:&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;nextcloud:18.0.4&amp;quot;&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;ports:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;8080:80&amp;quot;&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;volumes:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;./data:/var/www/html&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;db:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;image:&lt;/span&gt; &lt;span class="hljs-string"&gt;postgres:9.6&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;environment:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_USER=ncuser&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_PASSWORD=secret&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_DB=ncdb&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;volumes:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;./db:/var/lib/postgresql/data&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After the &lt;code&gt;db&lt;/code&gt; service has been added make sure to start the database by running &lt;code&gt;docker-compose up&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="step-3-run-migration"&gt;&lt;a class="markdownIt-Anchor" href="#step-3-run-migration"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 3: Run migration&lt;/h2&gt;
+&lt;p&gt;Now comes the database migration.
+Fortunately the Nextcloud developers provide a tool for that which can be used to essentially make this a one-liner.&lt;/p&gt;
+&lt;p&gt;First connect to the running &lt;code&gt;nextcloud&lt;/code&gt; instance as user &lt;code&gt;www-data&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose &lt;span class="hljs-built_in"&gt;exec&lt;/span&gt; -u www-data nextcloud bash&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then run the database conversion script&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; ./occ db:convert-type --port 5432 --all-apps --clear-schema pgsql ncuser db ncdb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The arguments &lt;code&gt;ncuser&lt;/code&gt; (database user) and &lt;code&gt;ncdb&lt;/code&gt; (database name) might differ depending on your setup.
+The tool will interactively ask for your password and once it has access start the migration.
+Both flags &lt;code&gt;--all-apps&lt;/code&gt; and &lt;code&gt;--clear-schema&lt;/code&gt; are optional.
+The first one define if database tables of deactivated apps should be migrated or not.
+The second one drops tables in the target database in case they have been existing before the migration.&lt;/p&gt;
+&lt;p&gt;This might take a while.
+For me it took under an hour for a Nextcloud instance that has a size of about 70GB.&lt;/p&gt;
+&lt;h2 id="step-4-confirm-that-config-has-been-updated"&gt;&lt;a class="markdownIt-Anchor" href="#step-4-confirm-that-config-has-been-updated"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 4: Confirm that config has been updated&lt;/h2&gt;
+&lt;p&gt;After the database has been migrated successfully check that the config file has been updated properly.
+It should list &lt;code&gt;dbtype&lt;/code&gt; as &lt;code&gt;pgsql&lt;/code&gt; and have values for the properties &lt;code&gt;dbname&lt;/code&gt;, &lt;code&gt;dbhost&lt;/code&gt;, &lt;code&gt;dbuser&lt;/code&gt; and &lt;code&gt;dbpassword&lt;/code&gt;.
+This can be checked with the following command:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose &lt;span class="hljs-built_in"&gt;exec&lt;/span&gt; -u www-data nextcloud bash -c &lt;span class="hljs-string"&gt;&amp;quot;cat /var/www/html/config/config.php | grep db[a-z]&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Restart the service once so that the new config is read and applied.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose restart&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="step-5-start-routing-traffic-to-the-nextcloud-instance"&gt;&lt;a class="markdownIt-Anchor" href="#step-5-start-routing-traffic-to-the-nextcloud-instance"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 5: Start routing traffic to the Nextcloud instance&lt;/h2&gt;
+&lt;p&gt;You can now start to route traffic again to the instance.
+Now the PostgreSQL database will be used instead of the SQLite database file.
+Well done! :)&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="nextcloud"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>Webcam Support in Arch Linux on Macbooks</title>
+    <published>2020-04-01T18:07:00Z</published>
+    <updated>2020-04-01T18:07:00Z</updated>
+    <id>https://dotcs.me/posts/macbook-webcam-arch</id>
+    <link href="https://dotcs.me/posts/macbook-webcam-arch"/>
+    <summary>Learn how to install a kernel module that allows to use the Apple Facetime HD camera in your Arch or Manjaro Linux installation.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/macbook-webcam-arch">&lt;p&gt;I'm running &lt;a href="https://manjaro.org/"&gt;Manjaro Linux&lt;/a&gt; (an &lt;a href="https://www.archlinux.org/"&gt;Arch Linux&lt;/a&gt; derivative) on my MacbookPro12,1 (Retina, 13-inch, Early 2015).&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/macbook-webcam-arch/macbook-pro.png" alt="Image source: support.apple.com, 2020/04/01" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Image source: support.apple.com, 2020/04/01&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;I was astonished how many things just worked out-of-the-box.
+Kudos to the Arch and Manjaro teams for their great work!&lt;/p&gt;
+&lt;p&gt;Unfortunately one thing that did not work out-of-the-box is the webcam.
+It requires a driver that is not part of the official kernel but must be installed separately.&lt;br&gt;
+The code is in the &lt;a href="https://aur.archlinux.org/"&gt;Arch User Repository (AUR)&lt;/a&gt;.
+I use &lt;a href="https://github.com/Jguer/yay"&gt;yay&lt;/a&gt; to install packages from AUR which I can highly recommend and which I will use in this article.&lt;/p&gt;
+&lt;p&gt;Let's get our hands dirty!&lt;/p&gt;
+&lt;p&gt;First let's get information about all installed kernels and see if the headers are installed for all of them:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; pacman -Q | grep -E &lt;span class="hljs-string"&gt;&amp;#x27;linux[0-9]+&amp;#x27;&lt;/span&gt;  &lt;span class="hljs-comment"&gt;# see which kernels are installed&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For each installed linux kernel there should be a &lt;code&gt;-headers&lt;/code&gt; file next to it, e.g.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;linux419 4.19.113-1
+linux419-headers 4.19.113-1
+linux54 5.4.28-1
+linux54-headers 5.4.28-1
+linux55 5.5.13-1
+linux55-headers 5.5.13-1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the headers are missing, make sure to install them:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; yay -S linux-headers   &lt;span class="hljs-comment"&gt;# select the headers that are missing&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then let's get the &lt;a href="https://aur.archlinux.org/packages/bcwc-pcie-git/"&gt;driver&lt;/a&gt; and install it from AUR:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; yay -S bcwc-pcie-git&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After the installation we need to load the kernel module:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; modprobe facetimehd&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can test if the video source has been identified correctly by executing &lt;code&gt;v4l2-ctl --list-devices&lt;/code&gt;.
+If everything worked out, the output should be:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;Apple Facetime HD (PCI:0000:02:00.0):
+	/dev/video0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the output is instead &lt;code&gt;No /dev/video0 device&lt;/code&gt;, then make sure to unload the kernel module &lt;code&gt;bdc_pci&lt;/code&gt; as described in the &lt;a href="https://github.com/patjak/bcwc_pcie/wiki#known-issues"&gt;wiki&lt;/a&gt;.
+This can be done by running the following commands:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;modprobe -r facetimehd  &lt;span class="hljs-comment"&gt;# temporary remove facetimehd module&lt;/span&gt;
+modprobe -r bdc_pci     &lt;span class="hljs-comment"&gt;# remove disturbing kernel module&lt;/span&gt;
+
+&lt;span class="hljs-comment"&gt;# make sure that the disturbing kernel module is blacklisted&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# and cannot be loaded as a dependency of another module.&lt;/span&gt;
+&lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;blacklist bdc_pci\ninstall bdc_pci /bin/false&amp;quot;&lt;/span&gt; &amp;gt; /etc/modprobe.d/bcwc-pcie.conf
+
+modprobe facetimehd     &lt;span class="hljs-comment"&gt;# load the facetimehd module again&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The webcam should work now.
+You can test it on any website that requires a webcam, such as &lt;a href="https://meet.jit.si/"&gt;meet.jit.si&lt;/a&gt;.
+Have fun!&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>OfflineIMAP + systemd timer</title>
+    <published>2020-04-01T14:38:00Z</published>
+    <updated>2020-04-01T14:38:00Z</updated>
+    <id>https://dotcs.me/posts/offlineimap-systemd-timer</id>
+    <link href="https://dotcs.me/posts/offlineimap-systemd-timer"/>
+    <summary>Learn how to setup a systemd timer that regularly fetches new mails from an IMAP server with OfflineIMAP.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/offlineimap-systemd-timer">&lt;p&gt;I use &lt;a href="http://www.mutt.org/"&gt;mutt&lt;/a&gt; to manage my emails and access them from the terminal.
+To sync the mails between the IMAP server and mutt I use &lt;a href="https://www.offlineimap.org/"&gt;OfflineIMAP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To regularly check for new mails I use a &lt;a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html"&gt;systemd timer&lt;/a&gt;.
+The necessary files can be found &lt;a href="https://github.com/OfflineIMAP/offlineimap/tree/master/contrib/systemd"&gt;in the official repository&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Let's clone the repository first and copy all necessary files to &lt;code&gt;/etc/systemd/user&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; /tmp
+git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; --depth 1 git@github.com:OfflineIMAP/offlineimap.git  &lt;span class="hljs-comment"&gt;# a shallow copy is enough&lt;/span&gt;
+&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; offlineimap/contrib/systemd
+sudo cp *.{service,timer} /etc/systemd/user/
+systemctl --user daemon-reload
+&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; /tmp &amp;amp;&amp;amp; rm -rf /tmp/offlineimap
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;By default the update interval of the timer is set to 15min.
+I preferred an update interval of 5 min, which can be easily accomplished.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; systemctl --user edit offlineimap-oneshot.timer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this file values can be overwritten as such:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[Timer]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;OnUnitInactiveSec&lt;/span&gt;=&lt;span class="hljs-number"&gt;5&lt;/span&gt;min
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally it's time to enable and start the timer.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; systemctl --user &lt;span class="hljs-built_in"&gt;enable&lt;/span&gt; offlineimap-oneshot.timer &lt;span class="hljs-comment"&gt;# autostart at boot&lt;/span&gt;&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; systemctl --user start offlineimap-oneshot.timer  &lt;span class="hljs-comment"&gt;# start now&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let's check if the timer is up and running.
+&lt;code&gt;systemctl --user status offlineimap-oneshot.timer&lt;/code&gt; should show that it is up and running and tell how many time is left until the next run:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;● offlineimap-oneshot.timer - Offlineimap Query Timer
+     Loaded: loaded (/usr/lib/systemd/user/offlineimap-oneshot.timer; enabled; vendor preset: enabled)
+    Drop-In: /home/dotcs/.config/systemd/user/offlineimap-oneshot.timer.d
+             └─override.conf
+     Active: active (waiting) since Wed 2020-04-01 16:27:20 CEST; 8min ago
+    Trigger: Wed 2020-04-01 16:37:34 CEST; 1min 55s left
+   Triggers: ● offlineimap-oneshot.service
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>i3 + termite + custom themes = &lt;3</title>
+    <published>2020-04-01T09:36:00Z</published>
+    <updated>2020-04-01T09:36:00Z</updated>
+    <id>https://dotcs.me/posts/i3-termite-theme</id>
+    <link href="https://dotcs.me/posts/i3-termite-theme"/>
+    <summary>i3 + termite is awesome. Having a simple theme changer is even better. Learn how to set up custom themes and apply them with a simple keystroke.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/i3-termite-theme">&lt;p&gt;I love the sun – especially in Spring when temperatures are not too hot and taking a sunbath is a real pleasure. And I love working in the sun, which is often a challenge because of the poor contrast - especially if, like me, you like to use dark themes.&lt;/p&gt;
+&lt;p&gt;Since I recently changed to &lt;a href="https://i3wm.org/"&gt;i3&lt;/a&gt; as my window manager, I use &lt;a href="https://github.com/thestinger/termite"&gt;termite&lt;/a&gt; as my default terminal which has by default no simple way to switch themes – at least not to my knowledge. But working in the sun requires a light theme, so I decided to work on a simple theme changer that is also integrated in i3.&lt;/p&gt;
+&lt;p&gt;So let's get to work.&lt;/p&gt;
+&lt;p&gt;First we need custom color themes. I have taken the two themes from &lt;a href="https://github.com/alpha-omega/termite-colors-solarized"&gt;this GitHub repository&lt;/a&gt; and put them in &lt;code&gt;~/.config/termite/themes&lt;/code&gt;.
+Of course you can also define custom themes and put them there. The theme files should have the following format:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[colors]&lt;/span&gt;
+foreground = &lt;span class="hljs-comment"&gt;#000000&lt;/span&gt;
+background = &lt;span class="hljs-comment"&gt;#ffffff&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# and so on&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then copy your current &lt;code&gt;~/.config/termite/config&lt;/code&gt; to &lt;code&gt;~/.config/termite/config.base&lt;/code&gt; and remove the &lt;code&gt;colors&lt;/code&gt; section.&lt;/p&gt;
+&lt;p&gt;We will now need a way to append a theme file to the &lt;code&gt;config.base&lt;/code&gt; file. I've created a simple script that does this job:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+USAGE=&lt;span class="hljs-string"&gt;&amp;quot;&lt;span class="hljs-variable"&gt;$0&lt;/span&gt; light|dark&amp;quot;&lt;/span&gt;
+
+TERMITE_CONF_FOLDER=~/.config/termite
+THEME=&lt;span class="hljs-variable"&gt;$1&lt;/span&gt;
+
+&lt;span class="hljs-function"&gt;&lt;span class="hljs-title"&gt;change_theme&lt;/span&gt;&lt;/span&gt;() {
+    &lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;# THIS FILE HAS BEEN AUTOGENERATED. DO NOT CHANGE MANUALLY!&amp;quot;&lt;/span&gt; | \
+        cat - /tmp/termite-switch-theme.hint &lt;span class="hljs-variable"&gt;$TERMITE_CONF_FOLDER&lt;/span&gt;/config.base &lt;span class="hljs-variable"&gt;$TERMITE_CONF_FOLDER&lt;/span&gt;/themes/&lt;span class="hljs-variable"&gt;$1&lt;/span&gt; &amp;gt; &lt;span class="hljs-variable"&gt;$TERMITE_CONF_FOLDER&lt;/span&gt;/config
+    killall -USR1 termite || &lt;span class="hljs-literal"&gt;true&lt;/span&gt;
+}
+
+&lt;span class="hljs-keyword"&gt;case&lt;/span&gt; &lt;span class="hljs-variable"&gt;$THEME&lt;/span&gt; &lt;span class="hljs-keyword"&gt;in&lt;/span&gt;
+    light|solarized-light) change_theme solarized-light ;;
+    dark|solarized-dark) change_theme solarized-dark ;;
+    *) &lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-variable"&gt;$USAGE&lt;/span&gt; ;;
+&lt;span class="hljs-keyword"&gt;esac&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Put this script somewhere and make it executable. In my case I've saved the file in &lt;code&gt;~/.local/scripts/termite-switch-theme.sh&lt;/code&gt;. You should be able to switch themes now by calling the script, e.g. &lt;code&gt;~/.local/scripts/termite-switch-theme.sh&lt;/code&gt; light.&lt;/p&gt;
+&lt;p&gt;This is already great, but for a perfect integration with i3 put these lines into your &lt;code&gt;~/.config/i3/config&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;set $mode_term_theme Terminal theme (l) light, (d) dark
+mode &amp;quot;$mode_term_theme&amp;quot; {
+    # choose which theme should be applied by pressing l (light) or d (dark)
+    bindsym l exec --no-startup-id &amp;quot;~/.local/scripts/termite-switch-theme.sh light&amp;quot;, mode &amp;quot;default&amp;quot;
+    bindsym d exec --no-startup-id &amp;quot;~/.local/scripts/termite-switch-theme.sh dark&amp;quot;, mode &amp;quot;default&amp;quot;
+    # back to normal: Enter or Escape
+    bindsym Return mode &amp;quot;default&amp;quot;
+    bindsym Escape mode &amp;quot;default&amp;quot;
+}
+bindsym $mod+t mode &amp;quot;$mode_term_theme&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally reload the i3 config with &lt;code&gt;mod+shift+c&lt;/code&gt;. Now you can change themes with &lt;code&gt;mod+t&lt;/code&gt; and choose which theme should be applied (light or dark). All running terminals will immediately reflect your theme changes. Have fun!&lt;/p&gt;
+&lt;h2 id="base16-themes"&gt;&lt;a class="markdownIt-Anchor" href="#base16-themes"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Base16 Themes&lt;/h2&gt;
+&lt;p&gt;If you want to have even more themes to choose from take a look at the wonderful repository &lt;a href="https://github.com/khamer/base16-termite"&gt;khamer/base16-termite&lt;/a&gt;. Those themes are working out-of-the-box just as described above.&lt;/p&gt;
+&lt;h2 id="acknowledgements"&gt;&lt;a class="markdownIt-Anchor" href="#acknowledgements"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Acknowledgements&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Thanks to &lt;a href="https://github.com/BarbUk"&gt;@BarbUk&lt;/a&gt; for &lt;a href="https://github.com/thestinger/termite/issues/730"&gt;helping me find the correct signal&lt;/a&gt; to send to running termite instances.&lt;/li&gt;
+&lt;li&gt;Thanks to &lt;a href="https://nils-braun.github.io/"&gt;@nils-braun&lt;/a&gt; for reviewing this article.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>Spotify Desktop App with HiDPI Scaling in GNOME 3</title>
+    <published>2019-11-12T16:45:00Z</published>
+    <updated>2019-11-12T16:45:00Z</updated>
+    <id>https://dotcs.me/posts/spotify-desktop-high-dpi-scaling</id>
+    <link href="https://dotcs.me/posts/spotify-desktop-high-dpi-scaling"/>
+    <summary>Spotify Desktop seems to have issues with HiDPI screens in Linux. This post shows how to fix it.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/spotify-desktop-high-dpi-scaling">&lt;p&gt;When using a HiDPI screen, such as the MacBook Pro with Retina display, Spotify Desktop may not automatically detect the correct scaling factor.
+I have noticed issues in my Manjaro installation that runs with GNOME 3 Desktop.
+Spotify has been installed from the AUR package repository.&lt;br&gt;
+The wrong scaling factor leads to very small font size that is hard to read.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; spotify --version&lt;/span&gt;
+Spotify version 1.1.10.546.ge08ef575, Copyright (c) 2019, Spotify Ltd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Fortunately there is an option to force Spotify Desktop to use a (hardcoded) scaling factor.
+Use the following command and vary the scaling factor in order to find the correct factor first:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; spotify --force-device-scale-factor=2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After the correct value has been found, adjust the desktop entry that GNOME uses to when starting the application via its launcher.
+The file lives in &lt;code&gt;/usr/share/applications/spotify.desktop&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[Desktop Entry]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Type&lt;/span&gt;=Application
+&lt;span class="hljs-attr"&gt;Name&lt;/span&gt;=Spotify
+&lt;span class="hljs-attr"&gt;GenericName&lt;/span&gt;=Music Player
+&lt;span class="hljs-attr"&gt;Icon&lt;/span&gt;=spotify-client
+&lt;span class="hljs-attr"&gt;TryExec&lt;/span&gt;=spotify
+&lt;span class="hljs-attr"&gt;Exec&lt;/span&gt;=spotify --force-device-scale-factor=&lt;span class="hljs-number"&gt;2&lt;/span&gt; %U
+&lt;span class="hljs-attr"&gt;Terminal&lt;/span&gt;=&lt;span class="hljs-literal"&gt;false&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;MimeType&lt;/span&gt;=x-scheme-handler/spotify&lt;span class="hljs-comment"&gt;;&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Categories&lt;/span&gt;=Audio&lt;span class="hljs-comment"&gt;;Music;Player;AudioVideo;&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;StartupWMClass&lt;/span&gt;=spotify
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>An "open" command in Linux</title>
+    <published>2019-11-11T21:03:00Z</published>
+    <updated>2019-11-11T21:03:00Z</updated>
+    <id>https://dotcs.me/posts/open-command-in-linux</id>
+    <link href="https://dotcs.me/posts/open-command-in-linux"/>
+    <summary>This article explains how to configure a command "open" in Linux that behaves similar to the command that macOS provides.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/open-command-in-linux">&lt;p&gt;As a previous macOS user I am used to call &lt;code&gt;open &amp;lt;anything&amp;gt;&lt;/code&gt; in a terminal to open the current file or folder with the standard tool.
+So &lt;code&gt;open .&lt;/code&gt; would open the current folder while &lt;code&gt;open file.pdf&lt;/code&gt; would open the PDF in the default PDF viewer.&lt;/p&gt;
+&lt;p&gt;Today I learned that &lt;code&gt;xdg-open&lt;/code&gt; serves the same purpose on the Linux desktop. So I configured an alias, to have the same behavior on both systems:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;alias&lt;/span&gt; open=&lt;span class="hljs-string"&gt;&amp;quot;xdg-open &amp;amp;&amp;gt;/dev/null&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="query-and-set-defaults"&gt;&lt;a class="markdownIt-Anchor" href="#query-and-set-defaults"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Query and set defaults&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;xdg-open&lt;/code&gt; is part of &lt;a href="https://wiki.archlinux.org/index.php/Xdg-utils"&gt;&lt;code&gt;xdg-utils&lt;/code&gt;&lt;/a&gt;, which &lt;a href="https://freedesktop.org/wiki/Software/xdg-utils/"&gt;describes itself&lt;/a&gt; as&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;xdg-utils is a set of tools that allows applications to easily integrate with the desktop environment of the user, regardless of the specific desktop environment that the user runs.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It's super convenient to change the default application for a given file, say a PDF.
+Let's change the default program:&lt;/p&gt;
+&lt;p&gt;First let's assume we don't know the mime-type of the PDF, which is &lt;code&gt;application/pdf&lt;/code&gt;.
+We can find this type by query all known filetypes:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime query filetype /path/to/a/file.pdf &lt;/span&gt;
+application/pdf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let's see which default application is currently configured for this filetype:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime query default application/pdf&lt;/span&gt;
+chromium.desktop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If we don't want to use chromium to read PDFs, but for example &lt;a href="https://pwmt.org/projects/zathura/"&gt;zathura&lt;/a&gt; we can change the default application as follows:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; find /usr/share/applications/ -name &lt;span class="hljs-string"&gt;&amp;#x27;*zathura*&amp;#x27;&lt;/span&gt;&lt;/span&gt;
+/usr/share/applications/org.pwmt.zathura-pdf-mupdf.desktop
+/usr/share/applications/org.pwmt.zathura.desktop
+&lt;span class="hljs-meta"&gt;
+$&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime default org.pwmt.zathura.desktop application/pdf&lt;/span&gt;
+&lt;span class="hljs-meta"&gt;
+$&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime query default application/pdf&lt;/span&gt;
+org.pwmt.zathura.desktop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now PDF files are opened with zathura when using our new &lt;code&gt;open&lt;/code&gt; command as defined above.&lt;/p&gt;
+&lt;p&gt;A lot programs bring their own &lt;code&gt;.desktop&lt;/code&gt; file(s). Files are listed in &lt;code&gt;/usr/share/appliations&lt;/code&gt; and can be overridden or suplemented with files located in &lt;code&gt;~/.local/share/applications&lt;/code&gt;. The specification of those files &lt;a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys"&gt;can be found here&lt;/a&gt;.&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>GNOME 3: Change wallpaper periodically</title>
+    <published>2019-11-10T18:52:00Z</published>
+    <updated>2019-11-10T18:52:00Z</updated>
+    <id>https://dotcs.me/posts/gnome3-change-wallpapers-automatically</id>
+    <link href="https://dotcs.me/posts/gnome3-change-wallpapers-automatically"/>
+    <summary>This post describes how wallpapers can be automatically changed in GNOME 3 with a simple script and a cronjob.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/gnome3-change-wallpapers-automatically">&lt;p&gt;If you are using GNOME 3 and you want to periodically change your desktop background using images in a folder, this is for you.&lt;/p&gt;
+&lt;p&gt;Put this script somewhere and make it executable.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class="hljs-comment"&gt;# You need to adjust this path&lt;/span&gt;
+WALLPAPER_FOLDER=/path/to/your/wallpaper/folder
+
+&lt;span class="hljs-comment"&gt;# https://askubuntu.com/a/1073769/277761&lt;/span&gt;
+PID=$(pgrep gnome-session | tail -n1)
+&lt;span class="hljs-built_in"&gt;export&lt;/span&gt; DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/&lt;span class="hljs-variable"&gt;$PID&lt;/span&gt;/environ|cut -d= -f2-)
+
+FILE_PATH=`ls &lt;span class="hljs-variable"&gt;$WALLPAPER_FOLDER&lt;/span&gt; | shuf -n 1`
+FILE_URI=&lt;span class="hljs-string"&gt;&amp;quot;file://&lt;span class="hljs-variable"&gt;$WALLPAPER_FOLDER&lt;/span&gt;/&lt;span class="hljs-variable"&gt;$FILE_PATH&lt;/span&gt;&amp;quot;&lt;/span&gt;
+/usr/bin/gsettings &lt;span class="hljs-built_in"&gt;set&lt;/span&gt; org.gnome.desktop.background picture-uri &lt;span class="hljs-variable"&gt;$FILE_URI&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then create a cronjob that executes this script periodically, e.g. by using this line:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;*/10 * * * * /path/to/your/file.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And you're done. Have fun!&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="linux"/>
+    <category term="notes"/>
+    <category term="tech"/>
+  </entry>
+  <entry>
+    <title>Leaving Google's Mail Services behind</title>
+    <published>2019-11-01T13:55:00Z</published>
+    <updated>2019-11-01T13:55:00Z</updated>
+    <id>https://dotcs.me/posts/leaving-gmail-behind</id>
+    <link href="https://dotcs.me/posts/leaving-gmail-behind"/>
+    <summary>I decided to leave Google's e-mail services behind. This post describes how I changed to another provider and how I use my domain at the same time so that I can switch between e-mail providers more flexibly in the future.</summary>
+    <content type="html" xml:base="https://dotcs.me/posts/leaving-gmail-behind">&lt;p&gt;I decided to leave Google's e-mail services behind. This post describes how I changed to another provider and how I use my domain at the same time so that I can switch between e-mail providers more flexibly in the future.&lt;/p&gt;
+&lt;p&gt;A year ago I decided to leave Google and their e-mail services behind. The reason that lead to this decision was that Google decided to kill Inbox - my absolute favorite e-mail service. They did it although many people loved Inbox and after operating the service for about 4 years.&lt;br&gt;
+Inbox was simply fabulous. It had a clean web based UI, came with powerful features, such as auto-grouping related e-mails into a thread, marking e-mails as done, so that one could establish a zero-inbox pattern, a very well working Android app, and so on. Thinking about the shutdown of Google Inbox still makes me sad. Google killed the better of their e-mail services and forced users migrate back to GMail, the much more bloated and annoying variant of the two services. In my opinion Google should have killed GMail instead and migrate their users to Inbox. But they have decided differently any many people followed their decision - many, but not me.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Since last year I have had quite a journey to switch e-mail providers. I decided to never use an e-mail address again that is not tied so a domain I do own – simply because it's a mess to change the e-mail address for hundreds of accounts.&lt;br&gt;
+Let me explain my steps to migrate to another e-mail service.&lt;/p&gt;
+&lt;h2 id="step-1-choose-an-alternative"&gt;&lt;a class="markdownIt-Anchor" href="#step-1-choose-an-alternative"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 1: Choose an alternative&lt;/h2&gt;
+&lt;p&gt;There are countless alternatives on the market – many of those belong to larger companies, such as Microsoft.
+I did not want to move from one web-giant to another, so I decided to use a smaller provider.
+First I thought about hosting e-mails on my own server, but I quickly got rid of this idea because I cannot guarantee uptime and hosting an own e-mail server comes with its own difficulties.&lt;br&gt;
+And I wanted a mail provider that does cost money.
+Why you ask? Because hosting e-mails and providing a proper e-mail service is serious business.
+E-mails contain a lot of personal and sensitive information.
+If the service is free then users are the product – Inbox was no exception to this, GMail is neither.
+In my opinion it is worthwhile to think very carefully about this topic, because most mails are not encrypted, often they contain sensitive information, such as information about accounts, bank credits, shopping information that helps to create an exact profile of the user.
+E-mails are a paradise for data scientists.&lt;/p&gt;
+&lt;p&gt;What I needed instead was an e-mail provider that fulfills these requirements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Reliability&lt;/strong&gt;:
+The service should have a history in which it worked flawlessly.
+No profile building, no ads: I want to have a service that does not scan my e-mails (automatically) and display ads based on the content.
+I don't want to see any ads at all.
+I do not want the e-mail provider to use my data for a kind of profile which is then sold to third parties – even if this is only done via an advertising network.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Secure authentication&lt;/strong&gt;:
+I want the service to provide a two-factor authentication.
+This way an attacker does not only need my username and password combination, but also needs to have physical access to my second device.
+This should be standard nowadays.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Custom domain&lt;/strong&gt;:
+I want to use a custom domain, so the mail provider must provide support for e-mail aliases.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GDPR compliance&lt;/strong&gt;:
+Since we have this wonderful EU General Data Protection Regulation (GDPR) in place, I want the service to be hosted in such a way that it is compliant with GDPR.
+Actually most services are compliant, but I favor services that are also hosted in the EU.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In the end I came up with two providers that looked very interesting: &lt;a href="https://mailbox.org/"&gt;mailbox.org&lt;/a&gt; and &lt;a href="https://posteo.de/"&gt;posteo.de&lt;/a&gt;.
+In my opinion both providers are absolutely worth their money.
+One of the main differences is how custom domains are handled.
+While Posteo does not allow for custom domains by default, Mailbox is fine with it.
+Posteo has a good point of not allowing it.
+Their FAQ explains why they have decided against custom domains:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Can I use Posteo with my own domains?&lt;/p&gt;
+&lt;p&gt;No. We are an email provider with a particular, privacy-oriented model – and this is not compatible with incorporating own domains. [...]
+Even if only the MX record pointed to us, we would still need to store the assignment of the domain in your Posteo account as  user information.
+Thus we would possess your user information and be required to give it out.
+For this reason, we have decided not  to offer this possibility and instead to use data economy. [...]
+In order to be able to read replies to these messages, you need to set up forwarding to Posteo for the external address.&lt;/p&gt;
+&lt;p&gt;Source: https://posteo.de/en/site/faq&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A year ago I have decided to use Posteo.
+Nowadays I think it would have been better to go with Mailbox, because of the custom domain problem.
+I am not so sure if Mailbox allowed setting up custom domains a year ago, but since Mailbox &lt;a href="https://kb.mailbox.org/display/BMBOKBEN/Using+e-mail+addresses+of+your+domain"&gt;natively allows for custom domains nowadays&lt;/a&gt;, I guess it makes much more sense to use their offering.
+I will outline below why this is important.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/posteo.png" alt="Image of the posteo landing page" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Image of the posteo landing page&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Creating an account is straight-forward, I will not explain how to do that.
+Maybe it is worth mentioning that Posteo does provide a large amount of anonymity.
+It does allow to create new accounts without the need to enter any personal details.
+Also the payment does work anonymously.&lt;/p&gt;
+&lt;h2 id="step-2-setup-with-custom-domain"&gt;&lt;a class="markdownIt-Anchor" href="#step-2-setup-with-custom-domain"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 2: Setup with custom domain&lt;/h2&gt;
+&lt;p&gt;As mentioned in the requirements I want to use a custom domain for my mails.
+Doing so has several advantages and one major disadvantage.&lt;br&gt;
+Advantages are that you can have as many e-mail addresses as you like.
+&lt;any-name&gt;@yourdomain.com is possible, so you have a lot of freedom here.
+Another advantage is that those mail addresses are independent of the mail provider, which means that I can, at some point in time, if I am no longer satisfied with Posteo, simply change the e-mail provider and do not have to inform others that my mail address has changed.
+Isn't that great?! I mean changing e-mail addresses is a tedious task – it took me several days to update my e-mail address in all the services that I use.&lt;br&gt;
+Instead of changing mail addresses one could also forward e-mails from one provider to the other.
+Although it would be simple and can be configured in most e-mail services, including GMail.
+Why? Because it would still route mails via Google – all my mails.
+And Google will for sure analyze those mails.
+So I would not have won anything.
+Instead I take the burden once in my life, change my mail address and then stick to it.
+This is possible – but only if the domain is yours.
+Which brings me to the major disadvantage: You have to own this domain.
+Forever – or at least as long as somebody sends mail to this domain that should be kept private.
+&lt;strong&gt;You must make sure, that this domain never gets lost.&lt;/strong&gt;
+Most domain providers do provide options here, so please check carefully.
+If you lose the domain, it could be registered by someone else who sets their own MX records and receives mails intended only for your eyes.
+So be warned!&lt;/p&gt;
+&lt;h2 id="step-3-set-up-e-mail-forwarding"&gt;&lt;a class="markdownIt-Anchor" href="#step-3-set-up-e-mail-forwarding"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 3: Set up e-mail forwarding&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;This step is only needed if the mail provider does not allow for custom domains (e.g. Posteo). In case the mail provider does allow for custom domains (e.g. Mailbox) this step is not necessary.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;I have bought my domain at &lt;a href="https://godaddy.com/"&gt;GoDaddy&lt;/a&gt;, one of the very large domain registrars out there.
+GoDaddy offers up to 100 e-mail forwarding configurations per domain for free.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/godaddy-email-forwarding.png" alt="GoDaddy offers 100 e-mail forwarding configurations for free." class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;GoDaddy offers 100 e-mail forwarding configurations for free.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Configuration is simple.
+Just configure the e-mail address, that the service should listen to, e.g. foobar@domain.tld and enter the mail address that it should be forwarded to, e.g. mymailaddress@posteo.de.
+This way you can configure up to 100 different e-mail addresses that can later be used as aliases for your one e-mail address at Posteo.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/godaddy-email-forwarding-2.png" alt="Configuration dialog at GoDaddy" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Configuration dialog at GoDaddy&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;DNS records are typically managed by the registrar itself – in my case GoDaddy.
+I manage my DNS records via Cloudflare, but this is absolutely not necessary.
+The following is still valid for GoDaddy or any other service that is used to manage DNS entries.
+The UI might look different though.&lt;/p&gt;
+&lt;h2 id="step-4-set-up-mx-spf-and-dmarc-records"&gt;&lt;a class="markdownIt-Anchor" href="#step-4-set-up-mx-spf-and-dmarc-records"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 4: Set up MX, SPF and DMARC records&lt;/h2&gt;
+&lt;p&gt;The missing pieces are now setting up &lt;a href="https://en.wikipedia.org/wiki/MX_record"&gt;MX records&lt;/a&gt;,  &lt;a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework"&gt;SPF&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/DMARC"&gt;DMARC&lt;/a&gt;.
+The first one is necessary so that other e-mail servers know which inbox server they should use to deliver the messages to.
+SPF and DMARC are necessary, so that sent mails can pass the SPAM rules of various mail providers.&lt;/p&gt;
+&lt;p&gt;Let's talk about the MX records first.
+Each e-mail provider does have some servers that are responsible for receiving mails from other services.
+Since Posteo does not allow for custom domains I have to use the inbox servers from GoDaddy and forward mails to Posteo.
+If you go with Mailbox, please enter the Mailbox MX records instead.&lt;/p&gt;
+&lt;p&gt;To find out GoDaddy's MX records go to the Workspace Control Center, this is where you can configure your e-mail records for your domain.
+Then go to Tools → Server Settings.
+Here you can see the MX records and their priorities that are to be set up.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/godaddy-mailserver-mx.png" alt="MX records as needed to work with GoDaddy." class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;MX records as needed to work with GoDaddy.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Finally use these MX records to change the DNS records of your domain:&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/godaddy-mailserver-settings.png" alt="DNS settings: MX records and SPF and DMARC settings." class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;DNS settings: MX records and SPF and DMARC settings.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;The image above also shows the &lt;a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework"&gt;SPF&lt;/a&gt; record, which I set to &lt;code&gt;v=spf1 include:posteo.de -all&lt;/code&gt;.
+We basically inherit the SPF record of posteo.de and advice that other mail providers should strictly reject messages that do not pass the SPF test (&lt;code&gt;-all&lt;/code&gt; flag).&lt;br&gt;
+In case you are interested in SPF record configuration and want to learn more about SPF records, I can recommend &lt;a href="https://www.spfwizard.net/"&gt;spfwizard.net&lt;/a&gt;.
+Posteo recommends at least to have the &lt;code&gt;include:posteo.de&lt;/code&gt; part, their recommendation can be found &lt;a href="https://posteo.de/site/postmaster"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/leaving-gmail-behind/spf-generator.png" alt="Configuration as shown by spfwizard.net." class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Configuration as shown by spfwizard.net.&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Please note that if you use Mailbox, you might want to use the SPF record &lt;code&gt;v=spf1 include:mailbox.org&lt;/code&gt; as described in their help pages.&lt;/p&gt;
+&lt;p&gt;I also configured &lt;a href="https://en.wikipedia.org/wiki/DMARC"&gt;DMARC&lt;/a&gt; with the value &lt;code&gt;v=DMARC1; p=quarantine; rua=mailto:DMARC-report@dotcs.me; ruf=mailto:DMARC-forensic@dotcs.me; pct=100&lt;/code&gt;.
+A generator for the DMARC format can be found &lt;a href="https://mxtoolbox.com/DMARCRecordGenerator.aspx"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I have not configured DKIM, because to my knowledge it is not possible in combination with Posteo as the mail provider.&lt;/p&gt;
+&lt;h2 id="step-5-final-checks"&gt;&lt;a class="markdownIt-Anchor" href="#step-5-final-checks"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 5: Final checks&lt;/h2&gt;
+&lt;p&gt;Last but not least, I want to make sure that our mails are delivered properly.
+What I found quite useful is to send a mail to GMail and check the mail headers there.
+The good news first: mails are delivered properly.
+Neither are they rejected, nor marked as SPAM.
+Our configuration seems to work – strike! Let's check in more detail if SPF and DMARC worked as expected.&lt;/p&gt;
+&lt;p&gt;The relevant part of the header is this one:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;Authentication-Results: mx.google.com;
+    spf=pass (google.com: domain of fantasymail@dotcs.me designates 185.67.36.142 as permitted sender) smtp.mailfrom=fantasymail@dotcs.me;
+    dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We see that both SPF as well as DMARC tests passed. I have used that setup for quite some time now and I had never experienced any issues so far.&lt;/p&gt;
+</content>
+    <author>
+      <name>dotcs</name>
+    </author>
+    <category term="tech"/>
+  </entry>
+</feed>
