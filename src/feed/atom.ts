@@ -5,6 +5,13 @@ import { pageSettings } from '../settings';
 import { getAllPosts } from '../utils/parser';
 import md from '../utils/markdown';
 
+// Useful links:
+// -------------
+// Atom Spec: https://validator.w3.org/feed/docs/atom.html
+// Atom Validator: https://validator.w3.org/feed/check.cgi
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 const now = new Date();
 const posts = getAllPosts();
 posts.reverse();
@@ -43,6 +50,6 @@ const feed = {
     },
 };
 
-const xml = builder.create(feed).end({ pretty: true });
+const xml = builder.create(feed).end({ pretty: !isProduction });
 
 fs.writeFileSync('out/feed.xml', xml);

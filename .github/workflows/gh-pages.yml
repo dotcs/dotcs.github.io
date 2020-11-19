@@ -24,6 +24,8 @@ jobs:
           CI: true
           DEPLOY_TARGET: gh-pages
       - run: "npm run feeds:atom"
+        env:
+          NODE_ENV: production
       - run: touch out/.nojekyll
 
       - name: Deploy
