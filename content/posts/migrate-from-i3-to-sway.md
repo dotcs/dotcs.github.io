@@ -7,11 +7,11 @@ keywords:
 authors:
   - dotcs
 published_at: "2020-11-15T09:52:00Z"
-updated_at: "2020-11-15T09:52:00Z"
+updated_at: "2020-11-19T21:13:28+01:00"
 ---
 
 I recently changed from the Linux display server protocol [X.org Server][xserver] to [Wayland][wayland] on one of my machines.
-My favorite window manager i3 is not compatible with Wayland though, so I had to search for an alternative.
+My favorite window manager [i3] is not compatible with Wayland though, so I had to search for an alternative.
 Luckily there is a drop-in replacement for i3 available which is named [Sway][sway].
 
 Sway is very similar to i3, it even uses the same syntax for the config, so the change required only a few tweaks which I will now talk about.
@@ -243,9 +243,21 @@ esac
 exit 0
 ```
 
+### Notifications
+
+In i3 I used [dunst] to handle notifications.
+Unfortunately it's not [yet ready][dunst-264] to work with wayland.
+I found [mako] to be a good replacement.  
+Using `mako` is dead simple. 
+After installation an additional line `exec mako` in the sway config file does the job.
 
 
+
+[i3]: https://i3wm.org/
 [xserver]: https://en.wikipedia.org/wiki/X.Org_Server
 [wayland]: https://en.wikipedia.org/wiki/Wayland_(display_server_protocol) 
 [sway]: https://swaywm.org/
 [sway-archwiki]: https://wiki.archlinux.org/index.php/Sway
+[dunst]: https://dunst-project.org/
+[dunst-264]: https://github.com/dunst-project/dunst/issues/264
+[mako]: https://github.com/emersion/mako
