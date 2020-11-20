@@ -1,0 +1,62 @@
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: nextcloud - dotcs.me</title><link href="https://dotcs.me/feeds/tags/nextcloud.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me//tags/nextcloud" rel="alternate" type="text/html"/><updated>2020-11-20T07:02:24.362Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/</id><entry><title>Nextcloud: Migrate from SQLite to PostgreSQL</title><published>2020-05-11T11:28:00Z</published><updated>2020-05-11T11:28:00Z</updated><id>https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql</id><link href="https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql"/><summary>This article describes how to migrate a Docker based Nextcloud instance from SQLite to PostgeSQL.</summary><content type="html" xml:base="https://dotcs.me/posts/nextcloud-migrate-sqlite-to-postgesql">&lt;p&gt;I recently changed the database in my personal Nextcloud instance.
+Migrating databases is quite simple and took about an hour in my instance (~70GB of data).
+I noticed a huge improvement in speed when using the PostgreSQL database – especially when it comes to concurrent access of multiple users.&lt;/p&gt;
+&lt;p&gt;I'm running Nextcloud in a Docker container, so this post describes the procedure when using Docker containers.
+It might be slightly different in cases where Nextcloud has been directly installed to the server.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;I have done the migration in Nextcloud 18.0.4. Older or newer versions might differ, so please be careful.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="step-0-preparations"&gt;&lt;a class="markdownIt-Anchor" href="#step-0-preparations"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 0: Preparations&lt;/h2&gt;
+&lt;p&gt;Make sure to backup old data – especially the SQLite database file.
+In case the migration will fail your original database will be left untouched, but still it's good to have a backup in case things are messed up accidentally.&lt;/p&gt;
+&lt;h2 id="step-1-stop-routing-traffic-to-the-nextcloud-instance"&gt;&lt;a class="markdownIt-Anchor" href="#step-1-stop-routing-traffic-to-the-nextcloud-instance"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 1: Stop routing traffic to the Nextcloud instance&lt;/h2&gt;
+&lt;p&gt;Make sure to stop any traffic to the instance.
+In my case I disabled the rules in the reverse proxy which sits in front of my Nextcloud application, so that the instance does not receive any traffic and thus updates/modifications during the migration phase.&lt;/p&gt;
+&lt;h2 id="step-2-add-database-to-docker-composeyaml"&gt;&lt;a class="markdownIt-Anchor" href="#step-2-add-database-to-docker-composeyaml"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 2: Add database to &lt;code&gt;docker-compose.yaml&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Let's first add a database to our &lt;code&gt;docker-compose.yaml&lt;/code&gt;.
+The sample below shows the absolute minimum configuration to run a Nextcloud instance with a PostgreSQL database.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-attr"&gt;services:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;nextcloud:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;image:&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;nextcloud:18.0.4&amp;quot;&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;ports:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;8080:80&amp;quot;&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;volumes:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;./data:/var/www/html&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;db:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;image:&lt;/span&gt; &lt;span class="hljs-string"&gt;postgres:9.6&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;environment:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_USER=ncuser&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_PASSWORD=secret&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;POSTGRES_DB=ncdb&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;volumes:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;./db:/var/lib/postgresql/data&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After the &lt;code&gt;db&lt;/code&gt; service has been added make sure to start the database by running &lt;code&gt;docker-compose up&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="step-3-run-migration"&gt;&lt;a class="markdownIt-Anchor" href="#step-3-run-migration"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 3: Run migration&lt;/h2&gt;
+&lt;p&gt;Now comes the database migration.
+Fortunately the Nextcloud developers provide a tool for that which can be used to essentially make this a one-liner.&lt;/p&gt;
+&lt;p&gt;First connect to the running &lt;code&gt;nextcloud&lt;/code&gt; instance as user &lt;code&gt;www-data&lt;/code&gt;&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose &lt;span class="hljs-built_in"&gt;exec&lt;/span&gt; -u www-data nextcloud bash&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;then run the database conversion script&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; ./occ db:convert-type --port 5432 --all-apps --clear-schema pgsql ncuser db ncdb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The arguments &lt;code&gt;ncuser&lt;/code&gt; (database user) and &lt;code&gt;ncdb&lt;/code&gt; (database name) might differ depending on your setup.
+The tool will interactively ask for your password and once it has access start the migration.
+Both flags &lt;code&gt;--all-apps&lt;/code&gt; and &lt;code&gt;--clear-schema&lt;/code&gt; are optional.
+The first one define if database tables of deactivated apps should be migrated or not.
+The second one drops tables in the target database in case they have been existing before the migration.&lt;/p&gt;
+&lt;p&gt;This might take a while.
+For me it took under an hour for a Nextcloud instance that has a size of about 70GB.&lt;/p&gt;
+&lt;h2 id="step-4-confirm-that-config-has-been-updated"&gt;&lt;a class="markdownIt-Anchor" href="#step-4-confirm-that-config-has-been-updated"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 4: Confirm that config has been updated&lt;/h2&gt;
+&lt;p&gt;After the database has been migrated successfully check that the config file has been updated properly.
+It should list &lt;code&gt;dbtype&lt;/code&gt; as &lt;code&gt;pgsql&lt;/code&gt; and have values for the properties &lt;code&gt;dbname&lt;/code&gt;, &lt;code&gt;dbhost&lt;/code&gt;, &lt;code&gt;dbuser&lt;/code&gt; and &lt;code&gt;dbpassword&lt;/code&gt;.
+This can be checked with the following command:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose &lt;span class="hljs-built_in"&gt;exec&lt;/span&gt; -u www-data nextcloud bash -c &lt;span class="hljs-string"&gt;&amp;quot;cat /var/www/html/config/config.php | grep db[a-z]&amp;quot;&lt;/span&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Restart the service once so that the new config is read and applied.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; docker-compose restart&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="step-5-start-routing-traffic-to-the-nextcloud-instance"&gt;&lt;a class="markdownIt-Anchor" href="#step-5-start-routing-traffic-to-the-nextcloud-instance"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 5: Start routing traffic to the Nextcloud instance&lt;/h2&gt;
+&lt;p&gt;You can now start to route traffic again to the instance.
+Now the PostgreSQL database will be used instead of the SQLite database file.
+Well done! :)&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="nextcloud"/><category term="tech"/></entry></feed>

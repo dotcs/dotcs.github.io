@@ -1,0 +1,42 @@
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: pihole - dotcs.me</title><link href="https://dotcs.me/feeds/tags/pihole.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me//tags/pihole" rel="alternate" type="text/html"/><updated>2020-11-20T07:02:24.512Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/</id><entry><title>Pi-hole User Group Management</title><published>2020-11-18T08:10:34+01:00</published><updated>2020-11-18T08:10:34+01:00</updated><id>https://dotcs.me/posts/pihole-group-mgmt</id><link href="https://dotcs.me/posts/pihole-group-mgmt"/><summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary><content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
+This means that by default all devices share the same filter lists, so effectively ads are blocked on all devices.&lt;/p&gt;
+&lt;p&gt;This setup is most likely the setup most people need and prefer.
+For our home it's not working, because some devices should see clear and unfiltered DNS entries.
+Let's see how we can exclude certain devices from the filter lists.&lt;/p&gt;
+&lt;h2 id="pi-hole-group-management"&gt;&lt;a class="markdownIt-Anchor" href="#pi-hole-group-management"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Pi-hole Group Management&lt;/h2&gt;
+&lt;p&gt;Since &lt;a href="https://pi-hole.net/2020/05/10/pi-hole-v5-0-is-here/#page-content"&gt;Pi-hole v5.0&lt;/a&gt;, which has been released in 2020-05, groups can be configured.
+Known devices can be put into groups which can have different filter lists assigned to them.
+The group management can be found under &lt;code&gt;http(s)://my-pi.hole/admin/groups.php&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In my setup I created a group for all my devices which I named &lt;code&gt;dotcs&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-groups.png" alt="Pi-hole Admin: Group management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Group management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;By default this group does nothing.
+First devices need to be assigned to the group.
+Those settings can be found under &lt;code&gt;http(s)://my-pi.hole/admin/groups-clients.php&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-devices.png" alt="Pi-hole Admin: Device management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Device management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;After that the adlists need to be configured and attached to the group.
+In my case I removed all of the lists from the &lt;code&gt;default&lt;/code&gt; group and attached them only to the &lt;code&gt;dotcs&lt;/code&gt; group.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-adlists.png" alt="Pi-hole Admin: Adlist management" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Adlist management&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;With this configuration all devices listed in the &lt;code&gt;dotcs&lt;/code&gt; group see filtered DNS entries whereas all other devices see unfiltered DNS entries.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Thanks to the Pi-hole developers for this awesome feature and please consider &lt;a href="https://pi-hole.net/donate/"&gt;donating to the project&lt;/a&gt; if you like it.&lt;/em&gt;&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="notes"/><category term="pihole"/><category term="tech"/></entry></feed>

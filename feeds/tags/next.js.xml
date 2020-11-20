@@ -1,0 +1,73 @@
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: next.js - dotcs.me</title><link href="https://dotcs.me/feeds/tags/next.js.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me//tags/next.js" rel="alternate" type="text/html"/><updated>2020-11-20T07:02:24.460Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/</id><entry><title>How to deploy a Next.js application to GitHub pages</title><published>2020-11-16T22:56:02+01:00</published><updated>2020-11-17T08:40:38+01:00</updated><id>https://dotcs.me/posts/nextjs-github-pages</id><link href="https://dotcs.me/posts/nextjs-github-pages"/><summary>In this post I discuss which tweaks are necessary to deploy a Next.js project exported as static HTML files to GitHub pages.</summary><content type="html" xml:base="https://dotcs.me/posts/nextjs-github-pages">&lt;p&gt;&lt;a href="https://nextjs.org"&gt;Next.js&lt;/a&gt; is becoming very popular - for good reasons.
+To me it's one of the best frameworks out there to create all kinds of web pages that are based on &lt;a href="https://reactjs.org"&gt;React&lt;/a&gt;.
+Since Next.js does allow for full server-side rendering and &lt;a href="https://nextjs.org/docs/advanced-features/static-html-export"&gt;static html exports&lt;/a&gt;, pages can be rendered completely on the server and delivered to the client as dump static HTML pages with a little bit of CSS and JavaScript where needed.
+This makes them perfectly suitable to be hosted on &lt;a href="https://pages.github.com"&gt;GitHub pages&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;My first thought was: Yeah, easy let's do this quickly.
+But not so fast!
+I've leared that there are a few things that require tweaks.&lt;/p&gt;
+&lt;h2 id="use-github-actions-to-build-and-export-nextjs-pages"&gt;&lt;a class="markdownIt-Anchor" href="#use-github-actions-to-build-and-export-nextjs-pages"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Use GitHub Actions to build and export Next.js pages&lt;/h2&gt;
+&lt;p&gt;I use GitHub actions to build the static pages.
+The corresponding project setting is set to deliver pages from the &lt;code&gt;gh-pages&lt;/code&gt; branch.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/nextjs-github-pages/github-pages-settings.png" alt="GitHub Pages settings to deliver from branch gh-pages" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;GitHub Pages settings to deliver from branch gh-pages&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;The corresponding &lt;code&gt;.github/workflows/gh-pages.yml&lt;/code&gt; is simple.
+Note that the &lt;code&gt;npm run export&lt;/code&gt; script has an enviroment variable &lt;code&gt;DEPLOY_TARGET: gh-pages&lt;/code&gt; attached to it.
+This env variable will be used in the second step.
+In the deploy step the branch is set to &lt;code&gt;gh-pages&lt;/code&gt; and we deliver results from the &lt;code&gt;out&lt;/code&gt; folder, which is the default target folder for the &lt;code&gt;next export&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;Also note that the pipelie creates the (empty) file &lt;code&gt;out/.nojekyll&lt;/code&gt;.
+This is necessary to bypass Jekyll processing on GitHub pages as mentioned &lt;a href="https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/"&gt;here&lt;/a&gt;.
+Otherwise folders that start with an underscore are ignored, but Next.js puts merged assets, e.g. CSS and JS files, into a folder &lt;code&gt;_next&lt;/code&gt;. 😵&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Build&lt;/span&gt; &lt;span class="hljs-string"&gt;and&lt;/span&gt; &lt;span class="hljs-string"&gt;Deploy&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;on:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;push:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;branches:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-string"&gt;master&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;jobs:&lt;/span&gt;
+  &lt;span class="hljs-attr"&gt;build-and-deploy:&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;runs-on:&lt;/span&gt; &lt;span class="hljs-string"&gt;ubuntu-latest&lt;/span&gt;
+    &lt;span class="hljs-attr"&gt;steps:&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Checkout&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;actions/checkout@v2.3.1&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;with:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;persist-credentials:&lt;/span&gt; &lt;span class="hljs-literal"&gt;false&lt;/span&gt;
+
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Install&lt;/span&gt; &lt;span class="hljs-string"&gt;and&lt;/span&gt; &lt;span class="hljs-string"&gt;Build&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;actions/setup-node@v1&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;install&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;run&lt;/span&gt; &lt;span class="hljs-string"&gt;build&lt;/span&gt;     &lt;span class="hljs-comment"&gt;# runs `next build`&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;npm&lt;/span&gt; &lt;span class="hljs-string"&gt;run&lt;/span&gt; &lt;span class="hljs-string"&gt;export&lt;/span&gt;    &lt;span class="hljs-comment"&gt;# runs `next export`&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;env:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;CI:&lt;/span&gt; &lt;span class="hljs-literal"&gt;true&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;DEPLOY_TARGET:&lt;/span&gt; &lt;span class="hljs-string"&gt;gh-pages&lt;/span&gt;
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;run:&lt;/span&gt; &lt;span class="hljs-string"&gt;touch&lt;/span&gt; &lt;span class="hljs-string"&gt;out/.nojekyll&lt;/span&gt;
+
+      &lt;span class="hljs-bullet"&gt;-&lt;/span&gt; &lt;span class="hljs-attr"&gt;name:&lt;/span&gt; &lt;span class="hljs-string"&gt;Deploy&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;uses:&lt;/span&gt; &lt;span class="hljs-string"&gt;JamesIves/github-pages-deploy-action@3.7.1&lt;/span&gt;
+        &lt;span class="hljs-attr"&gt;with:&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;GITHUB_TOKEN:&lt;/span&gt; &lt;span class="hljs-string"&gt;${{&lt;/span&gt; &lt;span class="hljs-string"&gt;secrets.GITHUB_TOKEN&lt;/span&gt; &lt;span class="hljs-string"&gt;}}&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;BRANCH:&lt;/span&gt; &lt;span class="hljs-string"&gt;gh-pages&lt;/span&gt;  &lt;span class="hljs-comment"&gt;# The branch the action should deploy to.&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;FOLDER:&lt;/span&gt; &lt;span class="hljs-string"&gt;out&lt;/span&gt;       &lt;span class="hljs-comment"&gt;# The folder the action should deploy.&lt;/span&gt;
+          &lt;span class="hljs-attr"&gt;CLEAN:&lt;/span&gt; &lt;span class="hljs-literal"&gt;true&lt;/span&gt;       &lt;span class="hljs-comment"&gt;# Automatically remove deleted files from the deploy branch&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="rewrite-paths-to-static-files"&gt;&lt;a class="markdownIt-Anchor" href="#rewrite-paths-to-static-files"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Rewrite paths to static files&lt;/h2&gt;
+&lt;p&gt;When serving websites via &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt; any static assets must point to &lt;code&gt;&amp;lt;username&amp;gt;.github.io/&amp;lt;projectname&amp;gt;&lt;/code&gt; with &lt;code&gt;&amp;lt;projectname&amp;gt;&lt;/code&gt; being the name of the repository (typically again &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt;).
+GitHub Pages rewrites some paths internally, so that they &lt;strong&gt;appear&lt;/strong&gt; to come from &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt;, but things will not work out if the &lt;code&gt;&amp;lt;projectname&amp;gt;&lt;/code&gt; part is missing.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;next export&lt;/code&gt; allows to set a &lt;code&gt;assetPrefix&lt;/code&gt;, which tweaking the URL paths and re-write them from &lt;code&gt;/&lt;/code&gt; to &lt;code&gt;/&amp;lt;assetPrefix&amp;gt;/&lt;/code&gt;.
+This can be configured in the project's &lt;code&gt;next.config.js&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;const&lt;/span&gt; ghPages = process.env.DEPLOY_TARGET === &lt;span class="hljs-string"&gt;&amp;#x27;gh-pages&amp;#x27;&lt;/span&gt;;
+
+&lt;span class="hljs-built_in"&gt;module&lt;/span&gt;.exports = {
+  &lt;span class="hljs-attr"&gt;assetPrefix&lt;/span&gt;: ghPages ? &lt;span class="hljs-string"&gt;&amp;#x27;/dotcs.github.io/&amp;#x27;&lt;/span&gt; : &lt;span class="hljs-string"&gt;&amp;#x27;&amp;#x27;&lt;/span&gt;   &lt;span class="hljs-comment"&gt;// customize this value&lt;/span&gt;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;With this line in place we detect if we're executed by the GitHub Action runner and re-write paths accordingly.&lt;/p&gt;
+&lt;h2 id="success"&gt;&lt;a class="markdownIt-Anchor" href="#success"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Success&lt;/h2&gt;
+&lt;p&gt;With those tweaks Next.js pages can be hosted via GitHub pages easily.
+You just need to be aware of them. 😉&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="next.js"/><category term="notes"/><category term="tech"/></entry></feed>
