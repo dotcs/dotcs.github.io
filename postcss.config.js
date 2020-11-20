@@ -13,6 +13,10 @@ module.exports = {
                     // Custom component definitions
                     /^x-/,
 
+                    // Tailwind rules that are used elsewhere, e.g. in markdown content
+                    /^rounded-/,
+                    /^max-w-/,
+
                     // Plugins
                     /^hljs-?/, // highlight.js css rules
                 ],
