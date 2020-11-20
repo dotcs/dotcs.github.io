@@ -44,6 +44,12 @@ const Footer: FC = () => (
                         </a>
                     </Link>
                 </li>
+                <li className="px-2 mb-2 sm:mb-0">
+                    <a href="https://github.com/dotcs" target="_blank" rel="noreferrer" className="x-link">
+                        <i className="lab la-github"></i>
+                        dotcs
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
