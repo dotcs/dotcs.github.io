@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.1
@@ -14,12 +14,18 @@ jobs:
 
       - name: Install and Build
         uses: actions/setup-node@v1
+        with:
+          always-auth: false
+          node-version: 13.x
       - run: npm install
       - run: npm run build
       - run: npm run export
         env:
           CI: true
           DEPLOY_TARGET: gh-pages
+      - run: "npm run feeds:atom"
+        env:
+          NODE_ENV: production
       - run: touch out/.nojekyll
 
       - name: Deploy

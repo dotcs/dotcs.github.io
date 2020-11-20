@@ -36,14 +36,14 @@ const Footer: FC = () => (
                         <a className="x-link">Sponsor me</a>
                     </Link>
                 </li> */}
-                {/* <li className="px-2 mb-2 sm:mb-0">
+                <li className="px-2 mb-2 sm:mb-0">
                     <Link href="/pages/[slug]" as="/pages/feeds">
                         <a className="x-link">
                             <i className="las la-rss"></i>
                             Feeds
                         </a>
                     </Link>
-                </li> */}
+                </li>
             </ul>
         </div>
     </div>
