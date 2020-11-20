@@ -11,8 +11,6 @@ import { Post } from '../types';
 // Atom Spec: https://validator.w3.org/feed/docs/atom.html
 // Atom Validator: https://validator.w3.org/feed/check.cgi
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 type FeedType = 'all_posts' | 'tag';
 
 interface FeedCfg {
@@ -20,20 +18,35 @@ interface FeedCfg {
     tag?: string;
 }
 
-const getFeedPaths = (type: FeedType, tag?: string) => {
+type FeedCreator = (
+    cfg: FeedCfg,
+    pretty?: boolean
+) => {
+    xml: string;
+    xmlPath: string;
+};
+
+/**
+ * Returns paths to the XML feed file and to the corresponding HTML page
+ * (absolute URLs).
+ */
+const getPaths = (type: FeedType, tag?: string) => {
     let xml = 'feeds/index.xml';
     let html = '/';
     if (type === 'tag') {
         if (!tag) {
             throw new Error('Tag must be defined');
         }
-        xml = `feeds/tags/${tag}.xml`;
+        xml = `/feeds/tags/${tag}.xml`;
         html = `/tags/${tag}`;
     }
     return { xml, html };
 };
 
-const gettFeedTitle = (type: FeedType, tag?: string) => {
+/**
+ * Returns the feed title.
+ */
+const getFeedTitle = (type: FeedType, tag?: string) => {
     switch (type) {
         case 'all_posts':
             return pageSettings.title;
@@ -42,6 +55,9 @@ const gettFeedTitle = (type: FeedType, tag?: string) => {
     }
 };
 
+/**
+ * Returns all relevant posts for a type (and tag).
+ */
 const getPosts = (type: FeedType, tag?: string): Post[] => {
     switch (type) {
         case 'all_posts': {
@@ -57,9 +73,12 @@ const getPosts = (type: FeedType, tag?: string): Post[] => {
     }
 };
 
-const buildFeed = (cfg: FeedCfg) => {
-    const { xml: xmlPath, html: htmlPath } = getFeedPaths(cfg.type, cfg.tag);
-    const feedTitle = gettFeedTitle(cfg.type, cfg.tag);
+/**
+ * Creates an Atom Feed based on the feed configuration values.
+ */
+const createFeed: FeedCreator = (cfg, pretty = false) => {
+    const { xml: xmlPath, html: htmlPath } = getPaths(cfg.type, cfg.tag);
+    const feedTitle = getFeedTitle(cfg.type, cfg.tag);
     const posts = getPosts(cfg.type, cfg.tag);
 
     const now = new Date();
@@ -69,12 +88,12 @@ const buildFeed = (cfg: FeedCfg) => {
             '@xmlns': 'http://www.w3.org/2005/Atom',
             title: feedTitle,
             link: [
-                { '@href': `${pageSettings.baseUrl}/${xmlPath}`, '@rel': 'self', '@type': 'application/atom+xml' },
-                { '@href': `${pageSettings.baseUrl}/${htmlPath}`, '@rel': 'alternate', '@type': 'text/html' },
+                { '@href': `${pageSettings.baseUrl}${xmlPath}`, '@rel': 'self', '@type': 'application/atom+xml' },
+                { '@href': `${pageSettings.baseUrl}${htmlPath}`, '@rel': 'alternate', '@type': 'text/html' },
             ],
             updated: now.toISOString(),
             author: [{ name: 'dotcs' }],
-            id: pageSettings.baseUrl + '/',
+            id: `${pageSettings.baseUrl}${xmlPath}`,
             entry: posts.map((p) => {
                 const pageHref = pageSettings.baseUrl + '/posts/' + p.attributes.slug;
                 return {
@@ -98,11 +117,12 @@ const buildFeed = (cfg: FeedCfg) => {
         },
     };
 
-    const xml = builder.create(feed).end({ pretty: !isProduction });
-    fs.writeFileSync(`out/${xmlPath}`, xml);
+    const xml = builder.create(feed).end({ pretty });
+    return { xml, xmlPath };
 };
 
 const run = () => {
+    const isProduction = process.env.NODE_ENV === 'production';
     fs.mkdirSync('out/feeds/tags', { recursive: true });
 
     // Configure and generate all feeds
@@ -113,8 +133,13 @@ const run = () => {
     feedCgfs.push({ type: 'all_posts' });
 
     for (const cfg of feedCgfs) {
-        buildFeed(cfg);
+        const { xml, xmlPath } = createFeed(cfg, !isProduction);
+
+        // Save feed to out folder.
+        fs.writeFileSync(`out/${xmlPath}`, xml);
     }
 };
 
-run();
+if (require.main === module) {
+    run();
+}
