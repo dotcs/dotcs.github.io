@@ -62,4 +62,8 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
 // Overwrite image renderer, so that custom renderer is used instead.
 md.renderer.rules.image = customImageRender;
 
+// Overwrite table tags, to that table is wrapped by div.
+md.renderer.rules.table_open  = () => '<div class="overflow-x-auto"><table>';
+md.renderer.rules.table_close = () => '</table></div>';
+
 export default md;
