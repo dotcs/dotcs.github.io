@@ -8,6 +8,9 @@ published_at: "2020-01-01T00:00:00Z"
 updated_at: "2020-01-01T01:00:00Z"
 ---
 
+<!-- ![Profile picture of myself](/about/dotcs-profile.png) -->
+<img src="/about/dotcs-profile.png" alt="Profile picture of myself" class="rounded-full max-w-xs mx-auto mb-8" />
+
 This place is a good start to learn more about me.
 This site is my personal weblog and a way for people to get in touch with me.
 
