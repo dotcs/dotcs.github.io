@@ -963,7 +963,7 @@ html {
   border-radius: 0.125rem;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 
 .x-post pre,

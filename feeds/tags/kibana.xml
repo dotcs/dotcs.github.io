@@ -1,0 +1,334 @@
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: kibana - dotcs.me</title><link href="https://dotcs.me/feeds/tags/kibana.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/kibana" rel="alternate" type="text/html"/><updated>2020-11-20T12:27:43.313Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/kibana.xml</id><entry><title>Evaluate data from Komoot with Elasticsearch and Kibana</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/komoot-analysis-with-kibana</id><link href="https://dotcs.me/posts/komoot-analysis-with-kibana"/><summary>In my spare time I like to travel by bike. As a data enthusiast it's no question to track my trips using services such as Komoot. Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers. In this post I discuss how to extract data from Komoot and evaluate the data with Elasticsearch.</summary><content type="html" xml:base="https://dotcs.me/posts/komoot-analysis-with-kibana">&lt;p&gt;In my spare time I like to travel by bike.
+As a data enthusiast it's no question to track my trips using services such as &lt;a href="https://www.komoot.de/"&gt;Komoot&lt;/a&gt;.
+Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers.
+Most of the time it is not enough tough.
+Having access to the raw data allows to do further analysis and implement highly customized charts.&lt;/p&gt;
+&lt;h2 id="table-of-content"&gt;&lt;a class="markdownIt-Anchor" href="#table-of-content"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Table of content&lt;/h2&gt;
+&lt;p&gt;For convenience this post is divided in five sections:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="#preconditions"&gt;Preconditons&lt;/a&gt;&lt;br&gt;
+In this section the necessary tools are explained and installed on your developer machine.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#data-mining"&gt;Data mining&lt;/a&gt;&lt;br&gt;
+In this section the raw data is accessed which will be further analyzed in later steps.
+No advanced techniques are used for data mining as the focus in this post lies on the next two steps.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#data-preprocessing"&gt;Data preprocessing&lt;/a&gt;&lt;br&gt;
+Using the raw data it's possible to pre-process them in order to simplify the data analysis in the next step.
+In this step the data will also be imported into the database.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#data-analysis-and-visualization"&gt;Data analysis and visualization&lt;/a&gt;&lt;br&gt;
+Custom analysis and charts are implemented in this section.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#summary-and-outlook"&gt;Sumary and outlook&lt;/a&gt;&lt;br&gt;
+Having all the data available in Elasticsearch it's possible to do a lot more.
+This outlook will give a few more ideas what to do next.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Let's start!&lt;/p&gt;
+&lt;h2 id="preconditions"&gt;&lt;a class="markdownIt-Anchor" href="#preconditions"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Preconditions&lt;/h2&gt;
+&lt;p&gt;To analyze the data the so called &lt;a href="https://www.elastic.co/de/webinars/introduction-elk-stack"&gt;ELK-Stack or Elastic Stack&lt;/a&gt; (Elasticsearch, Logstash, Kibana) is used.&lt;/p&gt;
+&lt;p&gt;An instance of Elasticsearch and Kibana is required to run on the machine in order to analyze the data later on.
+To simplify the setup process it's best to not install them directly on the development machine but use &lt;a href="https://www.docker.com/"&gt;docker&lt;/a&gt; to manage the tools in a virtual environment.
+By doing so environments are separated, which means that it doesn't matter what operating system your working machine runs - Windows, macOS or Linux - and what versions of tools you have installed.
+The containers are isolated and describe their own system and dependencies.
+In case you haven't used docker yet, make sure to &lt;a href="https://www.docker.com/community-edition"&gt;install docker first&lt;/a&gt;.
+To get started quickly I have created a &lt;a href="https://github.com/dotcs/komoot-elk-jupyter"&gt;dockerized environment&lt;/a&gt; that can be used directly.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# clone the Docker Elastic Stack description into the folder named komoot-analysis&lt;/span&gt;
+git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; https://github.com/dotcs/komoot-elk-jupyter.git
+
+&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; komoot-elk-jupyter    &lt;span class="hljs-comment"&gt;# change to this directory&lt;/span&gt;
+docker-compose up        &lt;span class="hljs-comment"&gt;# spin up the ELK stack and jupyter&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;docker-compose&lt;/code&gt; will spin up a network in which one instance of each, Elasticsearch, Logstash, Kibana and Jupyter, is running.
+They share the same network configuration so that they can talk to each other.&lt;/p&gt;
+&lt;p&gt;If everything went fine the following links should work on your developer machine:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kibana: &lt;a href="http://localhost:5601"&gt;http://localhost:5601&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Jupyter: &lt;a href="http://localhost:8888"&gt;http://localhost:8888&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;small&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: On a Mac Docker runs inside VirtualBox.
+Typically the IP of this machine is not bound to localhost, so the links might not work.
+Make sure to use the correct one by running &lt;code&gt;docker-machine ip default&lt;/code&gt;, where &lt;code&gt;default&lt;/code&gt; is the name of the machine in my case.&lt;/p&gt;
+&lt;/small&gt;
+&lt;p&gt;Alright, we've finished the first step in which we spun up a complex development environment that allows for intensive data analysis.
+Now everything is set up to continue gathering the data.
+Let's move on!&lt;/p&gt;
+&lt;h2 id="data-mining"&gt;&lt;a class="markdownIt-Anchor" href="#data-mining"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Data mining&lt;/h2&gt;
+&lt;p&gt;While Komoot provides an &lt;a href="https://static.komoot.de/doc/api/stable/v007/latest/index.html"&gt;experimental API&lt;/a&gt;, it seems impossible to create an application token without participating in some kind of beta program.
+&lt;a href="https://github.com/komoot/komoot-oauth2-connect-example/issues/2"&gt;My issue&lt;/a&gt; in the corresponding github project has not been answered yet, so a workaround is necessary to get access to the data.&lt;/p&gt;
+&lt;p&gt;Fortunately it's easy to call the official API endpoints from the browser when logged in into their web application, because it uses the very same API.
+For the necessary API call you must be aware of your personal &lt;code&gt;USER_ID&lt;/code&gt;.
+It can be extracted from the link to the profile in the web application, which has the following schema: &lt;code&gt;https://www.komoot.de/user/{USER_ID}&lt;/code&gt;.
+In my case it is &lt;code&gt;320477127324&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;In order to fetch your latest data in JSON format, use the following URL: &lt;code&gt;https://www.komoot.de/api/v007/users/{USER_ID}/tours/&lt;/code&gt;.
+Save the content of this file to &lt;code&gt;jupyter-notebooks/data/komoot.json&lt;/code&gt;, it will be needed in the next step.&lt;/p&gt;
+&lt;h3 id="data-sample"&gt;&lt;a class="markdownIt-Anchor" href="#data-sample"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Data sample&lt;/h3&gt;
+&lt;p&gt;A single entry does look like this.
+&lt;em&gt;Note that some information was omitted to save space and it's not used in this blog post anyway.&lt;/em&gt;&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;{
+  _embedded: {
+    tours: [
+      {
+        status: &lt;span class="hljs-string"&gt;&amp;quot;public&amp;quot;&lt;/span&gt;,
+        type: &lt;span class="hljs-string"&gt;&amp;quot;tour_recorded&amp;quot;&lt;/span&gt;,
+        date: &lt;span class="hljs-string"&gt;&amp;quot;2017-06-03T14:14:37.000+02:00&amp;quot;&lt;/span&gt;,
+        name: &lt;span class="hljs-string"&gt;&amp;quot;Runde an der Würm entlang&amp;quot;&lt;/span&gt;,
+        distance: &lt;span class="hljs-number"&gt;42980.88913041058&lt;/span&gt;,
+        duration: &lt;span class="hljs-number"&gt;7660&lt;/span&gt;,
+        sport: &lt;span class="hljs-string"&gt;&amp;quot;touringbicycle&amp;quot;&lt;/span&gt;,
+        _links: {
+          creator: { href: &lt;span class="hljs-string"&gt;&amp;quot;http://api.komoot.de/v007/users/320477127324/profile_embedded&amp;quot;&lt;/span&gt; },
+          self: { href: &lt;span class="hljs-string"&gt;&amp;quot;http://api.komoot.de/v007/tours/17503590?_embedded=&amp;quot;&lt;/span&gt; },
+          coordinates: { href: &lt;span class="hljs-string"&gt;&amp;quot;http://api.komoot.de/v007/tours/17503590/coordinates&amp;quot;&lt;/span&gt; }
+        },
+        id: &lt;span class="hljs-number"&gt;17503590&lt;/span&gt;,
+        changed_at: &lt;span class="hljs-string"&gt;&amp;quot;2017-06-03T15:06:51.000Z&amp;quot;&lt;/span&gt;,
+        kcal_active: &lt;span class="hljs-number"&gt;880&lt;/span&gt;,
+        kcal_resting: &lt;span class="hljs-number"&gt;154&lt;/span&gt;,
+        start_point: {
+          lat: &lt;span class="hljs-number"&gt;48.795956&lt;/span&gt;,
+          lng: &lt;span class="hljs-number"&gt;8.85&lt;/span&gt;,
+          alt: &lt;span class="hljs-number"&gt;426&lt;/span&gt;
+        },
+        elevation_up: &lt;span class="hljs-number"&gt;548.1543636580948&lt;/span&gt;,
+        elevation_down: &lt;span class="hljs-number"&gt;544.0455472560726&lt;/span&gt;,
+        time_in_motion: &lt;span class="hljs-number"&gt;7236&lt;/span&gt;,
+        map_image: { &lt;span class="hljs-comment"&gt;/* ... */&lt;/span&gt; },
+        map_image_preview: { &lt;span class="hljs-comment"&gt;/* ... */&lt;/span&gt; },
+        _embedded: {
+          creator: { &lt;span class="hljs-comment"&gt;/* ... */&lt;/span&gt; },
+          _links: { &lt;span class="hljs-comment"&gt;/* ... */&lt;/span&gt; } },
+          display_name: &lt;span class="hljs-string"&gt;&amp;quot;Fabian Müller&amp;quot;&lt;/span&gt;
+          }
+        }
+      },
+      &lt;span class="hljs-comment"&gt;/* ... other tour entries ... */&lt;/span&gt;
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="data-preprocessing"&gt;&lt;a class="markdownIt-Anchor" href="#data-preprocessing"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Data preprocessing&lt;/h2&gt;
+&lt;p&gt;To analyze the data it needs to be imported into Elasticsearch first.
+To do so I'll preprocess the data using Python with Pandas.&lt;/p&gt;
+&lt;small&gt;
+&lt;p&gt;&lt;strong&gt;Hint&lt;/strong&gt;: All steps in this section can be found in the Jupyter notebook located in &lt;code&gt;jupyter-notebooks/komoot-elk-preprocessing.ipynb&lt;/code&gt;.
+I'll explain step by step what each step does.
+The repo comes with some sample data which is located in &lt;code&gt;jupyter-notebooks/data/komoot-sample-data.json&lt;/code&gt;.
+In case you haven't dowwnloaded your own data you can also use this data to get started - although it's boring because it only comes with three entries. ;-)&lt;/p&gt;
+&lt;/small&gt;
+&lt;p&gt;Create a new notebook by opening &lt;a href="http://localhost:8888"&gt;Jupyter&lt;/a&gt; and click on &lt;code&gt;New &amp;gt; Notebook &amp;gt; Python 3&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;First all necessary modules need to be imported.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;import&lt;/span&gt; json
+&lt;span class="hljs-keyword"&gt;import&lt;/span&gt; pandas &lt;span class="hljs-keyword"&gt;as&lt;/span&gt; pd
+&lt;span class="hljs-keyword"&gt;from&lt;/span&gt; pandas &lt;span class="hljs-keyword"&gt;import&lt;/span&gt; DataFrame, Series
+&lt;span class="hljs-keyword"&gt;from&lt;/span&gt; elasticsearch &lt;span class="hljs-keyword"&gt;import&lt;/span&gt; Elasticsearch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Next a connection to Elasticsearch is established.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;es = Elasticsearch(hosts=[&lt;span class="hljs-string"&gt;&amp;#x27;localhost&amp;#x27;&lt;/span&gt;], http_auth=&lt;span class="hljs-string"&gt;&amp;quot;elastic:changeme&amp;quot;&lt;/span&gt;)
+es.info()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Output:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;{
+    &lt;span class="hljs-attr"&gt;&amp;quot;cluster_name&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;docker-cluster&amp;quot;&lt;/span&gt;,
+    &lt;span class="hljs-attr"&gt;&amp;quot;cluster_uuid&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;Dvit14MhRgiEoTxfIkuzYA&amp;quot;&lt;/span&gt;,
+    &lt;span class="hljs-attr"&gt;&amp;quot;name&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;osb6xs4&amp;quot;&lt;/span&gt;,
+    &lt;span class="hljs-attr"&gt;&amp;quot;tagline&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;You Know, for Search&amp;quot;&lt;/span&gt;,
+    &lt;span class="hljs-attr"&gt;&amp;quot;version&amp;quot;&lt;/span&gt;: {
+        &lt;span class="hljs-attr"&gt;&amp;quot;build_date&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;2017-04-28T17:43:27.229Z&amp;quot;&lt;/span&gt;,
+        &lt;span class="hljs-attr"&gt;&amp;quot;build_hash&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;780f8c4&amp;quot;&lt;/span&gt;,
+        &lt;span class="hljs-attr"&gt;&amp;quot;build_snapshot&amp;quot;&lt;/span&gt;: False,
+        &lt;span class="hljs-attr"&gt;&amp;quot;lucene_version&amp;quot;&lt;/span&gt;: &amp;#x27;&lt;span class="hljs-number"&gt;6.5&lt;/span&gt;&lt;span class="hljs-number"&gt;.0&lt;/span&gt;&amp;#x27;,
+        &lt;span class="hljs-attr"&gt;&amp;quot;number&amp;quot;&lt;/span&gt;: &amp;#x27;&lt;span class="hljs-number"&gt;5.4&lt;/span&gt;&lt;span class="hljs-number"&gt;.0&lt;/span&gt;&amp;#x27;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now that the notebook and Elasticsearch are connected it's time to read the data in Python.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# Read data into python dictionary.&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# Use `data/komoot-sample-data.json` in this call to read the sample data.&lt;/span&gt;
+&lt;span class="hljs-keyword"&gt;with&lt;/span&gt; &lt;span class="hljs-built_in"&gt;open&lt;/span&gt;(&lt;span class="hljs-string"&gt;&amp;#x27;data/komoot-sample-data.json&amp;#x27;&lt;/span&gt;) &lt;span class="hljs-keyword"&gt;as&lt;/span&gt; data_file:
+    data = json.load(data_file)
+df = DataFrame(data[&lt;span class="hljs-string"&gt;&amp;#x27;_embedded&amp;#x27;&lt;/span&gt;][&lt;span class="hljs-string"&gt;&amp;#x27;tours&amp;#x27;&lt;/span&gt;])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;First data is loaded into the &lt;code&gt;data&lt;/code&gt; variable, then only the list of tours is loaded into a pandas &lt;code&gt;DataFrame&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Before filling the data into the database it's worth to have a closer look into the data structure.
+Especially the start point of each tour seems to not match what Elasticsearch can work with.
+Elasticsearch defines so called &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-point.html"&gt;&lt;code&gt;geo_point&lt;/code&gt;s&lt;/a&gt;, which are required to have a special format.
+To make use of &lt;code&gt;geo_point&lt;/code&gt;s the format needs to be transformed a bit.
+Let's first tell Elasticsearch that it should expect a &lt;code&gt;geo_point&lt;/code&gt; here:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;mapping = &lt;span class="hljs-string"&gt;&amp;#x27;&amp;#x27;&amp;#x27;
+{
+  &amp;quot;mappings&amp;quot;: {
+    &amp;quot;tour&amp;quot;: {
+      &amp;quot;properties&amp;quot;: {
+        &amp;quot;start_point&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;geo_point&amp;quot;
+        }
+      }
+    }
+  }
+}&amp;#x27;&amp;#x27;&amp;#x27;&lt;/span&gt;
+es.indices.create(index=&lt;span class="hljs-string"&gt;&amp;#x27;komoot&amp;#x27;&lt;/span&gt;, ignore=&lt;span class="hljs-number"&gt;400&lt;/span&gt;, body=mapping)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This piece of code creates an index called &lt;code&gt;komoot&lt;/code&gt; in which it tells Elasticsearch to expect &lt;code&gt;start_point&lt;/code&gt; to be of type &lt;code&gt;geo_point&lt;/code&gt;.
+The &lt;a href="https://www.elastic.co/blog/index-vs-type"&gt;document type&lt;/a&gt; is called &lt;code&gt;tour&lt;/code&gt; in the index.
+It's necessary to transform the data before sending it to Elasticsearch:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;df[&lt;span class="hljs-string"&gt;&amp;#x27;start_point&amp;#x27;&lt;/span&gt;] = df[&lt;span class="hljs-string"&gt;&amp;#x27;start_point&amp;#x27;&lt;/span&gt;]\
+    .&lt;span class="hljs-built_in"&gt;map&lt;/span&gt;(&lt;span class="hljs-keyword"&gt;lambda&lt;/span&gt; item: [item[&lt;span class="hljs-string"&gt;&amp;#x27;lng&amp;#x27;&lt;/span&gt;], item[&lt;span class="hljs-string"&gt;&amp;#x27;lat&amp;#x27;&lt;/span&gt;]])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This transforms the &lt;code&gt;start_point&lt;/code&gt; column from a dictionary into a list with two entries, longitude and latitude of the starting point of the tour.&lt;/p&gt;
+&lt;p&gt;Next the data can be send to Elasticsearch which will create the rest of the search index automatically based on the types of the input values.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;for&lt;/span&gt; i, row &lt;span class="hljs-keyword"&gt;in&lt;/span&gt; df.iterrows():
+    res = es.index(index=&lt;span class="hljs-string"&gt;&amp;#x27;komoot&amp;#x27;&lt;/span&gt;, doc_type=&lt;span class="hljs-string"&gt;&amp;#x27;tour&amp;#x27;&lt;/span&gt;, &lt;span class="hljs-built_in"&gt;id&lt;/span&gt;=item[&lt;span class="hljs-string"&gt;&amp;#x27;id&amp;#x27;&lt;/span&gt;], body=row.to_json())
+    print(row[&lt;span class="hljs-string"&gt;&amp;#x27;id&amp;#x27;&lt;/span&gt;], res[&lt;span class="hljs-string"&gt;&amp;#x27;result&amp;#x27;&lt;/span&gt;])
+
+&lt;span class="hljs-comment"&gt;# output&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# 17342318 created&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# 17140311 created&lt;/span&gt;
+&lt;span class="hljs-comment"&gt;# 17069942 created&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the next steps Kibana is used to query data and generate some nice plots from it.
+The remaining thing to do is to tell Kibana that komoot is the preferred index.
+To do so go to &lt;a href="http://localhost:5601"&gt;Kibana&lt;/a&gt;, log in by using the default username (&lt;code&gt;elastic&lt;/code&gt;) and password (&lt;code&gt;changeme&lt;/code&gt;) which should bring you right to the Management tab in which a default index must be selected.
+In this screen use &lt;code&gt;komoot&lt;/code&gt; as the index name, check that it contains time-based events and set the time-field name to be &lt;code&gt;date&lt;/code&gt;.
+Click on &lt;code&gt;create&lt;/code&gt; to configure the index pattern.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-index-pattern.png" alt="Kibana: Interface to configure an index pattern" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Kibana: Interface to configure an index pattern&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;h2 id="data-analysis-and-visualization"&gt;&lt;a class="markdownIt-Anchor" href="#data-analysis-and-visualization"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Data analysis and visualization&lt;/h2&gt;
+&lt;p&gt;Now comes the most interesting part - the data analysis.
+In this section charts will be built using Kibana which accesses Elasticsearch to provide real-time charts.
+In our case the data is quite sparse compared to server logs, for which Kibana is developed and where you have up to hundreds of logs per second, but nevertheless we will create charts that will change over time, so it's nice to have them encapulated in Kibana.
+After creating such charts it's only necessary to push new data to Elasticsearch to get them updated.
+It's as easy as that. Okay, let's see how this works.&lt;/p&gt;
+&lt;p&gt;We'll create three types of visualizations in this tutorial:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#tile-map-of-all-recorded-tours"&gt;A tile map of all recorded tours&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#heatmap-of-distance-over-time"&gt;A heatmap of distance over time&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="#heatmap-of-distance-over-time"&gt;A bar chart of time in motion and elevation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Also a &lt;a href="#dashboard"&gt;Dashboard containing all the previous charts&lt;/a&gt; will be created.&lt;/p&gt;
+&lt;h3 id="tile-map-of-all-recorded-tours"&gt;&lt;a class="markdownIt-Anchor" href="#tile-map-of-all-recorded-tours"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Tile map of all recorded tours&lt;/h3&gt;
+&lt;p&gt;Create a new visualization via &lt;code&gt;Visualize &amp;gt; Plus Icon (Create new visualization)&lt;/code&gt; and choose &lt;code&gt;Tile Map&lt;/code&gt;.
+On the next page select &lt;code&gt;komoot&lt;/code&gt; as the index.
+This will create a map with no content yet.&lt;/p&gt;
+&lt;p&gt;To show a heatmap based on all recorded tours, choose &lt;code&gt;Geo Coordinates&lt;/code&gt; as the bucket.
+This will automatically set up &lt;code&gt;Geohash&lt;/code&gt; as the aggregation type and the field &lt;code&gt;start_point&lt;/code&gt; since it is the only entry of type &lt;code&gt;geo_point&lt;/code&gt; in the schema of the index.
+Click tab &lt;code&gt;Options&lt;/code&gt; and choose &lt;code&gt;Heatmap&lt;/code&gt; as the map type.
+Depending on the data it might be useful to fine-tune the parameters in this tab later on.
+To only select the recorded tours and ignore the planned ones, type &lt;code&gt;type:tour_recorded&lt;/code&gt; into the search bar at the top of the screen.
+Make sure to choose a proper time span in the upper right corner (e.g. use the last two years or so).
+I cannot say how often I have forgotten to do so and wondered why there is no data to display. ;-)&lt;/p&gt;
+&lt;p&gt;Press the primary button &lt;code&gt;► (Apply Changes)&lt;/code&gt; to see your result.
+You might need to zoom in into the region where your data points are located.
+Et voilà there it is, enjoy your first heatmap!&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap.png" alt="Geo-Heatmap of recorded tours" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Geo-Heatmap of recorded tours&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Once you're satisfied with the result save the map by clicking on &lt;code&gt;Save&lt;/code&gt; at the top of the screen and choose a proper name, e.g. &amp;quot;Komoot: Geo-Heatmap of recorded tours&amp;quot;.
+This allows to add the chart to a dashboard later on.&lt;/p&gt;
+&lt;h3 id="heatmap-of-distance-over-time"&gt;&lt;a class="markdownIt-Anchor" href="#heatmap-of-distance-over-time"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Heatmap of distance over time&lt;/h3&gt;
+&lt;p&gt;Next let's see how well we are performing.
+I'd like to know how often I went for a ride and how long my rides are.&lt;/p&gt;
+&lt;p&gt;Go to &lt;code&gt;Visualize &amp;gt; Plus Icon (Create new visualization) &amp;gt; Heat Map&lt;/code&gt;.
+Again select &lt;code&gt;komoot&lt;/code&gt; as the index, and define a &lt;code&gt;Y-Axis&lt;/code&gt; first.
+Choose &lt;code&gt;Histogram&lt;/code&gt; as the aggregation type and choose &lt;code&gt;distance&lt;/code&gt; as the field.
+Define a proper interval, for me &lt;code&gt;10000&lt;/code&gt; or 10km per bucket worked fine.
+Click on &lt;code&gt;Advanced&lt;/code&gt; and set &lt;code&gt;{&amp;quot;order&amp;quot; : { &amp;quot;_key&amp;quot; : &amp;quot;desc&amp;quot; }}&lt;/code&gt; as the JSON input.
+This tells Kibana that the Histogram should be sorted by the key of each bucket.
+Click on &lt;code&gt;Add sub-buckets&lt;/code&gt; to add a &lt;code&gt;X-Axis&lt;/code&gt; and choose &lt;code&gt;Date Histogram&lt;/code&gt; as the sub-aggregation type.
+Set &lt;code&gt;date&lt;/code&gt; as the field and &lt;code&gt;Monthly&lt;/code&gt; as the interval.&lt;/p&gt;
+&lt;p&gt;Again set &lt;code&gt;type:tour_recorded&lt;/code&gt; into the search bar at the top of the screen to limit the results to the recorded tours.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap-2.png" alt="Heat map: Distance (buckets) over the time (buckets)" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Heat map: Distance (buckets) over the time (buckets)&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Once you're satisfied with the result save the map by clicking on Save at the top of the screen and choose a proper name, e.g. &amp;quot;Komoot: Heatmap distance over time&amp;quot;.
+This allows to add the chart to a dashboard later on.&lt;/p&gt;
+&lt;h3 id="bar-chart-of-time-in-motion-and-elevation"&gt;&lt;a class="markdownIt-Anchor" href="#bar-chart-of-time-in-motion-and-elevation"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Bar chart of time in motion and elevation&lt;/h3&gt;
+&lt;p&gt;Now let's see how the average time in motion varies over time and combine that with the average elevation in a given time interval.&lt;/p&gt;
+&lt;p&gt;Go to &lt;code&gt;Visualize &amp;gt; Plus Icon (Create new visualization) &amp;gt; Vertical Bar&lt;/code&gt;.
+Select &lt;code&gt;komoot&lt;/code&gt; as the index and set the &lt;code&gt;X-Axis&lt;/code&gt; to be of type &lt;code&gt;Date Histogram&lt;/code&gt;.
+Choose a &lt;code&gt;Weekly&lt;/code&gt; interval.
+Then define two &lt;code&gt;Y-Axis&lt;/code&gt;, where one has aggregation type &lt;code&gt;Average&lt;/code&gt; and field &lt;code&gt;time_in_motion&lt;/code&gt;.
+The other one is also of aggregation type &lt;code&gt;Average&lt;/code&gt; but has set &lt;code&gt;elevation_up&lt;/code&gt; as its field.&lt;/p&gt;
+&lt;p&gt;Then go to tab &lt;code&gt;Metrics &amp;amp; Axes&lt;/code&gt; and add a second &lt;code&gt;Y-Axis&lt;/code&gt;.
+Afterwards in section &lt;code&gt;Metrics&lt;/code&gt; set both axis to type &lt;code&gt;normal&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;And once again do not forget to set &lt;code&gt;type:tour_recorded&lt;/code&gt; in the search bar at the top of the screen to limit the results to the recorded tours.&lt;/p&gt;
+&lt;p&gt;This gives a nice bar chart that shows the average time in motion as well as the average upwards elevation.
+Seems like I have climbed a lot more in average in the last year than nowadays.
+Do I get old? ;-)&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-bar-chart.png" alt="Bar chart showing average time in motion and average upwards elevation" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Bar chart showing average time in motion and average upwards elevation&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;h3 id="dashboard"&gt;&lt;a class="markdownIt-Anchor" href="#dashboard"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Dashboard&lt;/h3&gt;
+&lt;p&gt;To sum up the visualization part let's create a dashboard.
+It will be used to display all charts side by side to each other.
+The main purpose is to interactively explore data.
+Since all visualizations are connected in the dashboard changing the search query or time interval will update all visualizations at once.
+Let's get started!&lt;/p&gt;
+&lt;p&gt;Click on &lt;code&gt;Dashboard &amp;gt; Plus Icon (Create new dashboard)&lt;/code&gt; to create a new dashboard.
+Then click &lt;code&gt;Add&lt;/code&gt; at the top of the screen and select the visualizations we have created before.
+You can re-arrange them as you like, also the size and position can be changed.
+To save the dashboard click &lt;code&gt;Save&lt;/code&gt; on the top of the screen and give it a proper name, e.g. &lt;code&gt;Komoot&lt;/code&gt;.
+I'd recommend to store the time by checking &lt;code&gt;Store time with dashboard&lt;/code&gt;.
+This will update the currently selected time span each time the dashboard is opened.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard.png" alt="Custom dashboard with custom visualizations in Kibana" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Custom dashboard with custom visualizations in Kibana&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;Note that you can use the search query to further reduce the number of results.
+This will automatically update all charts which is super useful if you have a bunch of charts that you want to keep in sync.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard-2.png" alt="Changing search queries will automatically update the visuals" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Changing search queries will automatically update the visuals&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;h2 id="summary-and-outlook"&gt;&lt;a class="markdownIt-Anchor" href="#summary-and-outlook"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Summary and Outlook&lt;/h2&gt;
+&lt;p&gt;Let's recap what we have done on our journey to create a dashboard with customized charts.&lt;/p&gt;
+&lt;p&gt;We used a dockerized environment to spin up containers which isolate Elasticsearch, Kibana and Jupyter.
+This technique in itself is very helpful to isolate environments and get rid of any dependency hell issues.
+I highly recommend to work in dockerized environments as these enviroments can be shared easily, such as I have done it by providing you a git repository that defines all the needed tools.&lt;/p&gt;
+&lt;p&gt;Data mining has been done by calling an API endpoint by hand and copying the data manually.
+Although it was simple to do, this is no good solution as it requires to manually log into a website to generate the necessary authentication credentials.
+I'd like to do better here, which means using the OAuth2 layer of the API, but currently this seems not possible.
+In case you can use an OAuth layer I'd recommend to do so, because by doing so the data can be requested automatically and therefore the database can be updated regularly with the latest and freshest data available.&lt;/p&gt;
+&lt;p&gt;For data preprocessing we have used Python and Pandas which I like to work with.
+Of course other tools are available and there is no need to use the tools I've used.
+Feel free to use whatever you like to work with.
+This section also gives a lot of freedom what to do next.
+Besides using Python only to preprocess data also analytics could be done here.
+As we have connected Python with the Elasticsearch database, it's easy to do queries here against the database.
+The &lt;code&gt;elasticsearch&lt;/code&gt; module comes with a large API and you should definitively have a look what else it can do.
+We could also either visualize data directly in Python using matplotlib or other libraries or maybe do some kind of Machine learning.
+Sky is the limit at this point.&lt;/p&gt;
+&lt;p&gt;After we've put the data into the database we have analyzed it using Kibana, a powerful frontend for Elasticsearch.
+We have generated our own visualizations which are easy to create and highly dynamical.
+We have created a dashboard to group multiple charts and make them dependent on the same query and time interval.
+This can be a large time saver when digging into the data to gain more and more insights.
+If you want to show your work to others, note that &lt;a href="https://www.elastic.co/guide/en/kibana/current/sharing-dashboards.html"&gt;dashboards can be shared&lt;/a&gt;.
+But note that sharing requires to have the stack running on a server, not only on your local dev machine.&lt;/p&gt;
+&lt;p&gt;I hope you enjoyed this article. Let me know if you have any questions or remarks.&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="data-pipeline"/><category term="docker"/><category term="elasticsearch"/><category term="kibana"/><category term="tech"/></entry></feed>
