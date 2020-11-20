@@ -31,7 +31,7 @@ type FeedCreator = (
  * (absolute URLs).
  */
 const getPaths = (type: FeedType, tag?: string) => {
-    let xml = 'feeds/index.xml';
+    let xml = '/feeds/index.xml';
     let html = '/';
     if (type === 'tag') {
         if (!tag) {
