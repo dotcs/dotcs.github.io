@@ -8,7 +8,7 @@ published_at: "2020-01-01T00:00:00Z"
 updated_at: "2020-01-01T01:00:00Z"
 ---
 
-All of the content on this site is produced under the Creative Commons Attribution – Share Alike 4.0 License (unless otherwise stated), which means the following:
+All of the content on this site is produced under the [Creative Commons Attribution – Share Alike 4.0 License][cc-by-sa-4.0] (unless otherwise stated), which means the following:
 
 - You are free to share, copy and redistribute the material in any medium or format.
 - You are also free to adapt, remix, transform, and build upon the material for any purpose, even commercially. 
@@ -31,3 +31,5 @@ With the plain text HTML looking like the following:
 ```
 Credit to <a href="https://dotcs.me">Fabian Mueller</a> for the original work.
 ```
+
+[cc-by-sa-4.0]: https://creativecommons.org/licenses/by-sa/4.0/
