@@ -368,6 +368,10 @@ button {
   cursor: pointer;
 }
 
+table {
+  border-collapse: collapse;
+}
+
 h1,
 h2 {
   font-size: inherit;
@@ -516,6 +520,10 @@ img {
 
 .flex {
   display: flex;
+}
+
+.table {
+  display: table;
 }
 
 .contents {

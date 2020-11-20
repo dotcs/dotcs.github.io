@@ -1,4 +1,4 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: tech - dotcs.me</title><link href="https://dotcs.me/feeds/tags/tech.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/tech" rel="alternate" type="text/html"/><updated>2020-11-20T08:02:45.032Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/tech.xml</id><entry><title>Pi-hole User Group Management</title><published>2020-11-18T08:10:34+01:00</published><updated>2020-11-18T08:10:34+01:00</updated><id>https://dotcs.me/posts/pihole-group-mgmt</id><link href="https://dotcs.me/posts/pihole-group-mgmt"/><summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary><content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: tech - dotcs.me</title><link href="https://dotcs.me/feeds/tags/tech.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/tech" rel="alternate" type="text/html"/><updated>2020-11-20T09:22:19.126Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/tech.xml</id><entry><title>Pi-hole User Group Management</title><published>2020-11-18T08:10:34+01:00</published><updated>2020-11-18T08:10:34+01:00</updated><id>https://dotcs.me/posts/pihole-group-mgmt</id><link href="https://dotcs.me/posts/pihole-group-mgmt"/><summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary><content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
 This means that by default all devices share the same filter lists, so effectively ads are blocked on all devices.&lt;/p&gt;
 &lt;p&gt;This setup is most likely the setup most people need and prefer.
 For our home it's not working, because some devices should see clear and unfiltered DNS entries.
@@ -634,4 +634,395 @@ Our configuration seems to work – strike! Let's check in more detail if SPF an
     dmarc=pass (p=QUARANTINE sp=QUARANTINE dis=NONE) header.from=example.com
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We see that both SPF as well as DMARC tests passed. I have used that setup for quite some time now and I had never experienced any issues so far.&lt;/p&gt;
-</content><author><name>dotcs</name></author><category term="tech"/></entry></feed>
+</content><author><name>dotcs</name></author><category term="tech"/></entry><entry><title>Howto train a CNN with TensorFlow on FloydHub</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/cnn-floydhub</id><link href="https://dotcs.me/posts/cnn-floydhub"/><summary>This article demonstrates how to solve the MNIST Digit Recognizer task by using a Convolutional Neural Net (CNN). It will be trained with TensorFlow, Googles open-source software library for Machine Intelligence. For the heavy-lifting the cloud provider FloydHub will be used.</summary><content type="html" xml:base="https://dotcs.me/posts/cnn-floydhub">&lt;p&gt;Nowadays artificial intelligence (AI) is a big thing.
+Computational power increased a lot within the last years which makes it possible to build and run large Neural Networks (NN) for Deep Learning (DL) that model various problems extremely well.
+Unfortunately huge networks consume large amounts of memory and computational power.
+Often developers do not have the necessary hardware available to solve larger problems in a suitable time.
+One solution to this problem is to shift the heavy computational task to the some cloud provider.&lt;/p&gt;
+&lt;p&gt;This article demonstrates how to solve the &lt;a href="https://www.kaggle.com/c/digit-recognizer/"&gt;MNIST Digit Recognizer task&lt;/a&gt; by using a Convolutional Neural Net (CNN).
+It will be trained with &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt;, Google's open-source software library for Machine Intelligence.
+For the heavy-lifting the cloud provider FloydHub will be used.&lt;/p&gt;
+&lt;p&gt;This article uses the Kaggle Dataset for &lt;a href="https://www.kaggle.com/c/digit-recognizer/data"&gt;MNIST Digit Recognizer&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id="table-of-content"&gt;&lt;a class="markdownIt-Anchor" href="#table-of-content"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Table of content&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="#why-floydhub"&gt;Why FloydHub&lt;/a&gt;&lt;br&gt;
+Quick overview of what FloydHub is and why I've chosen this provider.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#cnn-architecture"&gt;CNN Architecture&lt;/a&gt;&lt;br&gt;
+Anwers how the CNN architecture does look like in more detail.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#get-the-code"&gt;Get the code&lt;/a&gt;&lt;br&gt;
+Explains how to get the code to run get your own instance up and running.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#upload-data-to-floydhub"&gt;Upload data to FloydHub&lt;/a&gt;&lt;br&gt;
+Explains how data can be transferred to FloydHub by using their CLI tool.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#run-a-jupyter-notebook"&gt;Run a Jupyter notebook&lt;/a&gt;&lt;br&gt;
+A Jupyter notebook will be started on FloydHub.&lt;/li&gt;
+&lt;li&gt;&lt;a href="#train-the-cnn"&gt;Train the CNN&lt;/a&gt;&lt;br&gt;
+Explains how the CNN can be trained in the cloud.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="why-floydhub"&gt;&lt;a class="markdownIt-Anchor" href="#why-floydhub"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Why FloydHub?&lt;/h2&gt;
+&lt;p&gt;The aim of Floydhub is to be the &amp;quot;Heroku for Deep Learning&amp;quot;.
+Given how easy it is to use Heroku for deploying websites, it seems a perfect candidate to focus on the things we really want to do - not to much on how to handle the infrastructure.&lt;/p&gt;
+&lt;p&gt;Obviously another reason is that if we need huge amounts of GPU power, FloydHub has us covered.
+They offer access to one Nvidia Tesla K80 graphic card with 12GB RAM per instance.
+And this GPU is a beast! It gives us the option to run even very deep and memory intensive networks.
+Also this provider offers a per second billing and auto-termination of jobs after they run.
+I think this setup is quite good and something I wanted definitively to explore.&lt;/p&gt;
+&lt;p&gt;This article assumes that you have created an account at FloydHub and installed their CLI tool.
+If you haven't please do so first and get 100 hours free GPU, which is more than enough to follow this article.&lt;/p&gt;
+&lt;h2 id="cnn-architecture"&gt;&lt;a class="markdownIt-Anchor" href="#cnn-architecture"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; CNN Architecture&lt;/h2&gt;
+&lt;p&gt;Let's first talk about how our CNN will look like.
+We'll use a CNN with four convolution (CONV), two max-pooling (POOL) and two dense (or fully connected, FC) layers.
+The basic structure looks like this:&lt;/p&gt;
+&lt;div class="overflow-x-auto"&gt;&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;LAYER TYPE&lt;/th&gt;
+&lt;th style="text-align:center"&gt;F&lt;/th&gt;
+&lt;th style="text-align:center"&gt;S&lt;/th&gt;
+&lt;th style="text-align:center"&gt;PAD&lt;/th&gt;
+&lt;th style="text-align:center"&gt;FILTERS&lt;/th&gt;
+&lt;th style="text-align:center"&gt;X&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Y&lt;/th&gt;
+&lt;th style="text-align:center"&gt;Z&lt;/th&gt;
+&lt;th style="text-align:center"&gt;MEM (COUNT)&lt;/th&gt;
+&lt;th style="text-align:center"&gt;MEM (SIZE IN KB)&lt;/th&gt;
+&lt;th style="text-align:center"&gt;WEIGHTS (COUNT)&lt;/th&gt;
+&lt;th style="text-align:center"&gt;&lt;/th&gt;
+&lt;th style="text-align:center"&gt;USAGE OF WEIGHTS IN THIS LAYER&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;INPUT&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;784&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.7656&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CONV&lt;/td&gt;
+&lt;td style="text-align:center"&gt;3&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;64&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;64&lt;/td&gt;
+&lt;td style="text-align:center"&gt;50176&lt;/td&gt;
+&lt;td style="text-align:center"&gt;49.0000&lt;/td&gt;
+&lt;td style="text-align:center"&gt;576&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CONV&lt;/td&gt;
+&lt;td style="text-align:center"&gt;3&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;64&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;28&lt;/td&gt;
+&lt;td style="text-align:center"&gt;64&lt;/td&gt;
+&lt;td style="text-align:center"&gt;50176&lt;/td&gt;
+&lt;td style="text-align:center"&gt;49.0000&lt;/td&gt;
+&lt;td style="text-align:center"&gt;36864&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0055&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;POOL&lt;/td&gt;
+&lt;td style="text-align:center"&gt;2&lt;/td&gt;
+&lt;td style="text-align:center"&gt;2&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;64&lt;/td&gt;
+&lt;td style="text-align:center"&gt;12544&lt;/td&gt;
+&lt;td style="text-align:center"&gt;12.2500&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CONV&lt;/td&gt;
+&lt;td style="text-align:center"&gt;3&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;128&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;128&lt;/td&gt;
+&lt;td style="text-align:center"&gt;25088&lt;/td&gt;
+&lt;td style="text-align:center"&gt;24.5000&lt;/td&gt;
+&lt;td style="text-align:center"&gt;73728&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0110&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CONV&lt;/td&gt;
+&lt;td style="text-align:center"&gt;3&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;128&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;14&lt;/td&gt;
+&lt;td style="text-align:center"&gt;128&lt;/td&gt;
+&lt;td style="text-align:center"&gt;25088&lt;/td&gt;
+&lt;td style="text-align:center"&gt;24.5000&lt;/td&gt;
+&lt;td style="text-align:center"&gt;147456&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0220&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;POOL&lt;/td&gt;
+&lt;td style="text-align:center"&gt;2&lt;/td&gt;
+&lt;td style="text-align:center"&gt;2&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;7&lt;/td&gt;
+&lt;td style="text-align:center"&gt;7&lt;/td&gt;
+&lt;td style="text-align:center"&gt;128&lt;/td&gt;
+&lt;td style="text-align:center"&gt;6272&lt;/td&gt;
+&lt;td style="text-align:center"&gt;6.1250&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FC&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1024&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1024&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1.0000&lt;/td&gt;
+&lt;td style="text-align:center"&gt;6422528&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.9598&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DROPOUT&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;FC&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;1&lt;/td&gt;
+&lt;td style="text-align:center"&gt;10&lt;/td&gt;
+&lt;td style="text-align:center"&gt;10&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0098&lt;/td&gt;
+&lt;td style="text-align:center"&gt;10240&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;0.0015&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SOFTMAX&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;td style="text-align:center"&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;&lt;/div&gt;&lt;p&gt;In total this CNN has around 6.7 million weights.
+As it's quite common in CNNs nearby all parameters (ca. 96%) are located towards the end of the network in the first FC layer.
+Note that after the first FC layer a dropout layer is used for regularization of weights.
+After the last FC layer a softmax function is used to squash values between 0 and 1 which allows to treat them as predictions.&lt;/p&gt;
+&lt;p&gt;The following meta parameters are used to train the CNN:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;learning_rate = &lt;span class="hljs-number"&gt;0.001&lt;/span&gt;       &lt;span class="hljs-comment"&gt;# learning rate of the network&lt;/span&gt;
+training_iters = &lt;span class="hljs-number"&gt;100000&lt;/span&gt;     &lt;span class="hljs-comment"&gt;# number of total iterations used for training&lt;/span&gt;
+batch_size = &lt;span class="hljs-number"&gt;56&lt;/span&gt;             &lt;span class="hljs-comment"&gt;# number of samples in each training step&lt;/span&gt;
+keep_prob = &lt;span class="hljs-number"&gt;0.75&lt;/span&gt;            &lt;span class="hljs-comment"&gt;# probability to keep nodes in DROPOUT layer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Alright, let's have some fun with this network and FloydHub.&lt;/p&gt;
+&lt;h2 id="get-the-code"&gt;&lt;a class="markdownIt-Anchor" href="#get-the-code"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Get the code&lt;/h2&gt;
+&lt;p&gt;To get the code please checkout this &lt;a href="https://github.com/dotcs/mnist-cnn-floydhub"&gt;git repository&lt;/a&gt;.
+It comes with a dockerized environment which installs all necessary requirements, such as NumPy, SciPy, Jupyter and tensorflow.
+To get started make sure to have &lt;a href="https://docs.docker.com/engine/installation/"&gt;docker installed&lt;/a&gt;.&lt;/p&gt;
+&lt;small&gt;
+&lt;p&gt;If you don't want to use the dockerized setup, feel free to use the notebooks directly from the &lt;code&gt;notebooks&lt;/code&gt; directory.
+But be aware that in this case you have to adjust the &lt;code&gt;INPUT_ROOT&lt;/code&gt; and &lt;code&gt;OUTPUT_ROOT&lt;/code&gt; paths in the &lt;code&gt;floydhub-simple-cnn.ipynb&lt;/code&gt; file.
+You then also have to install all requirements on your own.&lt;/p&gt;
+&lt;/small&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; https://github.com/dotcs/mnist-cnn-floydhub  &lt;span class="hljs-comment"&gt;# clone git repository to local machine&lt;/span&gt;
+&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; mnist-cnn-floydhub      &lt;span class="hljs-comment"&gt;# change into the cloned directory&lt;/span&gt;
+sh extract-zip-locally.sh  &lt;span class="hljs-comment"&gt;# extract zipped training and test data to ./input folder&lt;/span&gt;
+docker-compose up          &lt;span class="hljs-comment"&gt;# start the dockerized environment&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now a local instance of Jupyter should run on &lt;a href="http://localhost:8888/"&gt;localhost:8888&lt;/a&gt;.
+You can use that to discover how the CNN is written using TensorFlow. The corresponding notebook is called &lt;code&gt;floydhub-simple-cnn.ipynb&lt;/code&gt; and will be listed in Jupyter.
+But beware, training could take forever depending on your machine.
+This is exactly why we need to do computation in the cloud.
+Let's go ahead!&lt;/p&gt;
+&lt;h2 id="upload-data-to-floydhub"&gt;&lt;a class="markdownIt-Anchor" href="#upload-data-to-floydhub"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Upload data to FloydHub&lt;/h2&gt;
+&lt;p&gt;To access data in a VM in FloydHub it must be transferred to the cloud first.
+FloydHub provides commands via their CLI to upload large datasets from our machine to their cloud.
+A zipped version of the train and test datasets is placed in the &lt;code&gt;floydhub-zip&lt;/code&gt; folder.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; floydhub-zip                &lt;span class="hljs-comment"&gt;# change into folder that contains the zipped data&lt;/span&gt;
+floyd data init mnist.zipped   &lt;span class="hljs-comment"&gt;# create a new data resource on FloydHub&lt;/span&gt;
+floyd data upload              &lt;span class="hljs-comment"&gt;# upload the data to that resource&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You should now the following output in your terminal, which tells you that 14.7 MB of data are transferred to FloydHub.
+It also gives you access to the &lt;code&gt;DATA_ID&lt;/code&gt; after the upload has been finished.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;Compressing data ...
+Creating data source. Total upload size: 14.7MiB
+Uploading compressed data ...
+Done=============================] 15378159/15378159 - 00:00:00
+Upload finished
+DATA ID                 NAME                    VERSION
+----------------------  --------------------  ---------
+P3WVS2Vswo2o66pMsbPMTC  dotcs/mnist.zipped:1          1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the summary table the &lt;code&gt;DATA_ID&lt;/code&gt; is listed.
+In my case is &lt;code&gt;P3WVS2Vswo2o66pMsbPMTC&lt;/code&gt; but is different in your case.
+Make sure to copy this ID as we'll need it in a second.&lt;/p&gt;
+&lt;p&gt;What we have transferred to FloydHub is a zipped copy of our data.
+This is not exactly what we want to work with, so let's unzip it first on the remote machine.
+We do so by switching to the &lt;code&gt;floydhub-unzip&lt;/code&gt; folder.
+Since unzipping is a one-time-step I suggest to create a new project for this task only.
+This keeps the logs and version control of other projects that you have on FloydHub clean.&lt;/p&gt;
+&lt;p&gt;By running a shell command with the &lt;code&gt;--data&lt;/code&gt; flag, we specify the data-container that should be mounted to the /input path of the container in which the shell command (or later the tensorflow environment) runs.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; floydhub-unzip
+floyd init mnist.unzipped
+floyd run --data P3WVS2Vswo2o66pMsbPMTC &lt;span class="hljs-string"&gt;&amp;quot;unzip /input/train-test.zip -d /output&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You should now see again some output that looks like this:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;Creating project run. Total upload size: 282.0B
+Syncing code ...
+Done=============================] 1027/1027 - 00:00:00
+RUN ID                  NAME                      VERSION
+----------------------  ----------------------  ---------
+b8yRAXUGMnhoTbrVvPMfCX  dotcs/mnist.unzipped:1          1
+
+
+To view logs enter:
+    floyd logs b8yRAXUGMnhoTbrVvPMfCX
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This time our task runs asynchronously - again on a fresh VM.
+At some point in the future the command will finish its work and the container will automatically be shut down by FloydHub.
+To see what happens behind the scene it's possible to either check the &lt;a href="https://www.floydhub.com/experiments"&gt;dashboard&lt;/a&gt; or run the &lt;code&gt;floyd logs &amp;lt;RUN_ID&amp;gt;&lt;/code&gt; command that was referenced in the output.&lt;/p&gt;
+&lt;p&gt;In my case the output is:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;2017-06-11 06:25:12,073 INFO - Preparing to run TaskInstance &amp;lt;TaskInstance: dotcs/mnist.unzipped:1 (id: NQpRp4cU3srGWtMK33voLJ) (checksum: 9d9d607a8649c3ab0d9d69489f2d8fc4) (last update: 2017-06-11 06:25:12.065267) [queued]&amp;gt;
+2017-06-11 06:25:12,085 INFO - Starting attempt 1 at 2017-06-11 06:25:12.077828
+2017-06-11 06:25:12,322 INFO - Executing command in container: stdbuf -o0 sh command.sh
+2017-06-11 06:25:12,322 INFO - Pulling Docker image: floydhub/tensorflow:1.1.0-py3
+2017-06-11 06:25:13,506 INFO - Starting container...
+2017-06-11 06:25:13,740 INFO -
+################################################################################
+
+2017-06-11 06:25:13,741 INFO - Run Output:
+2017-06-11 06:25:13,792 INFO - Archive:  /input/train-test.zip
+2017-06-11 06:25:15,027 INFO - inflating: /output/train.csv
+2017-06-11 06:25:15,896 INFO - inflating: /output/test.csv
+2017-06-11 06:25:15,942 INFO -
+################################################################################
+
+2017-06-11 06:25:15,943 INFO - Waiting for container to complete...
+2017-06-11 06:25:16,287 INFO - [success] Finishing execution in 4 seconds for TaskInstance &amp;lt;TaskInstance: dotcs/mnist.unzipped:1 (id: NQpRp4cU3srGWtMK33voLJ) (checksum: 9d9d607a8649c3ab0d9d69489f2d8fc4) (last update: 2017-06-11 06:25:16.278860) [success]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here we see that two files have been written to the &lt;code&gt;/output&lt;/code&gt; folder: &lt;code&gt;train.csv&lt;/code&gt; and &lt;code&gt;test.csv&lt;/code&gt;.
+And again this data-container gets an ID assigned which can be used as the input container for another runtime container.&lt;/p&gt;
+&lt;p&gt;To get the ID of all containers there run the command floyd data status.
+This gives us a list of all data-container, where the unzipped one has the DATA_ID &lt;code&gt;NQpRp4cU3srGWtMK33voLJ&lt;/code&gt; in my case.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;DATA ID                 CREATED        DISK USAGE    NAME                                                VERSION
+----------------------  -------------  ------------  ------------------------------------------------  ---------
+NQpRp4cU3srGWtMK33voLJ  2 minutes ago  121.97 MB     dotcs/mnist.unzipped:1/output                             1
+P3WVS2Vswo2o66pMsbPMTC  5 minutes ago  14.66 MB      dotcs/mnist.zipped:1                                      1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Finally we do have transferred and extracted our data completely.
+Since we don't need the zipped file anymore we can get rid of it: &lt;code&gt;floyd data delete P3WVS2Vswo2o66pMsbPMTC&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now it's time to move to the more interesting tasks.
+Let's get the CNN up and running.&lt;/p&gt;
+&lt;h2 id="run-a-jupyter-notebook"&gt;&lt;a class="markdownIt-Anchor" href="#run-a-jupyter-notebook"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Run a Jupyter notebook&lt;/h2&gt;
+&lt;p&gt;Multiple options exist how to run code at FloydHub using the CLI.
+Here I have written code as a Jupyter notebook which makes it necessary to run floyd with the flag --mode jupyter.
+To run a Jupyter notebook we first have to create another project which will be solely used for Jupyter.
+This spins up a fresh new VM for us.
+By using the --gpu flag we get access to an Nvidia Tesla K80 GPU with 12 GB of RAM.
+Can you already feel the power? ☺&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; notebooks
+floyd init mnist-cnn-floydhub
+floyd run --gpu --mode jupyter --env tensorflow --data NQpRp4cU3srGWtMK33voLJ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It might take a while to spin up the VM and the output should look like this.
+Note that in the first step around 21kB of data is uploaded to the VM.
+This is our Jupyter notebook, so we can access it directly in the upcoming VM.
+Because files that are uploaded in this step cannot exceed a given file size limit is is necessary to upload larger files with the floyd data CLI command as we have seen before.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;Creating project run. Total upload size: 21.4KiB
+Syncing code ...
+Done=============================] 22993/22993 - 00:00:00
+RUN ID                  NAME                          VERSION
+----------------------  --------------------------  ---------
+bViegecgc6cWncp9vmJRjG  dotcs/mnist-cnn-floydhub:1          1
+
+Setting up your instance and waiting for Jupyter notebook to become available ......................
+
+Path to jupyter notebook: https://www.floydhub.com:8000/XP3WqMBjV3meJejcmMhW66
+
+To view logs enter:
+    floyd logs bViegecgc6cWncp9vmJRjG
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="train-the-cnn"&gt;&lt;a class="markdownIt-Anchor" href="#train-the-cnn"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Train the CNN&lt;/h2&gt;
+&lt;p&gt;We have waited long enough to train our CNN, now we can do so.
+Go to the URL provided in the command above, in my case &lt;code&gt;https://www.floydhub.com:8000/XP3WqMBjV3meJejcmMhW66&lt;/code&gt;, and select the notebook floydhub-simple-cnn.&lt;/p&gt;
+&lt;p&gt;Select &lt;code&gt;Cell &amp;gt; Run All&lt;/code&gt; to run the notebook and wait for the CNN to be trained.
+After is has finished &lt;strong&gt;make sure to close the machine via the &lt;a href="https://www.floydhub.com/experiments"&gt;dashboard&lt;/a&gt;&lt;/strong&gt;.
+Jupyter notebooks &lt;strong&gt;run infinitely and are not shut down automatically&lt;/strong&gt; so make sure to shut it down yourself when you're finished.
+It should like this after shutdown:&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/cnn-floydhub/fh-notebook-shutdown.png" alt="Correctly shutdown Jupyter notebook on FloydHub" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Correctly shutdown Jupyter notebook on FloydHub&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;While the notebook is executed several files are written to the &lt;code&gt;/output&lt;/code&gt; directory of this VM.
+After training the trained model is written to &lt;code&gt;/output/model.ckpt&lt;/code&gt;.
+Predictions on the Kaggle test dataset are written to &lt;code&gt;/output/prediction.csv&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To download the data go to &lt;a href="https://www.floydhub.com/data"&gt;floydhub.com/data&lt;/a&gt; and click on the arrow in the &lt;code&gt;View&lt;/code&gt; column.
+This opens a detail view on the right which allows you to either browse the data (and download only parts of it) by clicking on the &lt;code&gt;open&lt;/code&gt; button or download all the data as a tar-archive by clicking on the &lt;code&gt;download&lt;/code&gt; button.&lt;/p&gt;
+&lt;p&gt;
+        &lt;div class="text-center bg-gray-100 py-2"&gt;
+            &lt;div class="overflow-x-auto px-1"&gt;
+                &lt;img src="/posts/cnn-floydhub/fh-download-data.png" alt="Data export on FloydHub" class="inline-block mb-2"&gt;
+            &lt;/div&gt;
+            &lt;div class="italic text-gray-700"&gt;Data export on FloydHub&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/p&gt;
+&lt;p&gt;And by the way, predictions of this CNN yield an accuracy of 0.95071 on the &lt;a href="https://www.kaggle.com/c/digit-recognizer/leaderboard"&gt;Kaggle Leaderboard&lt;/a&gt;, which means that about 5 out of 100 images are classified wrongly.
+This is a not too good result actually, but also not too bad.
+Now it's up to you to use the power of this setup to yield a better result! Have fun!&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="machine-learning"/><category term="tech"/></entry></feed>
