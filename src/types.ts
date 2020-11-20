@@ -28,5 +28,6 @@ export interface PageSettings {
     description: string;
     twitterHandle: string;
     githubHandle: string;
+    fosstodonHandle: string;
     themeColor: string;
 }

@@ -25,14 +25,18 @@ const Page: FC<PageProps> = (props) => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content={props.settings.title} />
                 <meta property="og:type" content="website" />
+                <meta property="og:image" content={props.settings.baseUrl + "/og-default-image.png"} />
+                <meta property="og:image:width" content="1920" />
+                <meta property="og:image:height" content="630" />
                 <link
                     rel="alternate"
-                    type="application/rss+xml"
+                    type="application/atom+xml"
                     title={props.settings.title}
-                    href={`${props.settings.baseUrl}/feeds/rss`}
+                    href={`${props.settings.baseUrl}/feeds/`}
                 ></link>
                 <link rel="me" href={'https://github.com/' + props.settings.githubHandle} />
                 <link rel="me" href={'https://twitter.com/' + props.settings.twitterHandle} />
+                <link rel="me" href={'https://fosstodon.org/@' + props.settings.fosstodonHandle} />
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />

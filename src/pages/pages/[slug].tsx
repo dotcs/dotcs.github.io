@@ -41,12 +41,6 @@ export const Page: FC<PageProps> = ({ page, settings }) => (
             <meta property="og:title" content={page.attributes.title} />
             {page.attributes.excerpt && <meta property="og:description" content={page.attributes.excerpt} />}
             <meta property="og:url" content={`${settings.baseUrl}/pages/${page.attributes.slug}`} />
-            {/*
-            <meta property="og:image" content="" />
-            <meta property="og:image:width" content="" />
-            <meta property="og:image:height" content="" />
-            */}
-
             <title>
                 {page.attributes.title} - {settings.title}
             </title>
