@@ -74,7 +74,7 @@ html {
   @apply bg-gray-200 p-1 rounded-sm;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-size: 0.9rem;
+  font-size: 0.9em;
 }
 .x-post pre,
 .x-post pre[class*="language-"] {
