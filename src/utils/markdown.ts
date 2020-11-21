@@ -25,24 +25,25 @@ const md: MarkdownIt = new MarkdownIt({
     })
     .use(markdownItFootnote);
 
-const defaultRenderer: Renderer.RenderRule = (tokens, idx, options, env, self) => {
+/** Fallback renderer that always works. */
+const fallbackRenderRule: Renderer.RenderRule = (tokens, idx, options, env, self) => {
     return self.renderToken(tokens, idx, options);
 };
 
 /** Default image renderer from markdown-it */
-const defaultImageRenderer: Renderer.RenderRule = md.renderer.rules.image || defaultRenderer;
+const defImageRenderRule: Renderer.RenderRule = md.renderer.rules.image || fallbackRenderRule;
 
 /**
  * Custom image renderer that extracts the alt text and shows it as a
  * description below the image.
  */
-const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self) => {
+const imageRenderRule: Renderer.RenderRule = (tokens, idx, options, env, self) => {
     // Add classes to img tag
     tokens[idx].attrPush(['class', 'inline-block mb-2']);
 
     // Get default rendering, as images would have been rendered without this
     // custom image renderer.
-    const defaultRendering = defaultImageRenderer(tokens, idx, options, env, self);
+    const defaultRendering = defImageRenderRule(tokens, idx, options, env, self);
 
     // Extract information from the alt attribute.
     const aIndex = tokens[idx].attrIndex('alt');
@@ -63,17 +64,21 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
     `;
 };
 
-// Overwrite image renderer, so that custom renderer is used instead.
-md.renderer.rules.image = customImageRender;
+// Overwrite image renderer with custom implementation.
+md.renderer.rules.image = imageRenderRule;
 
-const defaultLinkOpenRenderer: Renderer.RenderRule = md.renderer.rules.link_open || defaultRenderer;
+/** Default link_open render rule. */
+const defLinkOpenRenderRule: Renderer.RenderRule = md.renderer.rules.link_open || fallbackRenderRule;
 
-md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+/**
+ * Custom link_open render rule that adds meta-information on external links.
+ */
+const linkOpenRenderRule: Renderer.RenderRule = (tokens, idx, options, env, self) => {
     let hrefAIndex: number;
     let url: URL;
 
     // pass token to default renderer.
-    const defaultRendering = defaultLinkOpenRenderer(tokens, idx, options, env, self);
+    const defaultRendering = defLinkOpenRenderRule(tokens, idx, options, env, self);
 
     try {
         hrefAIndex = tokens[idx].attrIndex('href');
@@ -105,6 +110,9 @@ md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     // pass token to default renderer.
     return defaultRendering + `<i class="${icon}" title="This link refers to an external site"></i>`;
 };
+
+// Overwrite default link_open render rule with custom implementation.
+md.renderer.rules.link_open = linkOpenRenderRule;
 
 // Overwrite table tags, to that table is wrapped by div.
 md.renderer.rules.table_open = () => '<div class="overflow-x-auto"><table>';
