@@ -1,4 +1,4 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>dotcs.me</title><link href="https://dotcs.me/feeds/index.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/" rel="alternate" type="text/html"/><updated>2020-11-21T19:40:54.004Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/index.xml</id><entry><title>Pi-hole User Group Management</title><published>2020-11-18T08:10:34+01:00</published><updated>2020-11-18T08:10:34+01:00</updated><id>https://dotcs.me/posts/pihole-group-mgmt</id><link href="https://dotcs.me/posts/pihole-group-mgmt"/><summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary><content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>dotcs.me</title><link href="https://dotcs.me/feeds/index.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/" rel="alternate" type="text/html"/><updated>2020-11-21T19:56:09.979Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/index.xml</id><entry><title>Pi-hole User Group Management</title><published>2020-11-18T08:10:34+01:00</published><updated>2020-11-18T08:10:34+01:00</updated><id>https://dotcs.me/posts/pihole-group-mgmt</id><link href="https://dotcs.me/posts/pihole-group-mgmt"/><summary>In this post I discuss how a Pi-hole can be controlled so that different rules apply to different groups of devices in the local network.</summary><content type="html" xml:base="https://dotcs.me/posts/pihole-group-mgmt">&lt;p&gt;At home I have a &lt;a href="https://pi-hole.net/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Pi-hole&lt;/a&gt; in service which acts as my central DNS provider for all devices in my network.
 This means that by default all devices share the same filter lists, so effectively ads are blocked on all devices.&lt;/p&gt;
 &lt;p&gt;This setup is most likely the setup most people need and prefer.
 For our home it's not working, because some devices should see clear and unfiltered DNS entries.
@@ -11,7 +11,7 @@ The group management can be found under &lt;code&gt;http(s)://my-pi.hole/admin/g
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-groups.png" alt="Pi-hole Admin: Group management" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/pihole-admin-groups.png" alt="Pi-hole Admin: Group management" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Group management&lt;/div&gt;
         &lt;/div&gt;
@@ -22,7 +22,7 @@ Those settings can be found under &lt;code&gt;http(s)://my-pi.hole/admin/groups-
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-devices.png" alt="Pi-hole Admin: Device management" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/pihole-admin-devices.png" alt="Pi-hole Admin: Device management" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Device management&lt;/div&gt;
         &lt;/div&gt;
@@ -32,7 +32,7 @@ In my case I removed all of the lists from the &lt;code&gt;default&lt;/code&gt; 
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/pihole-group-mgmt/pihole-admin-adlists.png" alt="Pi-hole Admin: Adlist management" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/pihole-admin-adlists.png" alt="Pi-hole Admin: Adlist management" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Pi-hole Admin: Adlist management&lt;/div&gt;
         &lt;/div&gt;
@@ -52,7 +52,7 @@ The corresponding project setting is set to deliver pages from the &lt;code&gt;g
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/nextjs-github-pages/github-pages-settings.png" alt="GitHub Pages settings to deliver from branch gh-pages" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/github-pages-settings.png" alt="GitHub Pages settings to deliver from branch gh-pages" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;GitHub Pages settings to deliver from branch gh-pages&lt;/div&gt;
         &lt;/div&gt;
@@ -427,7 +427,7 @@ Well done! :)&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/macbook-webcam-arch/macbook-pro.png" alt="Image source: support.apple.com, 2020/04/01" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/macbook-pro.png" alt="Image source: support.apple.com, 2020/04/01" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Image source: support.apple.com, 2020/04/01&lt;/div&gt;
         &lt;/div&gt;
@@ -696,7 +696,7 @@ I will outline below why this is important.&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/posteo.png" alt="Image of the posteo landing page" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/posteo.png" alt="Image of the posteo landing page" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Image of the posteo landing page&lt;/div&gt;
         &lt;/div&gt;
@@ -732,7 +732,7 @@ GoDaddy offers up to 100 e-mail forwarding configurations per domain for free.&l
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/godaddy-email-forwarding.png" alt="GoDaddy offers 100 e-mail forwarding configurations for free." class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/godaddy-email-forwarding.png" alt="GoDaddy offers 100 e-mail forwarding configurations for free." class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;GoDaddy offers 100 e-mail forwarding configurations for free.&lt;/div&gt;
         &lt;/div&gt;
@@ -743,7 +743,7 @@ This way you can configure up to 100 different e-mail addresses that can later b
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/godaddy-email-forwarding-2.png" alt="Configuration dialog at GoDaddy" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/godaddy-email-forwarding-2.png" alt="Configuration dialog at GoDaddy" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Configuration dialog at GoDaddy&lt;/div&gt;
         &lt;/div&gt;
@@ -753,7 +753,7 @@ I manage my DNS records via Cloudflare, but this is absolutely not necessary.
 The following is still valid for GoDaddy or any other service that is used to manage DNS entries.
 The UI might look different though.&lt;/p&gt;
 &lt;h2 id="step-4-set-up-mx-spf-and-dmarc-records"&gt;&lt;a class="markdownIt-Anchor" href="#step-4-set-up-mx-spf-and-dmarc-records"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Step 4: Set up MX, SPF and DMARC records&lt;/h2&gt;
-&lt;p&gt;The missing pieces are now setting up &lt;a href="https://en.wikipedia.org/wiki/MX_record"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;MX records&lt;/a&gt;,  &lt;a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;SPF&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/DMARC"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;DMARC&lt;/a&gt;.
+&lt;p&gt;The missing pieces are now setting up &lt;a href="https://en.wikipedia.org/wiki/MX_record"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;MX records&lt;/a&gt;, &lt;a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;SPF&lt;/a&gt; and &lt;a href="https://en.wikipedia.org/wiki/DMARC"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;DMARC&lt;/a&gt;.
 The first one is necessary so that other e-mail servers know which inbox server they should use to deliver the messages to.
 SPF and DMARC are necessary, so that sent mails can pass the SPAM rules of various mail providers.&lt;/p&gt;
 &lt;p&gt;Let's talk about the MX records first.
@@ -766,7 +766,7 @@ Here you can see the MX records and their priorities that are to be set up.&lt;/
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/godaddy-mailserver-mx.png" alt="MX records as needed to work with GoDaddy." class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/godaddy-mailserver-mx.png" alt="MX records as needed to work with GoDaddy." class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;MX records as needed to work with GoDaddy.&lt;/div&gt;
         &lt;/div&gt;
@@ -775,7 +775,7 @@ Here you can see the MX records and their priorities that are to be set up.&lt;/
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/godaddy-mailserver-settings.png" alt="DNS settings: MX records and SPF and DMARC settings." class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/godaddy-mailserver-settings.png" alt="DNS settings: MX records and SPF and DMARC settings." class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;DNS settings: MX records and SPF and DMARC settings.&lt;/div&gt;
         &lt;/div&gt;
@@ -787,7 +787,7 @@ Posteo recommends at least to have the &lt;code&gt;include:posteo.de&lt;/code&gt
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/leaving-gmail-behind/spf-generator.png" alt="Configuration as shown by spfwizard.net." class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/spf-generator.png" alt="Configuration as shown by spfwizard.net." class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Configuration as shown by spfwizard.net.&lt;/div&gt;
         &lt;/div&gt;
@@ -1001,7 +1001,7 @@ Click on &lt;code&gt;create&lt;/code&gt; to configure the index pattern.&lt;/p&g
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-index-pattern.png" alt="Kibana: Interface to configure an index pattern" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-index-pattern.png" alt="Kibana: Interface to configure an index pattern" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Kibana: Interface to configure an index pattern&lt;/div&gt;
         &lt;/div&gt;
@@ -1036,7 +1036,7 @@ Et voilà there it is, enjoy your first heatmap!&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap.png" alt="Geo-Heatmap of recorded tours" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-heatmap.png" alt="Geo-Heatmap of recorded tours" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Geo-Heatmap of recorded tours&lt;/div&gt;
         &lt;/div&gt;
@@ -1058,7 +1058,7 @@ Set &lt;code&gt;date&lt;/code&gt; as the field and &lt;code&gt;Monthly&lt;/code&
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap-2.png" alt="Heat map: Distance (buckets) over the time (buckets)" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-heatmap-2.png" alt="Heat map: Distance (buckets) over the time (buckets)" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Heat map: Distance (buckets) over the time (buckets)&lt;/div&gt;
         &lt;/div&gt;
@@ -1081,7 +1081,7 @@ Do I get old? ;-)&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-bar-chart.png" alt="Bar chart showing average time in motion and average upwards elevation" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-bar-chart.png" alt="Bar chart showing average time in motion and average upwards elevation" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Bar chart showing average time in motion and average upwards elevation&lt;/div&gt;
         &lt;/div&gt;
@@ -1101,7 +1101,7 @@ This will update the currently selected time span each time the dashboard is ope
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard.png" alt="Custom dashboard with custom visualizations in Kibana" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-dashboard.png" alt="Custom dashboard with custom visualizations in Kibana" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Custom dashboard with custom visualizations in Kibana&lt;/div&gt;
         &lt;/div&gt;
@@ -1111,7 +1111,7 @@ This will automatically update all charts which is super useful if you have a bu
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard-2.png" alt="Changing search queries will automatically update the visuals" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-dashboard-2.png" alt="Changing search queries will automatically update the visuals" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Changing search queries will automatically update the visuals&lt;/div&gt;
         &lt;/div&gt;
@@ -1511,7 +1511,7 @@ It should like this after shutdown:&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/cnn-floydhub/fh-notebook-shutdown.png" alt="Correctly shutdown Jupyter notebook on FloydHub" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/fh-notebook-shutdown.png" alt="Correctly shutdown Jupyter notebook on FloydHub" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Correctly shutdown Jupyter notebook on FloydHub&lt;/div&gt;
         &lt;/div&gt;
@@ -1524,7 +1524,7 @@ This opens a detail view on the right which allows you to either browse the data
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/cnn-floydhub/fh-download-data.png" alt="Data export on FloydHub" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/fh-download-data.png" alt="Data export on FloydHub" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Data export on FloydHub&lt;/div&gt;
         &lt;/div&gt;

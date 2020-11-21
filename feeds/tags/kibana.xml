@@ -1,4 +1,4 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: kibana - dotcs.me</title><link href="https://dotcs.me/feeds/tags/kibana.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/kibana" rel="alternate" type="text/html"/><updated>2020-11-21T19:40:52.949Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/kibana.xml</id><entry><title>Evaluate data from Komoot with Elasticsearch and Kibana</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/komoot-analysis-with-kibana</id><link href="https://dotcs.me/posts/komoot-analysis-with-kibana"/><summary>In my spare time I like to travel by bike. As a data enthusiast it's no question to track my trips using services such as Komoot. Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers. In this post I discuss how to extract data from Komoot and evaluate the data with Elasticsearch.</summary><content type="html" xml:base="https://dotcs.me/posts/komoot-analysis-with-kibana">&lt;p&gt;In my spare time I like to travel by bike.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: kibana - dotcs.me</title><link href="https://dotcs.me/feeds/tags/kibana.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/kibana" rel="alternate" type="text/html"/><updated>2020-11-21T19:56:08.938Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/kibana.xml</id><entry><title>Evaluate data from Komoot with Elasticsearch and Kibana</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/komoot-analysis-with-kibana</id><link href="https://dotcs.me/posts/komoot-analysis-with-kibana"/><summary>In my spare time I like to travel by bike. As a data enthusiast it's no question to track my trips using services such as Komoot. Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers. In this post I discuss how to extract data from Komoot and evaluate the data with Elasticsearch.</summary><content type="html" xml:base="https://dotcs.me/posts/komoot-analysis-with-kibana">&lt;p&gt;In my spare time I like to travel by bike.
 As a data enthusiast it's no question to track my trips using services such as &lt;a href="https://www.komoot.de/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Komoot&lt;/a&gt;.
 Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers.
 Most of the time it is not enough tough.
@@ -191,7 +191,7 @@ Click on &lt;code&gt;create&lt;/code&gt; to configure the index pattern.&lt;/p&g
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-index-pattern.png" alt="Kibana: Interface to configure an index pattern" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-index-pattern.png" alt="Kibana: Interface to configure an index pattern" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Kibana: Interface to configure an index pattern&lt;/div&gt;
         &lt;/div&gt;
@@ -226,7 +226,7 @@ Et voilà there it is, enjoy your first heatmap!&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap.png" alt="Geo-Heatmap of recorded tours" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-heatmap.png" alt="Geo-Heatmap of recorded tours" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Geo-Heatmap of recorded tours&lt;/div&gt;
         &lt;/div&gt;
@@ -248,7 +248,7 @@ Set &lt;code&gt;date&lt;/code&gt; as the field and &lt;code&gt;Monthly&lt;/code&
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-heatmap-2.png" alt="Heat map: Distance (buckets) over the time (buckets)" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-heatmap-2.png" alt="Heat map: Distance (buckets) over the time (buckets)" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Heat map: Distance (buckets) over the time (buckets)&lt;/div&gt;
         &lt;/div&gt;
@@ -271,7 +271,7 @@ Do I get old? ;-)&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-bar-chart.png" alt="Bar chart showing average time in motion and average upwards elevation" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-bar-chart.png" alt="Bar chart showing average time in motion and average upwards elevation" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Bar chart showing average time in motion and average upwards elevation&lt;/div&gt;
         &lt;/div&gt;
@@ -291,7 +291,7 @@ This will update the currently selected time span each time the dashboard is ope
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard.png" alt="Custom dashboard with custom visualizations in Kibana" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-dashboard.png" alt="Custom dashboard with custom visualizations in Kibana" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Custom dashboard with custom visualizations in Kibana&lt;/div&gt;
         &lt;/div&gt;
@@ -301,7 +301,7 @@ This will automatically update all charts which is super useful if you have a bu
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/komoot-analysis-with-kibana/kibana-dashboard-2.png" alt="Changing search queries will automatically update the visuals" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/kibana-dashboard-2.png" alt="Changing search queries will automatically update the visuals" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Changing search queries will automatically update the visuals&lt;/div&gt;
         &lt;/div&gt;

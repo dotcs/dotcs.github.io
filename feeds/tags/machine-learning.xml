@@ -1,4 +1,4 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: machine-learning - dotcs.me</title><link href="https://dotcs.me/feeds/tags/machine-learning.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/machine-learning" rel="alternate" type="text/html"/><updated>2020-11-21T19:40:52.707Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/machine-learning.xml</id><entry><title>Howto train a CNN with TensorFlow on FloydHub</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/cnn-floydhub</id><link href="https://dotcs.me/posts/cnn-floydhub"/><summary>This article demonstrates how to solve the MNIST Digit Recognizer task by using a Convolutional Neural Net (CNN). It will be trained with TensorFlow, Googles open-source software library for Machine Intelligence. For the heavy-lifting the cloud provider FloydHub will be used.</summary><content type="html" xml:base="https://dotcs.me/posts/cnn-floydhub">&lt;p&gt;Nowadays artificial intelligence (AI) is a big thing.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: machine-learning - dotcs.me</title><link href="https://dotcs.me/feeds/tags/machine-learning.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/machine-learning" rel="alternate" type="text/html"/><updated>2020-11-21T19:56:08.672Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/machine-learning.xml</id><entry><title>Howto train a CNN with TensorFlow on FloydHub</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/cnn-floydhub</id><link href="https://dotcs.me/posts/cnn-floydhub"/><summary>This article demonstrates how to solve the MNIST Digit Recognizer task by using a Convolutional Neural Net (CNN). It will be trained with TensorFlow, Googles open-source software library for Machine Intelligence. For the heavy-lifting the cloud provider FloydHub will be used.</summary><content type="html" xml:base="https://dotcs.me/posts/cnn-floydhub">&lt;p&gt;Nowadays artificial intelligence (AI) is a big thing.
 Computational power increased a lot within the last years which makes it possible to build and run large Neural Networks (NN) for Deep Learning (DL) that model various problems extremely well.
 Unfortunately huge networks consume large amounts of memory and computational power.
 Often developers do not have the necessary hardware available to solve larger problems in a suitable time.
@@ -368,7 +368,7 @@ It should like this after shutdown:&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/cnn-floydhub/fh-notebook-shutdown.png" alt="Correctly shutdown Jupyter notebook on FloydHub" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/fh-notebook-shutdown.png" alt="Correctly shutdown Jupyter notebook on FloydHub" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Correctly shutdown Jupyter notebook on FloydHub&lt;/div&gt;
         &lt;/div&gt;
@@ -381,7 +381,7 @@ This opens a detail view on the right which allows you to either browse the data
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
-                &lt;img src="/posts/cnn-floydhub/fh-download-data.png" alt="Data export on FloydHub" class="inline-block mb-2"&gt;
+                &lt;img src="/posts/%3Cpost_slug%3E/fh-download-data.png" alt="Data export on FloydHub" class="inline-block mb-2"&gt;
             &lt;/div&gt;
             &lt;div class="italic text-gray-700"&gt;Data export on FloydHub&lt;/div&gt;
         &lt;/div&gt;
