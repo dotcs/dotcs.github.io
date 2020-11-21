@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Post as PostType } from '../types';
+import { ParsedPost as PostType } from '../types';
 import DateMeta from './DateMeta';
 import Markdown from './Markdown';
 import TagList from './TagList';

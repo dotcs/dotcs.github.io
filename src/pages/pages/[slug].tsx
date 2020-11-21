@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { ParsedUrlQuery } from 'querystring';
 
 import PageCmp from '../../components/Page';
-import { PageSettings, Post } from '../../types';
+import { PageSettings, ParsedPost } from '../../types';
 import { getAllPages, getAllPageSlugs } from '../../utils/parser';
 import { pageSettings } from '../../settings';
 import Markdown from '../../components/Markdown';
@@ -16,7 +16,7 @@ interface StaticParams extends ParsedUrlQuery {
 }
 
 export interface PageProps {
-    page: Post;
+    page: ParsedPost;
     settings: PageSettings;
 }
 

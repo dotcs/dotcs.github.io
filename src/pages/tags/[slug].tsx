@@ -8,7 +8,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import PageCmp from '../../components/Page';
 import { PostItem } from '../../components/PostItem';
-import { PageSettings, Post } from '../../types';
+import { PageSettings, ParsedPost } from '../../types';
 import { getAllTags, getPostsByTag } from '../../utils/parser';
 import { pageSettings } from '../../settings';
 
@@ -18,7 +18,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export interface TagPageProps {
     tag: string;
-    posts: Post[];
+    posts: ParsedPost[];
     settings: PageSettings;
 }
 

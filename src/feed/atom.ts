@@ -4,7 +4,7 @@ import fs from 'fs';
 import { pageSettings } from '../settings';
 import { getAllPosts, getAllTags, getPostsByTag } from '../utils/parser';
 import md from '../utils/markdown';
-import { Post } from '../types';
+import { ParsedPost } from '../types';
 
 // Useful links:
 // -------------
@@ -58,7 +58,7 @@ const getFeedTitle = (type: FeedType, tag?: string) => {
 /**
  * Returns all relevant posts for a type (and tag).
  */
-const getPosts = (type: FeedType, tag?: string): Post[] => {
+const getPosts = (type: FeedType, tag?: string): ParsedPost[] => {
     switch (type) {
         case 'all_posts': {
             const posts = getAllPosts();

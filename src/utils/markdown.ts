@@ -100,11 +100,9 @@ const linkOpenRenderRule: Renderer.RenderRule = (tokens, idx, options, env, self
         return defaultRendering;
     }
 
-    let icon = '';
+    let icon = 'las la-external-link-alt';
     if (url.hostname.match(/github.com$/)) {
         icon = 'lab la-github';
-    } else {
-        icon = 'las la-external-link-alt';
     }
 
     // pass token to default renderer.

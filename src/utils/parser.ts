@@ -3,25 +3,25 @@ import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
 
-import { ContentType, Post, TagCount } from '../types';
+import { ContentType, ParsedPost, TagCount } from '../types';
 
 // TODO: relative paths
 const posts_dir = path.join('content', 'posts');
 const pages_dir = path.join('content', 'pages');
 
-const parseFile = (p: string): Post => {
+const parseFile = (p: string): ParsedPost => {
     const content = fs.readFileSync(p, 'utf-8');
 
-    const parsed: Post = fm(content);
+    const parsed: ParsedPost = fm(content);
     // Slug is missing at this point. It will be added in next line.
     parsed.attributes.slug = path.basename(p).split('.')[0];
     return parsed;
 };
 
-const _getAllPostsOrPages = (type: ContentType): Post[] => {
+const _getAllPostsOrPages = (type: ContentType): ParsedPost[] => {
     const dir = type === 'post' ? posts_dir : pages_dir;
     const files = fs.readdirSync(dir);
-    const contents: Post[] = files.map((f) => parseFile(path.join(dir, f)));
+    const contents: ParsedPost[] = files.map((f) => parseFile(path.join(dir, f)));
     for (const content of contents) {
         content.attributes.keywords = _.sortedUniq(content.attributes.keywords.sort());
     }
@@ -29,11 +29,11 @@ const _getAllPostsOrPages = (type: ContentType): Post[] => {
     return sortedContent;
 };
 
-export const getAllPages = (): Post[] => {
+export const getAllPages = (): ParsedPost[] => {
     return _getAllPostsOrPages('page');
 };
 
-export const getAllPosts = (): Post[] => {
+export const getAllPosts = (): ParsedPost[] => {
     return _getAllPostsOrPages('post');
 };
 
@@ -75,6 +75,6 @@ export const getTagCounts = (): TagCount[] => {
     return tags;
 };
 
-export const getPostsByTag = (tag: string): Post[] => {
+export const getPostsByTag = (tag: string): ParsedPost[] => {
     return getAllPosts().filter((p) => p.attributes.keywords.includes(tag));
 };
