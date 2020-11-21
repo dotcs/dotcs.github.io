@@ -423,7 +423,8 @@ code {
  */
 
 img,
-svg {
+svg,
+object {
   display: block;
   vertical-align: middle;
 }
