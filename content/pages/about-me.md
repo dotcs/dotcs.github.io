@@ -93,12 +93,15 @@ Well, I guess I have way too many of them right now. But these are the main devi
 - A Macbook Pro which I use as my developer notebook.
   Intel(R) Core(TM) i5-5287U CPU @ 2.90GHz with 2 cores, 16 GB RAM, 500 GB SSD.
   I used to use macOS for the notebook, but since Apple is lacking the high-quality support they have had in the past I decided to switch to Manjaro Linux some time ago.
-  And I'm quite happy about this decision, although unfortunately battery life has dropped significantly (but that might also be a coincidence with the battery which seems to be dying).
+  And I'm quite happy about this decision, ~~although unfortunately battery life has dropped significantly (but that might also be a coincidence with the battery which seems to be dying)~~[^1].
   I prefer Linux over macOS because of the freedom.
   I would probably not go back to macOS anymore.
 - A hand-made server which I use to self-host a lot of software (see above).
   Also runs a Linux operating system (Ubuntu Server).
   Specs: AMD Ryzen 3 2200G with 4 cores @ 3.50 GHz, 16 GB RAM, 256 GB SSD, 8 TB HDD.
+
+[^1]: Since I changed from Gnome 3 to i3 and [later to Sway](/posts/migrate-from-i3-to-sway) battery life has again got much better and is no longer an issue.
+  I guess it's a mixture between the real good power management of the Apple Macbook (> 500 loading cycles) and a not-so-energy-hungry operating system and window server.
 
 [gitea]: https://gitea.io/
 [elasticsearch]: https://www.elastic.co/
