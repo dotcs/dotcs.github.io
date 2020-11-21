@@ -31,10 +31,10 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<TagPageProps, StaticParams> = async ({ params }) => {
-    const posts = getPostsByTag(params.slug);
+    const posts = getPostsByTag(params!.slug);
     posts.reverse();
     return {
-        props: { tag: params.slug, posts, settings: pageSettings },
+        props: { tag: params!.slug, posts, settings: pageSettings },
     };
 };
 

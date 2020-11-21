@@ -29,7 +29,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({ params }) => {
-    const page = getAllPages().find((p) => p.attributes.slug === params.slug);
+    const page = getAllPages().find((p) => p.attributes.slug === params!.slug)!;
     return {
         props: { page, settings: pageSettings },
     };

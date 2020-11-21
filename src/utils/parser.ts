@@ -39,13 +39,13 @@ export const getAllPosts = (): Post[] => {
 
 export const getAllTags = (): string[] => {
     const contents = getAllPosts();
-    const tags = contents.reduce((acc, c) => acc.concat(c.attributes.keywords), []);
+    const tags = contents.reduce((acc, c) => acc.concat(c.attributes.keywords), [] as string[]);
     return tags;
 };
 
 export const _getAllSlugs = (type: ContentType): string[] => {
     const contents = _getAllPostsOrPages(type);
-    const slugs = _.sortedUniq(contents.reduce((acc, c) => acc.concat(c.attributes.slug), []).sort());
+    const slugs = _.sortedUniq(contents.reduce((acc, c) => acc.concat(c.attributes.slug), [] as string[]).sort());
     return slugs;
 };
 

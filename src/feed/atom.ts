@@ -66,6 +66,9 @@ const getPosts = (type: FeedType, tag?: string): Post[] => {
             return posts;
         }
         case 'tag': {
+            if (!tag) {
+                throw new Error('A tag must be defined.');
+            }
             const posts = getPostsByTag(tag);
             posts.reverse();
             return posts;

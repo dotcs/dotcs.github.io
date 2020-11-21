@@ -25,7 +25,7 @@ const Page: FC<PageProps> = (props) => {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content={props.settings.title} />
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content={props.settings.baseUrl + "/og-default-image.png"} />
+                <meta property="og:image" content={props.settings.baseUrl + '/og-default-image.png'} />
                 <meta property="og:image:width" content="1920" />
                 <meta property="og:image:height" content="630" />
                 <link
