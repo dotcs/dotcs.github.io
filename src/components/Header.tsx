@@ -47,7 +47,7 @@ export const Header: FC<HeaderProps> = (props) => {
                     className={cx('w-full block flex-grow lg:flex lg:items-center lg:w-auto', { hidden: !menuVisible })}
                 >
                     <div className="lg:flex-grow">
-                        {props.pages.map((item) => (
+                        {props.pages!.map((item) => (
                             <Link href={item.href} key={item.href}>
                                 <a className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-8">
                                     {item.title}

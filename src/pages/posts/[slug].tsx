@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageProps, StaticParams> = async ({ params }) => {
-    const post = getAllPosts().find((p) => p.attributes.slug === params.slug);
+    const post = getAllPosts().find((p) => p.attributes.slug === params!.slug)!;
     return {
         props: { post, settings: pageSettings },
     };

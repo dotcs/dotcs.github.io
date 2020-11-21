@@ -25,8 +25,12 @@ const md: MarkdownIt = new MarkdownIt({
     })
     .use(markdownItFootnote);
 
+const defaultRenderer: Renderer.RenderRule = (tokens, idx, options, env, self) => {
+    return self.renderToken(tokens, idx, options);
+};
+
 /** Default image renderer from markdown-it */
-const defaultImageRenderer: Renderer.RenderRule = md.renderer.rules.image;
+const defaultImageRenderer: Renderer.RenderRule = md.renderer.rules.image || defaultRenderer;
 
 /**
  * Custom image renderer that extracts the alt text and shows it as a
@@ -44,7 +48,7 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
     const aIndex = tokens[idx].attrIndex('alt');
     let alt = '';
     if (aIndex > 0) {
-        alt = tokens[idx].attrs[aIndex][1];
+        alt = tokens[idx].attrs![aIndex][1];
     }
 
     // Wrap standard rendering with custom rendering that also includes the alt
@@ -62,11 +66,7 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
 // Overwrite image renderer, so that custom renderer is used instead.
 md.renderer.rules.image = customImageRender;
 
-const defaultLinkOpenRenderer: Renderer.RenderRule =
-    md.renderer.rules.link_open ||
-    function (tokens, idx, options, env, self) {
-        return self.renderToken(tokens, idx, options);
-    };
+const defaultLinkOpenRenderer: Renderer.RenderRule = md.renderer.rules.link_open || defaultRenderer;
 
 md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     let hrefAIndex: number;
@@ -82,7 +82,7 @@ md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     }
 
     try {
-        const href = tokens[idx].attrs[hrefAIndex][1];
+        const href = tokens[idx].attrs![hrefAIndex][1];
         // Try to parse URL. Does fail if link is only refering to an HTML
         // anchor.
         url = new URL(href);
