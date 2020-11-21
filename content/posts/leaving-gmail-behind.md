@@ -70,7 +70,7 @@ Nowadays I think it would have been better to go with Mailbox, because of the cu
 I am not so sure if Mailbox allowed setting up custom domains a year ago, but since Mailbox [natively allows for custom domains nowadays][mailbox-custom-domain], I guess it makes much more sense to use their offering.
 I will outline below why this is important.
 
-![Image of the posteo landing page](/posts/leaving-gmail-behind/posteo.png)
+![Image of the posteo landing page](/posts/<post_slug>/posteo.png)
 
 Creating an account is straight-forward, I will not explain how to do that.
 Maybe it is worth mentioning that Posteo does provide a large amount of anonymity.
@@ -106,13 +106,13 @@ So be warned!
 I have bought my domain at [GoDaddy], one of the very large domain registrars out there.
 GoDaddy offers up to 100 e-mail forwarding configurations per domain for free.
 
-![GoDaddy offers 100 e-mail forwarding configurations for free.](/posts/leaving-gmail-behind/godaddy-email-forwarding.png)
+![GoDaddy offers 100 e-mail forwarding configurations for free.](/posts/<post_slug>/godaddy-email-forwarding.png)
 
 Configuration is simple.
 Just configure the e-mail address, that the service should listen to, e.g. foobar@domain.tld and enter the mail address that it should be forwarded to, e.g. mymailaddress@posteo.de.
 This way you can configure up to 100 different e-mail addresses that can later be used as aliases for your one e-mail address at Posteo.
 
-![Configuration dialog at GoDaddy](/posts/leaving-gmail-behind/godaddy-email-forwarding-2.png)
+![Configuration dialog at GoDaddy](/posts/<post_slug>/godaddy-email-forwarding-2.png)
 
 DNS records are typically managed by the registrar itself – in my case GoDaddy.
 I manage my DNS records via Cloudflare, but this is absolutely not necessary.
@@ -121,7 +121,7 @@ The UI might look different though.
 
 ## Step 4: Set up MX, SPF and DMARC records
 
-The missing pieces are now setting up [MX records][mx-record],  [SPF][spf] and [DMARC][dmarc].
+The missing pieces are now setting up [MX records][mx-record], [SPF][spf] and [DMARC][dmarc].
 The first one is necessary so that other e-mail servers know which inbox server they should use to deliver the messages to.
 SPF and DMARC are necessary, so that sent mails can pass the SPAM rules of various mail providers.
 
@@ -134,18 +134,18 @@ To find out GoDaddy's MX records go to the Workspace Control Center, this is whe
 Then go to Tools → Server Settings.
 Here you can see the MX records and their priorities that are to be set up.
 
-![MX records as needed to work with GoDaddy.](/posts/leaving-gmail-behind/godaddy-mailserver-mx.png)
+![MX records as needed to work with GoDaddy.](/posts/<post_slug>/godaddy-mailserver-mx.png)
 
 Finally use these MX records to change the DNS records of your domain:
 
-![DNS settings: MX records and SPF and DMARC settings.](/posts/leaving-gmail-behind/godaddy-mailserver-settings.png)
+![DNS settings: MX records and SPF and DMARC settings.](/posts/<post_slug>/godaddy-mailserver-settings.png)
 
 The image above also shows the [SPF][spf] record, which I set to `v=spf1 include:posteo.de -all`.
 We basically inherit the SPF record of posteo.de and advice that other mail providers should strictly reject messages that do not pass the SPF test (`-all` flag).  
 In case you are interested in SPF record configuration and want to learn more about SPF records, I can recommend [spfwizard.net].
 Posteo recommends at least to have the `include:posteo.de` part, their recommendation can be found [here][posteo-postmaster].
 
-![Configuration as shown by spfwizard.net.](/posts/leaving-gmail-behind/spf-generator.png)
+![Configuration as shown by spfwizard.net.](/posts/<post_slug>/spf-generator.png)
 
 Please note that if you use Mailbox, you might want to use the SPF record `v=spf1 include:mailbox.org` as described in their help pages.
 

@@ -267,7 +267,7 @@ After is has finished **make sure to close the machine via the [dashboard][fh-da
 Jupyter notebooks **run infinitely and are not shut down automatically** so make sure to shut it down yourself when you're finished.
 It should like this after shutdown:
 
-![Correctly shutdown Jupyter notebook on FloydHub](/posts/cnn-floydhub/fh-notebook-shutdown.png)
+![Correctly shutdown Jupyter notebook on FloydHub](/posts/<post_slug>/fh-notebook-shutdown.png)
 
 While the notebook is executed several files are written to the `/output` directory of this VM.
 After training the trained model is written to `/output/model.ckpt`.
@@ -276,7 +276,7 @@ Predictions on the Kaggle test dataset are written to `/output/prediction.csv`.
 To download the data go to [floydhub.com/data][fh-data] and click on the arrow in the `View` column.
 This opens a detail view on the right which allows you to either browse the data (and download only parts of it) by clicking on the `open` button or download all the data as a tar-archive by clicking on the `download` button.
 
-![Data export on FloydHub](/posts/cnn-floydhub/fh-download-data.png)
+![Data export on FloydHub](/posts/<post_slug>/fh-download-data.png)
 
 And by the way, predictions of this CNN yield an accuracy of 0.95071 on the [Kaggle Leaderboard][kaggle-mnist-dr-lb], which means that about 5 out of 100 images are classified wrongly.
 This is a not too good result actually, but also not too bad.

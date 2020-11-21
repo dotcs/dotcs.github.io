@@ -258,7 +258,7 @@ To do so go to [Kibana](http://localhost:5601), log in by using the default user
 In this screen use `komoot` as the index name, check that it contains time-based events and set the time-field name to be `date`.
 Click on `create` to configure the index pattern.
 
-![Kibana: Interface to configure an index pattern](/posts/komoot-analysis-with-kibana/kibana-index-pattern.png)
+![Kibana: Interface to configure an index pattern](/posts/<post_slug>/kibana-index-pattern.png)
 
 ## Data analysis and visualization
 
@@ -294,7 +294,7 @@ Press the primary button `► (Apply Changes)` to see your result.
 You might need to zoom in into the region where your data points are located.
 Et voilà there it is, enjoy your first heatmap!
 
-![Geo-Heatmap of recorded tours](/posts/komoot-analysis-with-kibana/kibana-heatmap.png)
+![Geo-Heatmap of recorded tours](/posts/<post_slug>/kibana-heatmap.png)
 
 Once you're satisfied with the result save the map by clicking on `Save` at the top of the screen and choose a proper name, e.g. "Komoot: Geo-Heatmap of recorded tours".
 This allows to add the chart to a dashboard later on.
@@ -315,7 +315,7 @@ Set `date` as the field and `Monthly` as the interval.
 
 Again set `type:tour_recorded` into the search bar at the top of the screen to limit the results to the recorded tours.
 
-![Heat map: Distance (buckets) over the time (buckets)](/posts/komoot-analysis-with-kibana/kibana-heatmap-2.png)
+![Heat map: Distance (buckets) over the time (buckets)](/posts/<post_slug>/kibana-heatmap-2.png)
 
 Once you're satisfied with the result save the map by clicking on Save at the top of the screen and choose a proper name, e.g. "Komoot: Heatmap distance over time".
 This allows to add the chart to a dashboard later on.
@@ -339,7 +339,7 @@ This gives a nice bar chart that shows the average time in motion as well as the
 Seems like I have climbed a lot more in average in the last year than nowadays.
 Do I get old? ;-)
 
-![Bar chart showing average time in motion and average upwards elevation](/posts/komoot-analysis-with-kibana/kibana-bar-chart.png)
+![Bar chart showing average time in motion and average upwards elevation](/posts/<post_slug>/kibana-bar-chart.png)
 
 ### Dashboard
 
@@ -356,12 +356,12 @@ To save the dashboard click `Save` on the top of the screen and give it a proper
 I'd recommend to store the time by checking `Store time with dashboard`.
 This will update the currently selected time span each time the dashboard is opened.
 
-![Custom dashboard with custom visualizations in Kibana](/posts/komoot-analysis-with-kibana/kibana-dashboard.png)
+![Custom dashboard with custom visualizations in Kibana](/posts/<post_slug>/kibana-dashboard.png)
 
 Note that you can use the search query to further reduce the number of results.
 This will automatically update all charts which is super useful if you have a bunch of charts that you want to keep in sync.
 
-![Changing search queries will automatically update the visuals](/posts/komoot-analysis-with-kibana/kibana-dashboard-2.png)
+![Changing search queries will automatically update the visuals](/posts/<post_slug>/kibana-dashboard-2.png)
 
 ## Summary and Outlook
 

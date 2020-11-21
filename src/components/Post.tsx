@@ -9,6 +9,16 @@ export interface PostProps {
     className?: string;
 }
 
+/**
+ * Helper method to replace template variables.
+ * 
+ * Currently the following variables are replaced:
+ * - `<post_slug>` => slug of the post
+ */
+const replaceTemplateVars = (slug: string, text: string) => {
+    return text.replace(/<post_slug>/g, slug);
+}
+
 const Post: FC<PostProps> = (props) => (
     <div className={props.className}>
         <h1 className="text-2xl md:text-3xl font-semibold">{props.post.attributes.title}</h1>
@@ -20,7 +30,7 @@ const Post: FC<PostProps> = (props) => (
             />
             <TagList tags={props.post.attributes.keywords} />
         </div>
-        <Markdown className="x-post" text={props.post.body} />
+        <Markdown className="x-post" text={replaceTemplateVars(props.post.attributes.slug, props.post.body)} />
     </div>
 );
 

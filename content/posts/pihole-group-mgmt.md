@@ -26,18 +26,18 @@ The group management can be found under `http(s)://my-pi.hole/admin/groups.php`.
 
 In my setup I created a group for all my devices which I named `dotcs`.
 
-![Pi-hole Admin: Group management](/posts/pihole-group-mgmt/pihole-admin-groups.png)
+![Pi-hole Admin: Group management](/posts/<post_slug>/pihole-admin-groups.png)
 
 By default this group does nothing.
 First devices need to be assigned to the group.
 Those settings can be found under `http(s)://my-pi.hole/admin/groups-clients.php`.
 
-![Pi-hole Admin: Device management](/posts/pihole-group-mgmt/pihole-admin-devices.png)
+![Pi-hole Admin: Device management](/posts/<post_slug>/pihole-admin-devices.png)
 
 After that the adlists need to be configured and attached to the group.
 In my case I removed all of the lists from the `default` group and attached them only to the `dotcs` group.
 
-![Pi-hole Admin: Adlist management](/posts/pihole-group-mgmt/pihole-admin-adlists.png)
+![Pi-hole Admin: Adlist management](/posts/<post_slug>/pihole-admin-adlists.png)
 
 With this configuration all devices listed in the `dotcs` group see filtered DNS entries whereas all other devices see unfiltered DNS entries.
 

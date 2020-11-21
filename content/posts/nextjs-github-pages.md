@@ -25,7 +25,7 @@ I've leared that there are a few things that require tweaks.
 I use GitHub actions to build the static pages.
 The corresponding project setting is set to deliver pages from the `gh-pages` branch.
 
-![GitHub Pages settings to deliver from branch gh-pages](/posts/nextjs-github-pages/github-pages-settings.png)
+![GitHub Pages settings to deliver from branch gh-pages](/posts/<post_slug>/github-pages-settings.png)
 
 The corresponding `.github/workflows/gh-pages.yml` is simple.
 Note that the `npm run export` script has an enviroment variable `DEPLOY_TARGET: gh-pages` attached to it.
