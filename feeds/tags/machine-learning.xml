@@ -1,12 +1,12 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: machine-learning - dotcs.me</title><link href="https://dotcs.me/feeds/tags/machine-learning.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/machine-learning" rel="alternate" type="text/html"/><updated>2020-11-20T14:11:34.506Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/machine-learning.xml</id><entry><title>Howto train a CNN with TensorFlow on FloydHub</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/cnn-floydhub</id><link href="https://dotcs.me/posts/cnn-floydhub"/><summary>This article demonstrates how to solve the MNIST Digit Recognizer task by using a Convolutional Neural Net (CNN). It will be trained with TensorFlow, Googles open-source software library for Machine Intelligence. For the heavy-lifting the cloud provider FloydHub will be used.</summary><content type="html" xml:base="https://dotcs.me/posts/cnn-floydhub">&lt;p&gt;Nowadays artificial intelligence (AI) is a big thing.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: machine-learning - dotcs.me</title><link href="https://dotcs.me/feeds/tags/machine-learning.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/machine-learning" rel="alternate" type="text/html"/><updated>2020-11-21T18:14:20.827Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/machine-learning.xml</id><entry><title>Howto train a CNN with TensorFlow on FloydHub</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/cnn-floydhub</id><link href="https://dotcs.me/posts/cnn-floydhub"/><summary>This article demonstrates how to solve the MNIST Digit Recognizer task by using a Convolutional Neural Net (CNN). It will be trained with TensorFlow, Googles open-source software library for Machine Intelligence. For the heavy-lifting the cloud provider FloydHub will be used.</summary><content type="html" xml:base="https://dotcs.me/posts/cnn-floydhub">&lt;p&gt;Nowadays artificial intelligence (AI) is a big thing.
 Computational power increased a lot within the last years which makes it possible to build and run large Neural Networks (NN) for Deep Learning (DL) that model various problems extremely well.
 Unfortunately huge networks consume large amounts of memory and computational power.
 Often developers do not have the necessary hardware available to solve larger problems in a suitable time.
 One solution to this problem is to shift the heavy computational task to the some cloud provider.&lt;/p&gt;
-&lt;p&gt;This article demonstrates how to solve the &lt;a href="https://www.kaggle.com/c/digit-recognizer/"&gt;MNIST Digit Recognizer task&lt;/a&gt; by using a Convolutional Neural Net (CNN).
-It will be trained with &lt;a href="https://www.tensorflow.org/"&gt;TensorFlow&lt;/a&gt;, Google's open-source software library for Machine Intelligence.
+&lt;p&gt;This article demonstrates how to solve the &lt;a href="https://www.kaggle.com/c/digit-recognizer/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;MNIST Digit Recognizer task&lt;/a&gt; by using a Convolutional Neural Net (CNN).
+It will be trained with &lt;a href="https://www.tensorflow.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;TensorFlow&lt;/a&gt;, Google's open-source software library for Machine Intelligence.
 For the heavy-lifting the cloud provider FloydHub will be used.&lt;/p&gt;
-&lt;p&gt;This article uses the Kaggle Dataset for &lt;a href="https://www.kaggle.com/c/digit-recognizer/data"&gt;MNIST Digit Recognizer&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This article uses the Kaggle Dataset for &lt;a href="https://www.kaggle.com/c/digit-recognizer/data"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;MNIST Digit Recognizer&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id="table-of-content"&gt;&lt;a class="markdownIt-Anchor" href="#table-of-content"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Table of content&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="#why-floydhub"&gt;Why FloydHub&lt;/a&gt;&lt;br&gt;
@@ -232,9 +232,9 @@ keep_prob = &lt;span class="hljs-number"&gt;0.75&lt;/span&gt;            &lt;spa
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Alright, let's have some fun with this network and FloydHub.&lt;/p&gt;
 &lt;h2 id="get-the-code"&gt;&lt;a class="markdownIt-Anchor" href="#get-the-code"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Get the code&lt;/h2&gt;
-&lt;p&gt;To get the code please checkout this &lt;a href="https://github.com/dotcs/mnist-cnn-floydhub"&gt;git repository&lt;/a&gt;.
+&lt;p&gt;To get the code please checkout this &lt;a href="https://github.com/dotcs/mnist-cnn-floydhub"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;git repository&lt;/a&gt;.
 It comes with a dockerized environment which installs all necessary requirements, such as NumPy, SciPy, Jupyter and tensorflow.
-To get started make sure to have &lt;a href="https://docs.docker.com/engine/installation/"&gt;docker installed&lt;/a&gt;.&lt;/p&gt;
+To get started make sure to have &lt;a href="https://docs.docker.com/engine/installation/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;docker installed&lt;/a&gt;.&lt;/p&gt;
 &lt;small&gt;
 &lt;p&gt;If you don't want to use the dockerized setup, feel free to use the notebooks directly from the &lt;code&gt;notebooks&lt;/code&gt; directory.
 But be aware that in this case you have to adjust the &lt;code&gt;INPUT_ROOT&lt;/code&gt; and &lt;code&gt;OUTPUT_ROOT&lt;/code&gt; paths in the &lt;code&gt;floydhub-simple-cnn.ipynb&lt;/code&gt; file.
@@ -245,7 +245,7 @@ You then also have to install all requirements on your own.&lt;/p&gt;
 sh extract-zip-locally.sh  &lt;span class="hljs-comment"&gt;# extract zipped training and test data to ./input folder&lt;/span&gt;
 docker-compose up          &lt;span class="hljs-comment"&gt;# start the dockerized environment&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Now a local instance of Jupyter should run on &lt;a href="http://localhost:8888/"&gt;localhost:8888&lt;/a&gt;.
+&lt;p&gt;Now a local instance of Jupyter should run on &lt;a href="http://localhost:8888/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;localhost:8888&lt;/a&gt;.
 You can use that to discover how the CNN is written using TensorFlow. The corresponding notebook is called &lt;code&gt;floydhub-simple-cnn.ipynb&lt;/code&gt; and will be listed in Jupyter.
 But beware, training could take forever depending on your machine.
 This is exactly why we need to do computation in the cloud.
@@ -296,7 +296,7 @@ To view logs enter:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This time our task runs asynchronously - again on a fresh VM.
 At some point in the future the command will finish its work and the container will automatically be shut down by FloydHub.
-To see what happens behind the scene it's possible to either check the &lt;a href="https://www.floydhub.com/experiments"&gt;dashboard&lt;/a&gt; or run the &lt;code&gt;floyd logs &amp;lt;RUN_ID&amp;gt;&lt;/code&gt; command that was referenced in the output.&lt;/p&gt;
+To see what happens behind the scene it's possible to either check the &lt;a href="https://www.floydhub.com/experiments"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;dashboard&lt;/a&gt; or run the &lt;code&gt;floyd logs &amp;lt;RUN_ID&amp;gt;&lt;/code&gt; command that was referenced in the output.&lt;/p&gt;
 &lt;p&gt;In my case the output is:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;2017-06-11 06:25:12,073 INFO - Preparing to run TaskInstance &amp;lt;TaskInstance: dotcs/mnist.unzipped:1 (id: NQpRp4cU3srGWtMK33voLJ) (checksum: 9d9d607a8649c3ab0d9d69489f2d8fc4) (last update: 2017-06-11 06:25:12.065267) [queued]&amp;gt;
 2017-06-11 06:25:12,085 INFO - Starting attempt 1 at 2017-06-11 06:25:12.077828
@@ -362,7 +362,7 @@ To view logs enter:
 &lt;p&gt;We have waited long enough to train our CNN, now we can do so.
 Go to the URL provided in the command above, in my case &lt;code&gt;https://www.floydhub.com:8000/XP3WqMBjV3meJejcmMhW66&lt;/code&gt;, and select the notebook floydhub-simple-cnn.&lt;/p&gt;
 &lt;p&gt;Select &lt;code&gt;Cell &amp;gt; Run All&lt;/code&gt; to run the notebook and wait for the CNN to be trained.
-After is has finished &lt;strong&gt;make sure to close the machine via the &lt;a href="https://www.floydhub.com/experiments"&gt;dashboard&lt;/a&gt;&lt;/strong&gt;.
+After is has finished &lt;strong&gt;make sure to close the machine via the &lt;a href="https://www.floydhub.com/experiments"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;dashboard&lt;/a&gt;&lt;/strong&gt;.
 Jupyter notebooks &lt;strong&gt;run infinitely and are not shut down automatically&lt;/strong&gt; so make sure to shut it down yourself when you're finished.
 It should like this after shutdown:&lt;/p&gt;
 &lt;p&gt;
@@ -376,7 +376,7 @@ It should like this after shutdown:&lt;/p&gt;
 &lt;p&gt;While the notebook is executed several files are written to the &lt;code&gt;/output&lt;/code&gt; directory of this VM.
 After training the trained model is written to &lt;code&gt;/output/model.ckpt&lt;/code&gt;.
 Predictions on the Kaggle test dataset are written to &lt;code&gt;/output/prediction.csv&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;To download the data go to &lt;a href="https://www.floydhub.com/data"&gt;floydhub.com/data&lt;/a&gt; and click on the arrow in the &lt;code&gt;View&lt;/code&gt; column.
+&lt;p&gt;To download the data go to &lt;a href="https://www.floydhub.com/data"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;floydhub.com/data&lt;/a&gt; and click on the arrow in the &lt;code&gt;View&lt;/code&gt; column.
 This opens a detail view on the right which allows you to either browse the data (and download only parts of it) by clicking on the &lt;code&gt;open&lt;/code&gt; button or download all the data as a tar-archive by clicking on the &lt;code&gt;download&lt;/code&gt; button.&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
@@ -386,7 +386,7 @@ This opens a detail view on the right which allows you to either browse the data
             &lt;div class="italic text-gray-700"&gt;Data export on FloydHub&lt;/div&gt;
         &lt;/div&gt;
     &lt;/p&gt;
-&lt;p&gt;And by the way, predictions of this CNN yield an accuracy of 0.95071 on the &lt;a href="https://www.kaggle.com/c/digit-recognizer/leaderboard"&gt;Kaggle Leaderboard&lt;/a&gt;, which means that about 5 out of 100 images are classified wrongly.
+&lt;p&gt;And by the way, predictions of this CNN yield an accuracy of 0.95071 on the &lt;a href="https://www.kaggle.com/c/digit-recognizer/leaderboard"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Kaggle Leaderboard&lt;/a&gt;, which means that about 5 out of 100 images are classified wrongly.
 This is a not too good result actually, but also not too bad.
 Now it's up to you to use the power of this setup to yield a better result! Have fun!&lt;/p&gt;
 </content><author><name>dotcs</name></author><category term="machine-learning"/><category term="tech"/></entry></feed>

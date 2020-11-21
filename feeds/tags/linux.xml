@@ -1,8 +1,8 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: linux - dotcs.me</title><link href="https://dotcs.me/feeds/tags/linux.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/linux" rel="alternate" type="text/html"/><updated>2020-11-20T14:11:35.251Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/linux.xml</id><entry><title>Migrate from i3 to sway</title><published>2020-11-15T09:52:00Z</published><updated>2020-11-19T21:13:28+01:00</updated><id>https://dotcs.me/posts/migrate-from-i3-to-sway</id><link href="https://dotcs.me/posts/migrate-from-i3-to-sway"/><summary>This post describes my migration from i3 (X.org Server) to Sway (Wayland).</summary><content type="html" xml:base="https://dotcs.me/posts/migrate-from-i3-to-sway">&lt;p&gt;I recently changed from the Linux display server protocol &lt;a href="https://en.wikipedia.org/wiki/X.Org_Server"&gt;X.org Server&lt;/a&gt; to &lt;a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)"&gt;Wayland&lt;/a&gt; on one of my machines.
-My favorite window manager &lt;a href="https://i3wm.org/"&gt;i3&lt;/a&gt; is not compatible with Wayland though, so I had to search for an alternative.
-Luckily there is a drop-in replacement for i3 available which is named &lt;a href="https://swaywm.org/"&gt;Sway&lt;/a&gt;.&lt;/p&gt;
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: linux - dotcs.me</title><link href="https://dotcs.me/feeds/tags/linux.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/linux" rel="alternate" type="text/html"/><updated>2020-11-21T18:14:21.946Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/linux.xml</id><entry><title>Migrate from i3 to sway</title><published>2020-11-15T09:52:00Z</published><updated>2020-11-19T21:13:28+01:00</updated><id>https://dotcs.me/posts/migrate-from-i3-to-sway</id><link href="https://dotcs.me/posts/migrate-from-i3-to-sway"/><summary>This post describes my migration from i3 (X.org Server) to Sway (Wayland).</summary><content type="html" xml:base="https://dotcs.me/posts/migrate-from-i3-to-sway">&lt;p&gt;I recently changed from the Linux display server protocol &lt;a href="https://en.wikipedia.org/wiki/X.Org_Server"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;X.org Server&lt;/a&gt; to &lt;a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Wayland&lt;/a&gt; on one of my machines.
+My favorite window manager &lt;a href="https://i3wm.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;i3&lt;/a&gt; is not compatible with Wayland though, so I had to search for an alternative.
+Luckily there is a drop-in replacement for i3 available which is named &lt;a href="https://swaywm.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Sway&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Sway is very similar to i3, it even uses the same syntax for the config, so the change required only a few tweaks which I will now talk about.
-I can also recommend to read the &lt;a href="https://wiki.archlinux.org/index.php/Sway"&gt;Sway article on the Arch Wiki&lt;/a&gt;.&lt;/p&gt;
+I can also recommend to read the &lt;a href="https://wiki.archlinux.org/index.php/Sway"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Sway article on the Arch Wiki&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;At this let's take a brief moment to say &amp;quot;Thank you&amp;quot; to all contributors of Sway and Wayland and maintainers of the corresponding packages in the various distros out there. ♥&lt;/p&gt;
 &lt;h2 id="installation"&gt;&lt;a class="markdownIt-Anchor" href="#installation"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Installation&lt;/h2&gt;
 &lt;p&gt;Installation of sway under Arch Linux is easy.
@@ -167,9 +167,9 @@ mode &amp;quot;$mode_system&amp;quot; {
 &lt;span class="hljs-built_in"&gt;exit&lt;/span&gt; 0
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id="notifications"&gt;&lt;a class="markdownIt-Anchor" href="#notifications"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Notifications&lt;/h3&gt;
-&lt;p&gt;In i3 I used &lt;a href="https://dunst-project.org/"&gt;dunst&lt;/a&gt; to handle notifications.
-Unfortunately it's not &lt;a href="https://github.com/dunst-project/dunst/issues/264"&gt;yet ready&lt;/a&gt; to work with wayland.
-I found &lt;a href="https://github.com/emersion/mako"&gt;mako&lt;/a&gt; to be a good replacement.&lt;br&gt;
+&lt;p&gt;In i3 I used &lt;a href="https://dunst-project.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;dunst&lt;/a&gt; to handle notifications.
+Unfortunately it's not &lt;a href="https://github.com/dunst-project/dunst/issues/264"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;yet ready&lt;/a&gt; to work with wayland.
+I found &lt;a href="https://github.com/emersion/mako"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;mako&lt;/a&gt; to be a good replacement.&lt;br&gt;
 Using &lt;code&gt;mako&lt;/code&gt; is dead simple.
 After installation an additional line &lt;code&gt;exec mako&lt;/code&gt; in the sway config file does the job.&lt;/p&gt;
 </content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/></entry><entry><title>Automate tasks with docker-compose and systemd</title><published>2020-05-22T15:57:00Z</published><updated>2020-05-22T15:57:00Z</updated><id>https://dotcs.me/posts/automate-tasks-with-systemd</id><link href="https://dotcs.me/posts/automate-tasks-with-systemd"/><summary>This article shows how tasks that have been encapsulated in Docker containers can be controlled by systemd timers. In case of an error a separate systemd service is triggered which sends a mail which contains the last view lines from the journal log.</summary><content type="html" xml:base="https://dotcs.me/posts/automate-tasks-with-systemd">&lt;p&gt;I have several tasks encapsulated in Docker containers which I need to trigger on a regular basis.
@@ -216,7 +216,7 @@ The setup is pretty straight forward.&lt;/p&gt;
 &lt;span class="hljs-attr"&gt;WantedBy&lt;/span&gt;=multi-user.target
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The service unit has a &lt;code&gt;OnFailure&lt;/code&gt; hook which runs a separate systemd service in case the exit code of the service is non-zero.
-This idea comes from the &lt;a href="https://wiki.archlinux.org/index.php/Systemd/Timers#As_a_cron_replacement"&gt;Arch Wiki&lt;/a&gt;.&lt;br&gt;
+This idea comes from the &lt;a href="https://wiki.archlinux.org/index.php/Systemd/Timers#As_a_cron_replacement"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Arch Wiki&lt;/a&gt;.&lt;br&gt;
 The status email service can be configured in a generic way such that it can be re-used in other systemd services as well.&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# /etc/systemd/system/status-email-user@.service&lt;/span&gt;
 &lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
@@ -249,7 +249,7 @@ systemctl &lt;span class="hljs-built_in"&gt;enable&lt;/span&gt; backup.timer
 &lt;p&gt;Logs can be read with &lt;code&gt;journalctl&lt;/code&gt;:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;journalctl -b -u backup.service
 &lt;/code&gt;&lt;/pre&gt;
-</content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>Webcam Support in Arch Linux on Macbooks</title><published>2020-04-01T18:07:00Z</published><updated>2020-04-01T18:07:00Z</updated><id>https://dotcs.me/posts/macbook-webcam-arch</id><link href="https://dotcs.me/posts/macbook-webcam-arch"/><summary>Learn how to install a kernel module that allows to use the Apple Facetime HD camera in your Arch or Manjaro Linux installation.</summary><content type="html" xml:base="https://dotcs.me/posts/macbook-webcam-arch">&lt;p&gt;I'm running &lt;a href="https://manjaro.org/"&gt;Manjaro Linux&lt;/a&gt; (an &lt;a href="https://www.archlinux.org/"&gt;Arch Linux&lt;/a&gt; derivative) on my MacbookPro12,1 (Retina, 13-inch, Early 2015).&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>Webcam Support in Arch Linux on Macbooks</title><published>2020-04-01T18:07:00Z</published><updated>2020-04-01T18:07:00Z</updated><id>https://dotcs.me/posts/macbook-webcam-arch</id><link href="https://dotcs.me/posts/macbook-webcam-arch"/><summary>Learn how to install a kernel module that allows to use the Apple Facetime HD camera in your Arch or Manjaro Linux installation.</summary><content type="html" xml:base="https://dotcs.me/posts/macbook-webcam-arch">&lt;p&gt;I'm running &lt;a href="https://manjaro.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Manjaro Linux&lt;/a&gt; (an &lt;a href="https://www.archlinux.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Arch Linux&lt;/a&gt; derivative) on my MacbookPro12,1 (Retina, 13-inch, Early 2015).&lt;/p&gt;
 &lt;p&gt;
         &lt;div class="text-center bg-gray-100 py-2"&gt;
             &lt;div class="overflow-x-auto px-1"&gt;
@@ -262,8 +262,8 @@ systemctl &lt;span class="hljs-built_in"&gt;enable&lt;/span&gt; backup.timer
 Kudos to the Arch and Manjaro teams for their great work!&lt;/p&gt;
 &lt;p&gt;Unfortunately one thing that did not work out-of-the-box is the webcam.
 It requires a driver that is not part of the official kernel but must be installed separately.&lt;br&gt;
-The code is in the &lt;a href="https://aur.archlinux.org/"&gt;Arch User Repository (AUR)&lt;/a&gt;.
-I use &lt;a href="https://github.com/Jguer/yay"&gt;yay&lt;/a&gt; to install packages from AUR which I can highly recommend and which I will use in this article.&lt;/p&gt;
+The code is in the &lt;a href="https://aur.archlinux.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Arch User Repository (AUR)&lt;/a&gt;.
+I use &lt;a href="https://github.com/Jguer/yay"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;yay&lt;/a&gt; to install packages from AUR which I can highly recommend and which I will use in this article.&lt;/p&gt;
 &lt;p&gt;Let's get our hands dirty!&lt;/p&gt;
 &lt;p&gt;First let's get information about all installed kernels and see if the headers are installed for all of them:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; pacman -Q | grep -E &lt;span class="hljs-string"&gt;&amp;#x27;linux[0-9]+&amp;#x27;&lt;/span&gt;  &lt;span class="hljs-comment"&gt;# see which kernels are installed&lt;/span&gt;&lt;/span&gt;
@@ -279,7 +279,7 @@ linux55-headers 5.5.13-1
 &lt;p&gt;If the headers are missing, make sure to install them:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; yay -S linux-headers   &lt;span class="hljs-comment"&gt;# select the headers that are missing&lt;/span&gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Then let's get the &lt;a href="https://aur.archlinux.org/packages/bcwc-pcie-git/"&gt;driver&lt;/a&gt; and install it from AUR:&lt;/p&gt;
+&lt;p&gt;Then let's get the &lt;a href="https://aur.archlinux.org/packages/bcwc-pcie-git/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;driver&lt;/a&gt; and install it from AUR:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; yay -S bcwc-pcie-git&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After the installation we need to load the kernel module:&lt;/p&gt;
@@ -290,7 +290,7 @@ If everything worked out, the output should be:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;Apple Facetime HD (PCI:0000:02:00.0):
 	/dev/video0
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If the output is instead &lt;code&gt;No /dev/video0 device&lt;/code&gt;, then make sure to unload the kernel module &lt;code&gt;bdc_pci&lt;/code&gt; as described in the &lt;a href="https://github.com/patjak/bcwc_pcie/wiki#known-issues"&gt;wiki&lt;/a&gt;.
+&lt;p&gt;If the output is instead &lt;code&gt;No /dev/video0 device&lt;/code&gt;, then make sure to unload the kernel module &lt;code&gt;bdc_pci&lt;/code&gt; as described in the &lt;a href="https://github.com/patjak/bcwc_pcie/wiki#known-issues"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;wiki&lt;/a&gt;.
 This can be done by running the following commands:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;modprobe -r facetimehd  &lt;span class="hljs-comment"&gt;# temporary remove facetimehd module&lt;/span&gt;
 modprobe -r bdc_pci     &lt;span class="hljs-comment"&gt;# remove disturbing kernel module&lt;/span&gt;
@@ -302,12 +302,12 @@ modprobe -r bdc_pci     &lt;span class="hljs-comment"&gt;# remove disturbing ker
 modprobe facetimehd     &lt;span class="hljs-comment"&gt;# load the facetimehd module again&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The webcam should work now.
-You can test it on any website that requires a webcam, such as &lt;a href="https://meet.jit.si/"&gt;meet.jit.si&lt;/a&gt;.
+You can test it on any website that requires a webcam, such as &lt;a href="https://meet.jit.si/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;meet.jit.si&lt;/a&gt;.
 Have fun!&lt;/p&gt;
-</content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>OfflineIMAP + systemd timer</title><published>2020-04-01T14:38:00Z</published><updated>2020-04-01T14:38:00Z</updated><id>https://dotcs.me/posts/offlineimap-systemd-timer</id><link href="https://dotcs.me/posts/offlineimap-systemd-timer"/><summary>Learn how to setup a systemd timer that regularly fetches new mails from an IMAP server with OfflineIMAP.</summary><content type="html" xml:base="https://dotcs.me/posts/offlineimap-systemd-timer">&lt;p&gt;I use &lt;a href="http://www.mutt.org/"&gt;mutt&lt;/a&gt; to manage my emails and access them from the terminal.
-To sync the mails between the IMAP server and mutt I use &lt;a href="https://www.offlineimap.org/"&gt;OfflineIMAP&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To regularly check for new mails I use a &lt;a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html"&gt;systemd timer&lt;/a&gt;.
-The necessary files can be found &lt;a href="https://github.com/OfflineIMAP/offlineimap/tree/master/contrib/systemd"&gt;in the official repository&lt;/a&gt;.&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>OfflineIMAP + systemd timer</title><published>2020-04-01T14:38:00Z</published><updated>2020-04-01T14:38:00Z</updated><id>https://dotcs.me/posts/offlineimap-systemd-timer</id><link href="https://dotcs.me/posts/offlineimap-systemd-timer"/><summary>Learn how to setup a systemd timer that regularly fetches new mails from an IMAP server with OfflineIMAP.</summary><content type="html" xml:base="https://dotcs.me/posts/offlineimap-systemd-timer">&lt;p&gt;I use &lt;a href="http://www.mutt.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;mutt&lt;/a&gt; to manage my emails and access them from the terminal.
+To sync the mails between the IMAP server and mutt I use &lt;a href="https://www.offlineimap.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;OfflineIMAP&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To regularly check for new mails I use a &lt;a href="https://www.freedesktop.org/software/systemd/man/systemd.timer.html"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;systemd timer&lt;/a&gt;.
+The necessary files can be found &lt;a href="https://github.com/OfflineIMAP/offlineimap/tree/master/contrib/systemd"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;in the official repository&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Let's clone the repository first and copy all necessary files to &lt;code&gt;/etc/systemd/user&lt;/code&gt;.&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; /tmp
 git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; --depth 1 git@github.com:OfflineIMAP/offlineimap.git  &lt;span class="hljs-comment"&gt;# a shallow copy is enough&lt;/span&gt;
@@ -339,9 +339,9 @@ I preferred an update interval of 5 min, which can be easily accomplished.&lt;/p
    Triggers: ● offlineimap-oneshot.service
 &lt;/code&gt;&lt;/pre&gt;
 </content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>i3 + termite + custom themes = &lt;3</title><published>2020-04-01T09:36:00Z</published><updated>2020-04-01T09:36:00Z</updated><id>https://dotcs.me/posts/i3-termite-theme</id><link href="https://dotcs.me/posts/i3-termite-theme"/><summary>i3 + termite is awesome. Having a simple theme changer is even better. Learn how to set up custom themes and apply them with a simple keystroke.</summary><content type="html" xml:base="https://dotcs.me/posts/i3-termite-theme">&lt;p&gt;I love the sun – especially in Spring when temperatures are not too hot and taking a sunbath is a real pleasure. And I love working in the sun, which is often a challenge because of the poor contrast - especially if, like me, you like to use dark themes.&lt;/p&gt;
-&lt;p&gt;Since I recently changed to &lt;a href="https://i3wm.org/"&gt;i3&lt;/a&gt; as my window manager, I use &lt;a href="https://github.com/thestinger/termite"&gt;termite&lt;/a&gt; as my default terminal which has by default no simple way to switch themes – at least not to my knowledge. But working in the sun requires a light theme, so I decided to work on a simple theme changer that is also integrated in i3.&lt;/p&gt;
+&lt;p&gt;Since I recently changed to &lt;a href="https://i3wm.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;i3&lt;/a&gt; as my window manager, I use &lt;a href="https://github.com/thestinger/termite"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;termite&lt;/a&gt; as my default terminal which has by default no simple way to switch themes – at least not to my knowledge. But working in the sun requires a light theme, so I decided to work on a simple theme changer that is also integrated in i3.&lt;/p&gt;
 &lt;p&gt;So let's get to work.&lt;/p&gt;
-&lt;p&gt;First we need custom color themes. I have taken the two themes from &lt;a href="https://github.com/alpha-omega/termite-colors-solarized"&gt;this GitHub repository&lt;/a&gt; and put them in &lt;code&gt;~/.config/termite/themes&lt;/code&gt;.
+&lt;p&gt;First we need custom color themes. I have taken the two themes from &lt;a href="https://github.com/alpha-omega/termite-colors-solarized"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;this GitHub repository&lt;/a&gt; and put them in &lt;code&gt;~/.config/termite/themes&lt;/code&gt;.
 Of course you can also define custom themes and put them there. The theme files should have the following format:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[colors]&lt;/span&gt;
 foreground = &lt;span class="hljs-comment"&gt;#000000&lt;/span&gt;
@@ -384,11 +384,11 @@ bindsym $mod+t mode &amp;quot;$mode_term_theme&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Finally reload the i3 config with &lt;code&gt;mod+shift+c&lt;/code&gt;. Now you can change themes with &lt;code&gt;mod+t&lt;/code&gt; and choose which theme should be applied (light or dark). All running terminals will immediately reflect your theme changes. Have fun!&lt;/p&gt;
 &lt;h2 id="base16-themes"&gt;&lt;a class="markdownIt-Anchor" href="#base16-themes"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Base16 Themes&lt;/h2&gt;
-&lt;p&gt;If you want to have even more themes to choose from take a look at the wonderful repository &lt;a href="https://github.com/khamer/base16-termite"&gt;khamer/base16-termite&lt;/a&gt;. Those themes are working out-of-the-box just as described above.&lt;/p&gt;
+&lt;p&gt;If you want to have even more themes to choose from take a look at the wonderful repository &lt;a href="https://github.com/khamer/base16-termite"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;khamer/base16-termite&lt;/a&gt;. Those themes are working out-of-the-box just as described above.&lt;/p&gt;
 &lt;h2 id="acknowledgements"&gt;&lt;a class="markdownIt-Anchor" href="#acknowledgements"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Acknowledgements&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;Thanks to &lt;a href="https://github.com/BarbUk"&gt;@BarbUk&lt;/a&gt; for &lt;a href="https://github.com/thestinger/termite/issues/730"&gt;helping me find the correct signal&lt;/a&gt; to send to running termite instances.&lt;/li&gt;
-&lt;li&gt;Thanks to &lt;a href="https://nils-braun.github.io/"&gt;@nils-braun&lt;/a&gt; for reviewing this article.&lt;/li&gt;
+&lt;li&gt;Thanks to &lt;a href="https://github.com/BarbUk"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;@BarbUk&lt;/a&gt; for &lt;a href="https://github.com/thestinger/termite/issues/730"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;helping me find the correct signal&lt;/a&gt; to send to running termite instances.&lt;/li&gt;
+&lt;li&gt;Thanks to &lt;a href="https://nils-braun.github.io/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;@nils-braun&lt;/a&gt; for reviewing this article.&lt;/li&gt;
 &lt;/ul&gt;
 </content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>Spotify Desktop App with HiDPI Scaling in GNOME 3</title><published>2019-11-12T16:45:00Z</published><updated>2019-11-12T16:45:00Z</updated><id>https://dotcs.me/posts/spotify-desktop-high-dpi-scaling</id><link href="https://dotcs.me/posts/spotify-desktop-high-dpi-scaling"/><summary>Spotify Desktop seems to have issues with HiDPI screens in Linux. This post shows how to fix it.</summary><content type="html" xml:base="https://dotcs.me/posts/spotify-desktop-high-dpi-scaling">&lt;p&gt;When using a HiDPI screen, such as the MacBook Pro with Retina display, Spotify Desktop may not automatically detect the correct scaling factor.
 I have noticed issues in my Manjaro installation that runs with GNOME 3 Desktop.
@@ -421,7 +421,7 @@ So &lt;code&gt;open .&lt;/code&gt; would open the current folder while &lt;code&
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-built_in"&gt;alias&lt;/span&gt; open=&lt;span class="hljs-string"&gt;&amp;quot;xdg-open &amp;amp;&amp;gt;/dev/null&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id="query-and-set-defaults"&gt;&lt;a class="markdownIt-Anchor" href="#query-and-set-defaults"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Query and set defaults&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;xdg-open&lt;/code&gt; is part of &lt;a href="https://wiki.archlinux.org/index.php/Xdg-utils"&gt;&lt;code&gt;xdg-utils&lt;/code&gt;&lt;/a&gt;, which &lt;a href="https://freedesktop.org/wiki/Software/xdg-utils/"&gt;describes itself&lt;/a&gt; as&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;xdg-open&lt;/code&gt; is part of &lt;a href="https://wiki.archlinux.org/index.php/Xdg-utils"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;&lt;code&gt;xdg-utils&lt;/code&gt;&lt;/a&gt;, which &lt;a href="https://freedesktop.org/wiki/Software/xdg-utils/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;describes itself&lt;/a&gt; as&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;xdg-utils is a set of tools that allows applications to easily integrate with the desktop environment of the user, regardless of the specific desktop environment that the user runs.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -436,7 +436,7 @@ application/pdf
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime query default application/pdf&lt;/span&gt;
 chromium.desktop
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If we don't want to use chromium to read PDFs, but for example &lt;a href="https://pwmt.org/projects/zathura/"&gt;zathura&lt;/a&gt; we can change the default application as follows:&lt;/p&gt;
+&lt;p&gt;If we don't want to use chromium to read PDFs, but for example &lt;a href="https://pwmt.org/projects/zathura/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;zathura&lt;/a&gt; we can change the default application as follows:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; find /usr/share/applications/ -name &lt;span class="hljs-string"&gt;&amp;#x27;*zathura*&amp;#x27;&lt;/span&gt;&lt;/span&gt;
 /usr/share/applications/org.pwmt.zathura-pdf-mupdf.desktop
 /usr/share/applications/org.pwmt.zathura.desktop
@@ -447,7 +447,7 @@ $&lt;/span&gt;&lt;span class="bash"&gt; xdg-mime query default application/pdf&l
 org.pwmt.zathura.desktop
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now PDF files are opened with zathura when using our new &lt;code&gt;open&lt;/code&gt; command as defined above.&lt;/p&gt;
-&lt;p&gt;A lot programs bring their own &lt;code&gt;.desktop&lt;/code&gt; file(s). Files are listed in &lt;code&gt;/usr/share/appliations&lt;/code&gt; and can be overridden or suplemented with files located in &lt;code&gt;~/.local/share/applications&lt;/code&gt;. The specification of those files &lt;a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys"&gt;can be found here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;A lot programs bring their own &lt;code&gt;.desktop&lt;/code&gt; file(s). Files are listed in &lt;code&gt;/usr/share/appliations&lt;/code&gt; and can be overridden or suplemented with files located in &lt;code&gt;~/.local/share/applications&lt;/code&gt;. The specification of those files &lt;a href="https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#recognized-keys"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;can be found here&lt;/a&gt;.&lt;/p&gt;
 </content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/><category term="tech"/></entry><entry><title>GNOME 3: Change wallpaper periodically</title><published>2019-11-10T18:52:00Z</published><updated>2019-11-10T18:52:00Z</updated><id>https://dotcs.me/posts/gnome3-change-wallpapers-automatically</id><link href="https://dotcs.me/posts/gnome3-change-wallpapers-automatically"/><summary>This post describes how wallpapers can be automatically changed in GNOME 3 with a simple script and a cronjob.</summary><content type="html" xml:base="https://dotcs.me/posts/gnome3-change-wallpapers-automatically">&lt;p&gt;If you are using GNOME 3 and you want to periodically change your desktop background using images in a folder, this is for you.&lt;/p&gt;
 &lt;p&gt;Put this script somewhere and make it executable.&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;#!/usr/bin/env bash&lt;/span&gt;

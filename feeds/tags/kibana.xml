@@ -1,5 +1,5 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: kibana - dotcs.me</title><link href="https://dotcs.me/feeds/tags/kibana.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/kibana" rel="alternate" type="text/html"/><updated>2020-11-20T14:11:34.672Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/kibana.xml</id><entry><title>Evaluate data from Komoot with Elasticsearch and Kibana</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/komoot-analysis-with-kibana</id><link href="https://dotcs.me/posts/komoot-analysis-with-kibana"/><summary>In my spare time I like to travel by bike. As a data enthusiast it's no question to track my trips using services such as Komoot. Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers. In this post I discuss how to extract data from Komoot and evaluate the data with Elasticsearch.</summary><content type="html" xml:base="https://dotcs.me/posts/komoot-analysis-with-kibana">&lt;p&gt;In my spare time I like to travel by bike.
-As a data enthusiast it's no question to track my trips using services such as &lt;a href="https://www.komoot.de/"&gt;Komoot&lt;/a&gt;.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: kibana - dotcs.me</title><link href="https://dotcs.me/feeds/tags/kibana.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/kibana" rel="alternate" type="text/html"/><updated>2020-11-21T18:14:21.089Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/kibana.xml</id><entry><title>Evaluate data from Komoot with Elasticsearch and Kibana</title><published>2017-06-11T12:00:00Z</published><updated>2017-06-11T12:00:00Z</updated><id>https://dotcs.me/posts/komoot-analysis-with-kibana</id><link href="https://dotcs.me/posts/komoot-analysis-with-kibana"/><summary>In my spare time I like to travel by bike. As a data enthusiast it's no question to track my trips using services such as Komoot. Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers. In this post I discuss how to extract data from Komoot and evaluate the data with Elasticsearch.</summary><content type="html" xml:base="https://dotcs.me/posts/komoot-analysis-with-kibana">&lt;p&gt;In my spare time I like to travel by bike.
+As a data enthusiast it's no question to track my trips using services such as &lt;a href="https://www.komoot.de/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Komoot&lt;/a&gt;.
 Besides the data analysis methods that these companies provide on their websites or apps, they are always limited in what kind of analysis they provide to their customers.
 Most of the time it is not enough tough.
 Having access to the raw data allows to do further analysis and implement highly customized charts.&lt;/p&gt;
@@ -22,13 +22,13 @@ This outlook will give a few more ideas what to do next.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Let's start!&lt;/p&gt;
 &lt;h2 id="preconditions"&gt;&lt;a class="markdownIt-Anchor" href="#preconditions"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Preconditions&lt;/h2&gt;
-&lt;p&gt;To analyze the data the so called &lt;a href="https://www.elastic.co/de/webinars/introduction-elk-stack"&gt;ELK-Stack or Elastic Stack&lt;/a&gt; (Elasticsearch, Logstash, Kibana) is used.&lt;/p&gt;
+&lt;p&gt;To analyze the data the so called &lt;a href="https://www.elastic.co/de/webinars/introduction-elk-stack"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;ELK-Stack or Elastic Stack&lt;/a&gt; (Elasticsearch, Logstash, Kibana) is used.&lt;/p&gt;
 &lt;p&gt;An instance of Elasticsearch and Kibana is required to run on the machine in order to analyze the data later on.
-To simplify the setup process it's best to not install them directly on the development machine but use &lt;a href="https://www.docker.com/"&gt;docker&lt;/a&gt; to manage the tools in a virtual environment.
+To simplify the setup process it's best to not install them directly on the development machine but use &lt;a href="https://www.docker.com/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;docker&lt;/a&gt; to manage the tools in a virtual environment.
 By doing so environments are separated, which means that it doesn't matter what operating system your working machine runs - Windows, macOS or Linux - and what versions of tools you have installed.
 The containers are isolated and describe their own system and dependencies.
-In case you haven't used docker yet, make sure to &lt;a href="https://www.docker.com/community-edition"&gt;install docker first&lt;/a&gt;.
-To get started quickly I have created a &lt;a href="https://github.com/dotcs/komoot-elk-jupyter"&gt;dockerized environment&lt;/a&gt; that can be used directly.&lt;/p&gt;
+In case you haven't used docker yet, make sure to &lt;a href="https://www.docker.com/community-edition"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;install docker first&lt;/a&gt;.
+To get started quickly I have created a &lt;a href="https://github.com/dotcs/komoot-elk-jupyter"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;dockerized environment&lt;/a&gt; that can be used directly.&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-comment"&gt;# clone the Docker Elastic Stack description into the folder named komoot-analysis&lt;/span&gt;
 git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; https://github.com/dotcs/komoot-elk-jupyter.git
 
@@ -39,8 +39,8 @@ docker-compose up        &lt;span class="hljs-comment"&gt;# spin up the ELK stac
 They share the same network configuration so that they can talk to each other.&lt;/p&gt;
 &lt;p&gt;If everything went fine the following links should work on your developer machine:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Kibana: &lt;a href="http://localhost:5601"&gt;http://localhost:5601&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Jupyter: &lt;a href="http://localhost:8888"&gt;http://localhost:8888&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Kibana: &lt;a href="http://localhost:5601"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;http://localhost:5601&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Jupyter: &lt;a href="http://localhost:8888"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;http://localhost:8888&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;small&gt;
 &lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: On a Mac Docker runs inside VirtualBox.
@@ -51,8 +51,8 @@ Make sure to use the correct one by running &lt;code&gt;docker-machine ip defaul
 Now everything is set up to continue gathering the data.
 Let's move on!&lt;/p&gt;
 &lt;h2 id="data-mining"&gt;&lt;a class="markdownIt-Anchor" href="#data-mining"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Data mining&lt;/h2&gt;
-&lt;p&gt;While Komoot provides an &lt;a href="https://static.komoot.de/doc/api/stable/v007/latest/index.html"&gt;experimental API&lt;/a&gt;, it seems impossible to create an application token without participating in some kind of beta program.
-&lt;a href="https://github.com/komoot/komoot-oauth2-connect-example/issues/2"&gt;My issue&lt;/a&gt; in the corresponding github project has not been answered yet, so a workaround is necessary to get access to the data.&lt;/p&gt;
+&lt;p&gt;While Komoot provides an &lt;a href="https://static.komoot.de/doc/api/stable/v007/latest/index.html"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;experimental API&lt;/a&gt;, it seems impossible to create an application token without participating in some kind of beta program.
+&lt;a href="https://github.com/komoot/komoot-oauth2-connect-example/issues/2"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;My issue&lt;/a&gt; in the corresponding github project has not been answered yet, so a workaround is necessary to get access to the data.&lt;/p&gt;
 &lt;p&gt;Fortunately it's easy to call the official API endpoints from the browser when logged in into their web application, because it uses the very same API.
 For the necessary API call you must be aware of your personal &lt;code&gt;USER_ID&lt;/code&gt;.
 It can be extracted from the link to the profile in the web application, which has the following schema: &lt;code&gt;https://www.komoot.de/user/{USER_ID}&lt;/code&gt;.
@@ -113,7 +113,7 @@ I'll explain step by step what each step does.
 The repo comes with some sample data which is located in &lt;code&gt;jupyter-notebooks/data/komoot-sample-data.json&lt;/code&gt;.
 In case you haven't dowwnloaded your own data you can also use this data to get started - although it's boring because it only comes with three entries. ;-)&lt;/p&gt;
 &lt;/small&gt;
-&lt;p&gt;Create a new notebook by opening &lt;a href="http://localhost:8888"&gt;Jupyter&lt;/a&gt; and click on &lt;code&gt;New &amp;gt; Notebook &amp;gt; Python 3&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Create a new notebook by opening &lt;a href="http://localhost:8888"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Jupyter&lt;/a&gt; and click on &lt;code&gt;New &amp;gt; Notebook &amp;gt; Python 3&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;First all necessary modules need to be imported.&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;import&lt;/span&gt; json
 &lt;span class="hljs-keyword"&gt;import&lt;/span&gt; pandas &lt;span class="hljs-keyword"&gt;as&lt;/span&gt; pd
@@ -149,7 +149,7 @@ df = DataFrame(data[&lt;span class="hljs-string"&gt;&amp;#x27;_embedded&amp;#x27
 &lt;p&gt;First data is loaded into the &lt;code&gt;data&lt;/code&gt; variable, then only the list of tours is loaded into a pandas &lt;code&gt;DataFrame&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Before filling the data into the database it's worth to have a closer look into the data structure.
 Especially the start point of each tour seems to not match what Elasticsearch can work with.
-Elasticsearch defines so called &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-point.html"&gt;&lt;code&gt;geo_point&lt;/code&gt;s&lt;/a&gt;, which are required to have a special format.
+Elasticsearch defines so called &lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-point.html"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;&lt;code&gt;geo_point&lt;/code&gt;s&lt;/a&gt;, which are required to have a special format.
 To make use of &lt;code&gt;geo_point&lt;/code&gt;s the format needs to be transformed a bit.
 Let's first tell Elasticsearch that it should expect a &lt;code&gt;geo_point&lt;/code&gt; here:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;mapping = &lt;span class="hljs-string"&gt;&amp;#x27;&amp;#x27;&amp;#x27;
@@ -167,7 +167,7 @@ Let's first tell Elasticsearch that it should expect a &lt;code&gt;geo_point&lt;
 es.indices.create(index=&lt;span class="hljs-string"&gt;&amp;#x27;komoot&amp;#x27;&lt;/span&gt;, ignore=&lt;span class="hljs-number"&gt;400&lt;/span&gt;, body=mapping)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This piece of code creates an index called &lt;code&gt;komoot&lt;/code&gt; in which it tells Elasticsearch to expect &lt;code&gt;start_point&lt;/code&gt; to be of type &lt;code&gt;geo_point&lt;/code&gt;.
-The &lt;a href="https://www.elastic.co/blog/index-vs-type"&gt;document type&lt;/a&gt; is called &lt;code&gt;tour&lt;/code&gt; in the index.
+The &lt;a href="https://www.elastic.co/blog/index-vs-type"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;document type&lt;/a&gt; is called &lt;code&gt;tour&lt;/code&gt; in the index.
 It's necessary to transform the data before sending it to Elasticsearch:&lt;/p&gt;
 &lt;pre class="hljs"&gt;&lt;code&gt;df[&lt;span class="hljs-string"&gt;&amp;#x27;start_point&amp;#x27;&lt;/span&gt;] = df[&lt;span class="hljs-string"&gt;&amp;#x27;start_point&amp;#x27;&lt;/span&gt;]\
     .&lt;span class="hljs-built_in"&gt;map&lt;/span&gt;(&lt;span class="hljs-keyword"&gt;lambda&lt;/span&gt; item: [item[&lt;span class="hljs-string"&gt;&amp;#x27;lng&amp;#x27;&lt;/span&gt;], item[&lt;span class="hljs-string"&gt;&amp;#x27;lat&amp;#x27;&lt;/span&gt;]])
@@ -185,7 +185,7 @@ It's necessary to transform the data before sending it to Elasticsearch:&lt;/p&g
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the next steps Kibana is used to query data and generate some nice plots from it.
 The remaining thing to do is to tell Kibana that komoot is the preferred index.
-To do so go to &lt;a href="http://localhost:5601"&gt;Kibana&lt;/a&gt;, log in by using the default username (&lt;code&gt;elastic&lt;/code&gt;) and password (&lt;code&gt;changeme&lt;/code&gt;) which should bring you right to the Management tab in which a default index must be selected.
+To do so go to &lt;a href="http://localhost:5601"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Kibana&lt;/a&gt;, log in by using the default username (&lt;code&gt;elastic&lt;/code&gt;) and password (&lt;code&gt;changeme&lt;/code&gt;) which should bring you right to the Management tab in which a default index must be selected.
 In this screen use &lt;code&gt;komoot&lt;/code&gt; as the index name, check that it contains time-based events and set the time-field name to be &lt;code&gt;date&lt;/code&gt;.
 Click on &lt;code&gt;create&lt;/code&gt; to configure the index pattern.&lt;/p&gt;
 &lt;p&gt;
@@ -328,7 +328,7 @@ Sky is the limit at this point.&lt;/p&gt;
 We have generated our own visualizations which are easy to create and highly dynamical.
 We have created a dashboard to group multiple charts and make them dependent on the same query and time interval.
 This can be a large time saver when digging into the data to gain more and more insights.
-If you want to show your work to others, note that &lt;a href="https://www.elastic.co/guide/en/kibana/current/sharing-dashboards.html"&gt;dashboards can be shared&lt;/a&gt;.
+If you want to show your work to others, note that &lt;a href="https://www.elastic.co/guide/en/kibana/current/sharing-dashboards.html"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;dashboards can be shared&lt;/a&gt;.
 But note that sharing requires to have the stack running on a server, not only on your local dev machine.&lt;/p&gt;
 &lt;p&gt;I hope you enjoyed this article. Let me know if you have any questions or remarks.&lt;/p&gt;
 </content><author><name>dotcs</name></author><category term="data-pipeline"/><category term="docker"/><category term="elasticsearch"/><category term="kibana"/><category term="tech"/></entry></feed>
