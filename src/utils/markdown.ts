@@ -62,8 +62,52 @@ const customImageRender: Renderer.RenderRule = (tokens, idx, options, env, self)
 // Overwrite image renderer, so that custom renderer is used instead.
 md.renderer.rules.image = customImageRender;
 
+const defaultLinkOpenRenderer: Renderer.RenderRule =
+    md.renderer.rules.link_open ||
+    function (tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options);
+    };
+
+md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+    let hrefAIndex: number;
+    let url: URL;
+
+    // pass token to default renderer.
+    const defaultRendering = defaultLinkOpenRenderer(tokens, idx, options, env, self);
+
+    try {
+        hrefAIndex = tokens[idx].attrIndex('href');
+    } catch {
+        return defaultRendering;
+    }
+
+    try {
+        const href = tokens[idx].attrs[hrefAIndex][1];
+        // Try to parse URL. Does fail if link is only refering to an HTML
+        // anchor.
+        url = new URL(href);
+    } catch {
+        return defaultRendering;
+    }
+
+    if (hrefAIndex < 0 || url.hostname.match(/dotcs.me$/)) {
+        // pass token to default renderer.
+        return defaultRendering;
+    }
+
+    let icon = '';
+    if (url.hostname.match(/github.com$/)) {
+        icon = 'lab la-github';
+    } else {
+        icon = 'las la-external-link-alt';
+    }
+
+    // pass token to default renderer.
+    return defaultRendering + `<i class="${icon}" title="This link refers to an external site"></i>`;
+};
+
 // Overwrite table tags, to that table is wrapped by div.
-md.renderer.rules.table_open  = () => '<div class="overflow-x-auto"><table>';
+md.renderer.rules.table_open = () => '<div class="overflow-x-auto"><table>';
 md.renderer.rules.table_close = () => '</table></div>';
 
 export default md;
