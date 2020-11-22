@@ -34,9 +34,16 @@ const Page: FC<PageProps> = (props) => {
                     title={props.settings.title}
                     href={`${props.settings.baseUrl}/feeds/`}
                 ></link>
-                <link rel="me" href={'https://github.com/' + props.settings.githubHandle} />
-                <link rel="me" href={'https://twitter.com/' + props.settings.twitterHandle} />
-                <link rel="me" href={'https://fosstodon.org/@' + props.settings.fosstodonHandle} />
+                <link rel="me" href={'https://github.com/' + props.settings.githubUserHandle} />
+                <link rel="me" href={'https://twitter.com/' + props.settings.twitterUserHandle} />
+                {props.settings.mastodonHandles.map(v => 
+                    <link 
+                        key={v.instanceBaseUrl + v.userHandle} 
+                        rel="me"
+                        href={`${v.instanceBaseUrl}/@${v.userHandle}`} />
+                )}
+                <link rel="webmention" href={props.settings.webmentionUrl} />
+                <link rel="pingback" href={props.settings.pingbackUrl} />
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />

@@ -57,24 +57,36 @@ export interface PageSettings {
     description: string;
 
     /**
-     * Reference to a twitter handle.
+     * Reference to a twitter user handle.
      *
      * E.g. for the linux foundation (https://twitter.com/linuxfoundation)
      * the twitter handle would be `linuxfoundation`.
      */
-    twitterHandle: string;
+    twitterUserHandle: string;
 
-    /** Reference to a GitHub handle. */
-    githubHandle: string;
+    /** Reference to a GitHub user handle. */
+    githubUserHandle: string;
 
+    mastodonHandles: MastodonHandle[];
+
+    /** Theme color as RBG value, e.g. `#ffffff`. */
+    themeColor: string;
+
+    /** URL to service that handles webmentions.  */
+    webmentionUrl: string;
+
+    /** URL to service that handles pingbacks. */
+    pingbackUrl: string;
+}
+
+interface MastodonHandle {
+    /** Instance base URL without tailing slash, e.g. `https://fosstodon.org`. */
+    instanceBaseUrl: string;
     /**
-     * Reference to the fosstodon instance.
+     * User handle on this instance.
      *
      * E.g. for dotcs (https://fosstodon.org/@dotcs) the handle would be
      * `dotcs`.
      */
-    fosstodonHandle: string;
-
-    /** Theme color as RBG value, e.g. `#ffffff`. */
-    themeColor: string;
+    userHandle: string;
 }
