@@ -15,10 +15,14 @@ interface MetaTimeProps {
 }
 
 const MetaTime: FC<MetaTimeProps> = (props) => (
-    <>
-        <abbr title={props.time}>{props.time.substring(0, '2020-01-01'.length)}</abbr>
-        <time className={cx('hidden', {'dt-published': props.type === 'published'})}>{props.time}</time>
-    </>
+    <time
+        className={cx({
+            'dt-published': props.type === 'published',
+            'dt-updated': props.type === 'updated',
+        })}
+        dateTime={props.time}>
+        {props.time.substring(0, '2020-01-01'.length)}
+    </time>
 );
 
 const DateMeta: FC<DateMetaProps> = (props) => {
@@ -27,12 +31,16 @@ const DateMeta: FC<DateMetaProps> = (props) => {
     return (
         <p className={props.className}>
             posted on <MetaTime time={props.published_at} type="published" /> by 
-            <ul className="inline ml-1">
+            <ul className="ml-1" style={{display: 'inline-block'}}>
                 {props.authors.map(author => (
-                    <li key={author} className="p-author h-card inline-block">
+                    <li key={author} className="p-author h-card" 
+                        // Hide via style tag to avoid moving elements during page load.
+                        style={{display: 'inline-block'}}>
                         <Link href="/">
                             <a className="u-url">
-                                <img src="/about/dotcs-profile.png" className="u-photo rounded-full hidden" />
+                                <img src="/about/dotcs-profile.png" className="u-photo rounded-full" 
+                                // Hide via style tag to avoid moving elements during page load.
+                                style={{display: 'none'}} />
                                 <span className="p-name">{author}</span>
                             </a>
                         </Link>
