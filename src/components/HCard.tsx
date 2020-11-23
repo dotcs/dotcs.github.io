@@ -27,7 +27,7 @@ const HCard: FC<HCardProps> = (props) => (
                     <h4 className="font-bold">Contact</h4>
                     <ul className="list-inside list-disc ml-2">
                         {props.url && <li><a className={cx("u-url", {'u-uid': props.main})} href={props.url}>web</a></li>}
-                        {props.email && <li><a className="u-email" href={props.email}>email</a></li>}
+                        {props.email && <li><a className="u-email" href={`mailto:${props.email}`}>email</a></li>}
                     </ul>
                 </div>
                 <ul className="block">
