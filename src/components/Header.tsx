@@ -26,21 +26,15 @@ export const Header: FC<HeaderProps> = (props) => {
     return (
         <div className="bg-teal-500">
             <nav className="flex items-center justify-between flex-wrap container mx-auto py-6 px-4">
-                <span className="h-card">
-                    <Link href="/">
-                        <a className="u-url u-uid">
-                            <div className="flex items-center flex-shrink-0 text-white mr-6">
-                                <span className="font-semibold text-xl tracking-tight font-mono">
-                                    [{pageSettings.title} ~]$ <span className="x-logo-ticker">█</span>
-                                </span>
-                            </div>
-                        </a>
-                    </Link>
-                    <span style={{display: 'none'}}>
-                        <span className="p-name">{pageSettings.title}</span>
-                        <img src="/og-default-image.png" className="u-photo" />
-                    </span>
-                </span>
+                <Link href="/">
+                    <a>
+                        <div className="flex items-center flex-shrink-0 text-white mr-6">
+                            <span className="font-semibold text-xl tracking-tight font-mono">
+                                [{pageSettings.title} ~]$ <span className="x-logo-ticker">█</span>
+                            </span>
+                        </div>
+                    </a>
+                </Link>
                 <div className="block lg:hidden">
                     <button
                         className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
