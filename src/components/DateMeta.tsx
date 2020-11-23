@@ -31,22 +31,18 @@ const DateMeta: FC<DateMetaProps> = (props) => {
     return (
         <p className={props.className}>
             posted on <MetaTime time={props.published_at} type="published" /> by 
-            <ul className="ml-1" style={{display: 'inline-block'}}>
+            <span className="ml-1" style={{display: 'inline'}}>
                 {props.authors.map(author => (
-                    <li key={author} className="p-author h-card" 
-                        // Hide via style tag to avoid moving elements during page load.
-                        style={{display: 'inline-block'}}>
+                    <span key={author} className="p-author h-card inline-block">
                         <Link href="/">
                             <a className="u-url">
-                                <img src="/about/dotcs-profile.png" className="u-photo rounded-full" 
-                                // Hide via style tag to avoid moving elements during page load.
-                                style={{display: 'none'}} />
+                                <img src="/about/dotcs-profile.png" className="u-photo rounded-full hidden" />
                                 <span className="p-name">{author}</span>
                             </a>
                         </Link>
-                    </li>
+                    </span>
                 ))}
-            </ul>
+            </span>
             {isUpdated && (
                 <>
                     , last updated on <MetaTime time={props.updated_at} type='updated' />
