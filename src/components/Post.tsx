@@ -4,6 +4,7 @@ import { ParsedPost as PostType } from '../types';
 import DateMeta from './DateMeta';
 import Markdown from './Markdown';
 import TagList from './TagList';
+import Link from 'next/link';
 
 export interface PostProps {
     post: PostType;
@@ -22,7 +23,11 @@ const replaceTemplateVars = (slug: string, text: string) => {
 
 const Post: FC<PostProps> = (props) => (
     <div className={cx("h-entry", props.className)}>
-        <h1 className="text-2xl md:text-3xl font-semibold p-name">{props.post.attributes.title}</h1>
+        <Link href={`/posts/${props.post.attributes.slug}`}>
+            <a className="u-url">
+                <h1 className="text-2xl md:text-3xl font-semibold p-name">{props.post.attributes.title}</h1>
+            </a>
+        </Link>
         <div className="text-sm font-light mb-4">
             <DateMeta
                 published_at={props.post.attributes.published_at}

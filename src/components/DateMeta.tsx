@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
+import cx from 'classnames';
 
 export interface DateMetaProps {
     published_at: string;
@@ -10,12 +11,14 @@ export interface DateMetaProps {
 
 interface MetaTimeProps {
     time: string;
-    className?: string;
+    type: 'published' | 'updated';
 }
 
 const MetaTime: FC<MetaTimeProps> = (props) => (
-    <time title={props.time} className={props.className}>
-        {props.time.substr(0, '2000-01-01'.length)}</time>
+    <>
+        <abbr title={props.time}>{props.time.substring(0, '2020-01-01'.length)}</abbr>
+        <time className={cx('hidden', {'dt-published': props.type === 'published'})}>{props.time}</time>
+    </>
 );
 
 const DateMeta: FC<DateMetaProps> = (props) => {
@@ -23,7 +26,7 @@ const DateMeta: FC<DateMetaProps> = (props) => {
 
     return (
         <p className={props.className}>
-            posted on <MetaTime time={props.published_at} className="dt-published" /> by 
+            posted on <MetaTime time={props.published_at} type="published" /> by 
             <ul className="inline ml-1">
                 {props.authors.map(author => (
                     <li key={author} className="p-author h-card inline-block">
@@ -38,7 +41,7 @@ const DateMeta: FC<DateMetaProps> = (props) => {
             </ul>
             {isUpdated && (
                 <>
-                    , last updated on <MetaTime time={props.updated_at} />
+                    , last updated on <MetaTime time={props.updated_at} type='updated' />
                 </>
             )}
         </p>
