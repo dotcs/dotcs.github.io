@@ -1,28 +1,9 @@
 import { CSSProperties, FC } from "react";
 import cx from 'classnames';
 
-export interface HCard {
-    main?: boolean;
-    name?: string;
-    honorificPrefix?: string;
-    givenName?: string;
-    familyName?: string;
-    nickname?: string;
-    photoRef?: string;
-    url?: string;
-    email?: string;
-    locality?: string;
-    region?: {
-        abbr: string;
-        title: string;
-    };
-    country?: string;
-    category?: string;
-    note?: string;
-    gpgKey?: string;
-}
+import { HCard as HCardType } from "../types";
 
-export interface HCardProps extends HCard {
+export interface HCardProps extends HCardType {
     className?: string;
     style?: CSSProperties;
 }

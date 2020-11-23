@@ -1,5 +1,4 @@
-import { HCard } from './components/HCard';
-import { PageSettings } from './types';
+import { PageSettings, HCard } from './types';
 
 export const pageSettings: PageSettings = {
     title: 'dotcs.me',

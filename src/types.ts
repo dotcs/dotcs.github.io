@@ -90,3 +90,24 @@ interface MastodonHandle {
      */
     userHandle: string;
 }
+
+export interface HCard {
+    main?: boolean;
+    name?: string;
+    honorificPrefix?: string;
+    givenName?: string;
+    familyName?: string;
+    nickname?: string;
+    photoRef?: string;
+    url?: string;
+    email?: string;
+    locality?: string;
+    region?: {
+        abbr: string;
+        title: string;
+    };
+    country?: string;
+    category?: string;
+    note?: string;
+    gpgKey?: string;
+}
