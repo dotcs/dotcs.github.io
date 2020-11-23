@@ -76,6 +76,13 @@ a {
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted; /* 2 */
+}
+
 /**
  * Add the correct font weight in Chrome, Edge, and Safari.
  */
@@ -262,9 +269,11 @@ template {
  * Removes the default spacing and border for appropriate elements.
  */
 
-
+blockquote,
 h1,
 h2,
+h3,
+h4,
 p,
 pre {
   margin: 0;
@@ -370,7 +379,9 @@ table {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4 {
   font-size: inherit;
   font-weight: inherit;
 }
@@ -892,6 +903,10 @@ img {
   display: none;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -902,6 +917,10 @@ img {
 
 .items-center {
   align-items: center;
+}
+
+.self-center {
+  align-self: center;
 }
 
 .justify-center {
@@ -960,6 +979,10 @@ img {
   font-size: 1.875rem;
 }
 
+.list-inside {
+  list-style-position: inside;
+}
+
 .list-disc {
   list-style-type: disc;
 }
@@ -969,9 +992,18 @@ img {
   margin-right: 0.25rem;
 }
 
+.my-4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mr-1 {
+  margin-right: 0.25rem;
 }
 
 .mb-1 {
@@ -992,6 +1024,10 @@ img {
 
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 
 .mt-4 {
@@ -1020,6 +1056,10 @@ img {
 
 .mb-12 {
   margin-bottom: 3rem;
+}
+
+.-mt-2 {
+  margin-top: -0.5rem;
 }
 
 .max-w-none {
@@ -1090,6 +1130,10 @@ img {
   overflow-x: auto;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .p-4 {
   padding: 1rem;
 }
@@ -1141,8 +1185,16 @@ img {
   position: relative;
 }
 
+.shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
 .fill-current {
   fill: currentColor;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -1196,6 +1248,12 @@ img {
 
 .w-full {
   width: 100%;
+}
+
+.gap-4 {
+  grid-gap: 1rem;
+  grid-gap: 1rem;
+  gap: 1rem;
 }
 
 @-webkit-keyframes spin {
