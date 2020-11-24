@@ -1,10 +1,13 @@
 import { FC } from 'react';
 import cx from 'classnames';
+import Link from 'next/link';
+import Head from 'next/head';
+
 import { ParsedPost as PostType } from '../types';
 import DateMeta from './DateMeta';
 import Markdown from './Markdown';
 import TagList from './TagList';
-import Link from 'next/link';
+import { getBlogPostJsonLd } from '../utils/schema';
 
 export interface PostProps {
     post: PostType;
@@ -23,6 +26,12 @@ const replaceTemplateVars = (slug: string, text: string) => {
 
 const Post: FC<PostProps> = (props) => (
     <div className={cx("h-entry", props.className)}>
+        <Head>
+            <script
+                type="application/ld+json" 
+                dangerouslySetInnerHTML={{__html: JSON.stringify(getBlogPostJsonLd(props.post))}}
+            />
+        </Head>
         <Link href={`/posts/${props.post.attributes.slug}`}>
             <a className="u-url">
                 <h1 className="text-2xl md:text-3xl font-semibold p-name">{props.post.attributes.title}</h1>
