@@ -1,14 +1,18 @@
 import { mainHCard, pageSettings } from "../settings";
-import { ParsedPost } from "../types";
+import { PostAttributes } from "../types";
 
 // Useful tool for validation: https://search.google.com/structured-data/testing-tool
 
-export const getBlogPostJsonLd = (post: ParsedPost): object => ({
+export const wrapSchmeaContext = (obj: object) => ({
     "@context": "https://schema.org",
+    ...obj,
+});
+
+export const getBlogPostJsonLd = (postAttr: PostAttributes): object => ({
     "@type": "BlogPosting",
-    "@id": pageSettings.baseUrl + '/posts' + post.attributes.slug,
-    "headline": post.attributes.title,
-    "description": post.attributes.excerpt,
+    "@id": pageSettings.baseUrl + '/posts' + postAttr.slug,
+    "headline": postAttr.title,
+    "description": postAttr.excerpt,
     "image": {
         "@type": "ImageObject",
         "url": pageSettings.baseUrl + '/og-default-image.png',
@@ -16,8 +20,8 @@ export const getBlogPostJsonLd = (post: ParsedPost): object => ({
         "height": 630,
     },
     "author": getPerson(),
-    "datePublished": post.attributes.published_at,
-    "dateModified": post.attributes.updated_at,
+    "datePublished": postAttr.published_at,
+    "dateModified": postAttr.updated_at,
     "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": pageSettings.baseUrl,

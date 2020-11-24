@@ -7,7 +7,7 @@ import { ParsedPost as PostType } from '../types';
 import DateMeta from './DateMeta';
 import Markdown from './Markdown';
 import TagList from './TagList';
-import { getBlogPostJsonLd } from '../utils/schema';
+import { getBlogPostJsonLd, wrapSchmeaContext } from '../utils/schema';
 
 export interface PostProps {
     post: PostType;
@@ -29,7 +29,7 @@ const Post: FC<PostProps> = (props) => (
         <Head>
             <script
                 type="application/ld+json" 
-                dangerouslySetInnerHTML={{__html: JSON.stringify(getBlogPostJsonLd(props.post))}}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBlogPostJsonLd(props.post.attributes)))}}
             />
         </Head>
         <Link href={`/posts/${props.post.attributes.slug}`}>
