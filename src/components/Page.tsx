@@ -44,6 +44,7 @@ const Page: FC<PageProps> = (props) => {
                 )}
                 <link rel="webmention" href={props.settings.webmentionUrl} />
                 <link rel="pingback" href={props.settings.pingbackUrl} />
+                <script async defer data-domain="dotcs.me" src="https://analytics.home.dotcs.me/js/plausible.js" />
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />
