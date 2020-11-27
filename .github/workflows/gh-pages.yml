@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - feature/indieweb
 jobs:
   build-and-deploy:
     runs-on: ubuntu-20.04

@@ -13,7 +13,7 @@ const TagList: FC<TagListProps> = (props) => (
             {props.tags.map((item) => (
                 <li key={item} className="inline-block mr-2">
                     <Link href="/tags/[slug]" as={'/tags/' + item}>
-                        <a className="x-link">{item}</a>
+                        <a className="x-link p-category">{item}</a>
                     </Link>
                 </li>
             ))}
