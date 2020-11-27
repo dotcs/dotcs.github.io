@@ -9,6 +9,7 @@ import { PostItem, PostItemProps } from '../components/PostItem';
 import { PageSettings } from '../types';
 import { getAllPosts } from '../utils/parser';
 import { pageSettings } from '../settings';
+import { getMainWebPage, wrapSchmeaContext } from '../utils/schema';
 
 export interface PageProps {
     posts: PostItemProps[];
@@ -27,7 +28,11 @@ export const Page: FC<PageProps> = (props) => (
     <>
         <Head>
             <meta property="og:description" content={props.settings.description} />
-            <title>{props.settings.title}- Weblog</title>
+            <title>{props.settings.title} - Weblog</title>
+            <script
+                type="application/ld+json" 
+                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getMainWebPage()))}}
+            />
         </Head>
         <PageCmp settings={props.settings}>
             <div className="px-4 lg:px-24 py-4">

@@ -8,27 +8,49 @@ export const wrapSchmeaContext = (obj: object) => ({
     ...obj,
 });
 
-export const getBlogPostJsonLd = (postAttr: PostAttributes): object => ({
-    "@type": "BlogPosting",
-    "@id": pageSettings.baseUrl + '/posts' + postAttr.slug,
-    "headline": postAttr.title,
-    "description": postAttr.excerpt,
-    "image": {
-        "@type": "ImageObject",
-        "url": pageSettings.baseUrl + '/og-default-image.png',
-        "width": 1200,
-        "height": 630,
-    },
-    "author": getPerson(),
-    "datePublished": postAttr.published_at,
-    "dateModified": postAttr.updated_at,
-    "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": pageSettings.baseUrl,
-    },
-    "publisher": getOrg(),
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+export const getDefaultImage = (): object => ({
+    "@type": "ImageObject",
+    url: pageSettings.baseUrl + '/og-default-image.png',
+    width: 1200,
+    height: 630,
 });
+
+export const getMainWebPage = (): object => ({
+    "@type": "WebPage",
+    headline: pageSettings.description,
+    mainEntityOfPage: pageSettings.baseUrl,
+    name: pageSettings.title,
+    publisher: {
+        '@type': "Organization",
+        logo: getDefaultImage(),
+        name: pageSettings.title,
+    },
+    url: pageSettings.baseUrl,
+});
+
+export const getBlogPostJsonLd = (postAttr: PostAttributes): object => {
+    const url = pageSettings.baseUrl + '/posts' + postAttr.slug;
+    return {
+        "@type": "BlogPosting",
+        "@id": url,
+        url: url,
+        headline: postAttr.title,
+        description: postAttr.excerpt,
+        keywords: postAttr.keywords,
+        isAccessibleForFree: true,
+        image: getDefaultImage(),
+        author: getPerson(),
+        dateCreated: postAttr.published_at,
+        datePublished: postAttr.published_at,
+        dateModified: postAttr.updated_at,
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": url,
+        },
+        publisher: getOrganization(),
+        license: "https://creativecommons.org/licenses/by-sa/4.0/"
+    }
+};
 
 export const getPerson = (): object => ({
     "@type": "Person",
@@ -37,16 +59,10 @@ export const getPerson = (): object => ({
     "familyName": mainHCard.familyName,
     "email": mainHCard.email,
     "honorificPrefix": mainHCard.honorificPrefix,
-    "brand": getOrg,
 });
 
-export const getOrg = (): object => ({
+export const getOrganization = (): object => ({
     "@type": "Organization",
-    "name": "dotcs",
-    "logo": {
-        "@type": "ImageObject",
-        "url": pageSettings.baseUrl + '/og-default-image.png',
-        "width": 1200,
-        "height": 630,
-    }
+    "name": pageSettings.title,
+    "logo": getDefaultImage() 
 });
