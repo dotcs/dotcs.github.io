@@ -1,4 +1,4 @@
-<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: linux - dotcs.me</title><link href="https://dotcs.me/feeds/tags/linux.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/linux" rel="alternate" type="text/html"/><updated>2020-11-28T13:28:09.298Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/linux.xml</id><entry><title>Migrate from i3 to sway</title><published>2020-11-15T09:52:00Z</published><updated>2020-11-19T21:13:28+01:00</updated><id>https://dotcs.me/posts/migrate-from-i3-to-sway</id><link href="https://dotcs.me/posts/migrate-from-i3-to-sway"/><summary>This post describes my migration from i3 (X.org Server) to Sway (Wayland).</summary><content type="html" xml:base="https://dotcs.me/posts/migrate-from-i3-to-sway">&lt;p&gt;I recently changed from the Linux display server protocol &lt;a href="https://en.wikipedia.org/wiki/X.Org_Server"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;X.org Server&lt;/a&gt; to &lt;a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Wayland&lt;/a&gt; on one of my machines.
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: linux - dotcs.me</title><link href="https://dotcs.me/feeds/tags/linux.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/linux" rel="alternate" type="text/html"/><updated>2020-11-28T20:34:35.007Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/linux.xml</id><entry><title>Migrate from i3 to sway</title><published>2020-11-15T09:52:00Z</published><updated>2020-11-28T21:27:00+01:00</updated><id>https://dotcs.me/posts/migrate-from-i3-to-sway</id><link href="https://dotcs.me/posts/migrate-from-i3-to-sway"/><summary>This post describes my migration from i3 (X.org Server) to Sway (Wayland).</summary><content type="html" xml:base="https://dotcs.me/posts/migrate-from-i3-to-sway">&lt;p&gt;I recently changed from the Linux display server protocol &lt;a href="https://en.wikipedia.org/wiki/X.Org_Server"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;X.org Server&lt;/a&gt; to &lt;a href="https://en.wikipedia.org/wiki/Wayland_(display_server_protocol)"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Wayland&lt;/a&gt; on one of my machines.
 My favorite window manager &lt;a href="https://i3wm.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;i3&lt;/a&gt; is not compatible with Wayland though, so I had to search for an alternative.
 Luckily there is a drop-in replacement for i3 available which is named &lt;a href="https://swaywm.org/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Sway&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Sway is very similar to i3, it even uses the same syntax for the config, so the change required only a few tweaks which I will now talk about.
@@ -172,6 +172,39 @@ Unfortunately it's not &lt;a href="https://github.com/dunst-project/dunst/issues
 I found &lt;a href="https://github.com/emersion/mako"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;mako&lt;/a&gt; to be a good replacement.&lt;br&gt;
 Using &lt;code&gt;mako&lt;/code&gt; is dead simple.
 After installation an additional line &lt;code&gt;exec mako&lt;/code&gt; in the sway config file does the job.&lt;/p&gt;
+&lt;h3 id="printer"&gt;&lt;a class="markdownIt-Anchor" href="#printer"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Printer&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://wiki.archlinux.org/index.php/CUPS"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;CUPS&lt;/a&gt; was not properly started after the switch.
+What helped was to create the following configuration in &lt;code&gt;/etc/systemd/system/cups.socket&lt;/code&gt;:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-section"&gt;[Unit]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;Description&lt;/span&gt;=CUPS Printing Service Sockets
+
+&lt;span class="hljs-section"&gt;[Socket]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;ListenStream&lt;/span&gt;=/var/run/cups/cups.sock
+&lt;span class="hljs-attr"&gt;ListenStream&lt;/span&gt;=&lt;span class="hljs-number"&gt;0.0&lt;/span&gt;.&lt;span class="hljs-number"&gt;0.0&lt;/span&gt;:&lt;span class="hljs-number"&gt;631&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;ListenDatagram&lt;/span&gt;=&lt;span class="hljs-number"&gt;0.0&lt;/span&gt;.&lt;span class="hljs-number"&gt;0.0&lt;/span&gt;:&lt;span class="hljs-number"&gt;631&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;BindIPv6Only&lt;/span&gt;=ipv6-&lt;span class="hljs-literal"&gt;on&lt;/span&gt;ly
+
+&lt;span class="hljs-section"&gt;[Install]&lt;/span&gt;
+&lt;span class="hljs-attr"&gt;WantedBy&lt;/span&gt;=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then enable/start the service with &lt;code&gt;systemctl enable --now cups.service&lt;/code&gt; and make sure it started properly:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-meta"&gt;$&lt;/span&gt;&lt;span class="bash"&gt; systemctl status cups.service&lt;/span&gt;
+● cups.service - CUPS Scheduler
+     Loaded: loaded (/usr/lib/systemd/system/cups.service; enabled; vendor preset: disabled)
+     Active: active (running) since Sat 2020-11-28 21:21:45 CET; 4min 31s ago
+TriggeredBy: ● cups.socket
+             ● cups.path
+       Docs: man:cupsd(8)
+   Main PID: 55543 (cupsd)
+     Status: &amp;quot;Scheduler is running...&amp;quot;
+      Tasks: 1 (limit: 19070)
+     Memory: 5.2M
+     CGroup: /system.slice/cups.service
+             └─55543 /usr/bin/cupsd -l
+
+Nov 28 21:21:45 mali systemd[1]: Starting CUPS Scheduler...
+Nov 28 21:21:45 mali systemd[1]: Started CUPS Scheduler.
+&lt;/code&gt;&lt;/pre&gt;
 </content><author><name>dotcs</name></author><category term="linux"/><category term="notes"/></entry><entry><title>Automate tasks with docker-compose and systemd</title><published>2020-05-22T15:57:00Z</published><updated>2020-05-22T15:57:00Z</updated><id>https://dotcs.me/posts/automate-tasks-with-systemd</id><link href="https://dotcs.me/posts/automate-tasks-with-systemd"/><summary>This article shows how tasks that have been encapsulated in Docker containers can be controlled by systemd timers. In case of an error a separate systemd service is triggered which sends a mail which contains the last view lines from the journal log.</summary><content type="html" xml:base="https://dotcs.me/posts/automate-tasks-with-systemd">&lt;p&gt;I have several tasks encapsulated in Docker containers which I need to trigger on a regular basis.
 The scheduling can be done with systemd.
 Both tools together have proven to be a quite powerful combination.&lt;/p&gt;
