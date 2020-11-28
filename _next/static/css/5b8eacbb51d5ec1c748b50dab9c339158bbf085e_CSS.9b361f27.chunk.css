@@ -1177,6 +1177,10 @@ img {
   padding-left: 2rem;
 }
 
+.static {
+  position: static;
+}
+
 .absolute {
   position: absolute;
 }
