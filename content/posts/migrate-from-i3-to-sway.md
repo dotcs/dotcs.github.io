@@ -7,7 +7,7 @@ keywords:
 authors:
   - dotcs
 published_at: "2020-11-15T09:52:00Z"
-updated_at: "2020-11-19T21:13:28+01:00"
+updated_at: "2020-11-28T21:27:00+01:00"
 ---
 
 I recently changed from the Linux display server protocol [X.org Server][xserver] to [Wayland][wayland] on one of my machines.
@@ -252,6 +252,45 @@ Using `mako` is dead simple.
 After installation an additional line `exec mako` in the sway config file does the job.
 
 
+### Printer
+
+[CUPS][cups-archwiki] was not properly started after the switch.
+What helped was to create the following configuration in `/etc/systemd/system/cups.socket`:
+
+```ini
+[Unit]
+Description=CUPS Printing Service Sockets
+
+[Socket]
+ListenStream=/var/run/cups/cups.sock
+ListenStream=0.0.0.0:631
+ListenDatagram=0.0.0.0:631
+BindIPv6Only=ipv6-only
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then enable/start the service with `systemctl enable --now cups.service` and make sure it started properly:
+
+```console
+$ systemctl status cups.service
+● cups.service - CUPS Scheduler
+     Loaded: loaded (/usr/lib/systemd/system/cups.service; enabled; vendor preset: disabled)
+     Active: active (running) since Sat 2020-11-28 21:21:45 CET; 4min 31s ago
+TriggeredBy: ● cups.socket
+             ● cups.path
+       Docs: man:cupsd(8)
+   Main PID: 55543 (cupsd)
+     Status: "Scheduler is running..."
+      Tasks: 1 (limit: 19070)
+     Memory: 5.2M
+     CGroup: /system.slice/cups.service
+             └─55543 /usr/bin/cupsd -l
+
+Nov 28 21:21:45 mali systemd[1]: Starting CUPS Scheduler...
+Nov 28 21:21:45 mali systemd[1]: Started CUPS Scheduler.
+```
 
 [i3]: https://i3wm.org/
 [xserver]: https://en.wikipedia.org/wiki/X.Org_Server
@@ -261,3 +300,4 @@ After installation an additional line `exec mako` in the sway config file does t
 [dunst]: https://dunst-project.org/
 [dunst-264]: https://github.com/dunst-project/dunst/issues/264
 [mako]: https://github.com/emersion/mako
+[cups-archwiki]: https://wiki.archlinux.org/index.php/CUPS
