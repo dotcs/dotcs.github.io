@@ -1,5 +1,5 @@
 import { mainHCard, pageSettings } from "../settings";
-import { PostAttributes } from "../types";
+import { PostAttributes, ContentType } from "../types";
 
 // Useful tool for validation: https://search.google.com/structured-data/testing-tool
 
@@ -65,4 +65,34 @@ export const getOrganization = (): object => ({
     "@type": "Organization",
     "name": pageSettings.title,
     "logo": getDefaultImage() 
+});
+
+export const getBreadcrumbPost = (postAttr: PostAttributes): object => ({
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Posts",
+    "item": `${pageSettings.baseUrl}/posts`,
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": postAttr.title,
+    "item": `${pageSettings.baseUrl}/posts/${postAttr.slug}`
+  }]
+});
+
+export const getBreadcrumbTag = (tagSlug: string): object => ({
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Tags",
+    "item": `${pageSettings.baseUrl}/tags`,
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": tagSlug,
+    "item": `${pageSettings.baseUrl}/tags/${tagSlug}`
+  }]
 });

@@ -11,6 +11,7 @@ import { PostItem } from '../../components/PostItem';
 import { PageSettings, ParsedPost } from '../../types';
 import { getAllTags, getPostsByTag } from '../../utils/parser';
 import { pageSettings } from '../../settings';
+import { getBreadcrumbTag, wrapSchmeaContext } from '../../utils/schema';
 
 interface StaticParams extends ParsedUrlQuery {
     slug: string;
@@ -48,15 +49,12 @@ export const TagPage: FC<TagPageProps> = (props) => {
                 <meta property="og:title" content={props.tag} />
                 <meta property="og:description" content={'Posts that are tagged with: ' + props.tag} />
                 <meta property="og:url" content={`${props.settings.baseUrl}/tags/${props.tag}`} />
-                {/*
-          <meta property="og:image" content="" />
-          <meta property="og:image:width" content="" />
-          <meta property="og:image:height" content="" />
-          */}
-
                 <title>
                     Tag: {props.tag} - {props.settings.title}
                 </title>
+                <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBreadcrumbTag(props.tag)))}} />
             </Head>
             <PageCmp settings={props.settings}>
                 <div className="px-4 lg:px-24 py-4">

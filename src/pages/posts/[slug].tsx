@@ -11,6 +11,7 @@ import { PageSettings, ParsedPost } from '../../types';
 import { getAllPosts, getAllPostSlugs } from '../../utils/parser';
 import { pageSettings } from '../../settings';
 import Post from '../../components/Post';
+import { getBreadcrumbPost, wrapSchmeaContext } from '../../utils/schema';
 
 interface StaticParams extends ParsedUrlQuery {
     slug: string;
@@ -45,6 +46,9 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
             <title>
                 {post.attributes.title} - {settings.title}
             </title>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBreadcrumbPost(post.attributes)))}} />
         </Head>
         <PageCmp settings={settings}>
             <Post className="px-4 lg:px-24 py-4" post={post} />
