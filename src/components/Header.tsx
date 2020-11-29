@@ -63,7 +63,7 @@ export const Header: FC<HeaderProps> = (props) => {
 
 Header.defaultProps = {
     pages: [
-        { title: 'Blog', href: '/' },
+        { title: 'Posts', href: '/posts' },
         { title: 'Tags', href: '/tags' },
         { title: 'About me', href: '/pages/about-me' },
     ],
