@@ -1,15 +1,15 @@
-import '../styles/index.css';
+import '../../styles/index.css';
 
 import { FC } from 'react';
 import Head from 'next/head';
 import { GetStaticProps } from 'next';
 
-import PageCmp from '../components/Page';
-import { PostItem, PostItemProps } from '../components/PostItem';
-import { PageSettings } from '../types';
-import { getAllPosts } from '../utils/parser';
-import { pageSettings } from '../settings';
-import { getMainWebPage, wrapSchmeaContext } from '../utils/schema';
+import PageCmp from '../../components/Page';
+import { PostItem, PostItemProps } from '../../components/PostItem';
+import { PageSettings } from '../../types';
+import { getAllPosts } from '../../utils/parser';
+import { pageSettings } from '../../settings';
+import { getPostsWebPage, wrapSchmeaContext } from '../../utils/schema';
 
 export interface PageProps {
     posts: PostItemProps[];
@@ -31,7 +31,7 @@ export const Page: FC<PageProps> = (props) => (
             <title>{props.settings.title} - Weblog</title>
             <script
                 type="application/ld+json" 
-                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getMainWebPage()))}}
+                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getPostsWebPage()))}}
             />
         </Head>
         <PageCmp settings={props.settings}>
