@@ -4,10 +4,10 @@ import { FC } from 'react';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
-import PageCmp from '../components/Page';
-import { TagCount, PageSettings } from '../types';
-import { getTagCounts } from '../utils/parser';
-import { pageSettings } from '../settings';
+import PageCmp from '../../components/Page';
+import { TagCount, PageSettings } from '../../types';
+import { getTagCounts } from '../../utils/parser';
+import { pageSettings } from '../../settings';
 
 export interface TagsPageProps {
     tags: TagCount[];
