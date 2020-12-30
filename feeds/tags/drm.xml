@@ -1,0 +1,107 @@
+<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Tag: drm - dotcs.me</title><link href="https://dotcs.me/feeds/tags/drm.xml" rel="self" type="application/atom+xml"/><link href="https://dotcs.me/tags/drm" rel="alternate" type="text/html"/><updated>2020-12-30T22:12:28.842Z</updated><author><name>dotcs</name></author><id>https://dotcs.me/feeds/tags/drm.xml</id><entry><title>Privacy and Audible Audiobooks</title><published>2020-12-30T22:46:05+01:00</published><updated>2020-12-30T22:46:05+01:00</updated><id>https://dotcs.me/posts/audible-audiobooks-privacy</id><link href="https://dotcs.me/posts/audible-audiobooks-privacy"/><summary>This article mentions privacy concerns of the Amazon Audible platform and discusses how to prevent a lock-in into Amazon's apps in order to gain more privacy.</summary><content type="html" xml:base="https://dotcs.me/posts/audible-audiobooks-privacy">&lt;p&gt;Audible has a lot books available as audiobooks and I think a price of about 10 EUR per book is more than justified.
+But unfortunately Audible locks people into their own ecosystem.
+Users must use the official Audible app(s) to download and listen to the purchased books.
+To my knowledge third party software is not supported.
+This has a lot to do with digital right managment (DRM) of course, but the situation also plays into Amazon's cards.
+By locking the people into a certain app they can analyze how people listen to the audiobooks.
+For example they could answer the following questions about you:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Which are the audiobooks that you listen to?&lt;/li&gt;
+&lt;li&gt;Which audiobooks have you started to hear? Which of them have you finished? Which have you rejected?&lt;/li&gt;
+&lt;li&gt;Which chapters have you re-read? Which parts have you skipped?&lt;/li&gt;
+&lt;li&gt;and so on&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;From their privacy information details:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Automatic information we collect and analyze include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[...]&lt;/li&gt;
+&lt;li&gt;content interaction information, such as &lt;strong&gt;content downloads, streams, playback details&lt;/strong&gt;, &lt;strong&gt;listening behavior like start and stop points&lt;/strong&gt;, &lt;strong&gt;listening duration&lt;/strong&gt;, reading behavior on your Kindle devices and apps (so we can provide our WhisperSync for Voice functionality &lt;strong&gt;and award badges based on your listening&lt;/strong&gt; and also calculate royalties), and network details for streaming and download quality, including information about your internet service provider;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;small&gt;&lt;a href="https://help.audible.com/s/article/audible-privacy-information?language=en_US"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Audible Privacy Information&lt;/a&gt;, relevant text has been highlighted by me&lt;/small&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I'm wondering if those award badges are mainly there so that Amazon can argue about any privacy concerns that people might have.
+At least for me they are not important at all, I would prefer a tracking-free Audible variant and would gladly waive the badges for this.&lt;/p&gt;
+&lt;p&gt;While it's not possible to prevent Amazon from tracking which Audiobooks are bought, it is possible to stop them from tracking HOW you read them.
+Let's see how this can be done.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;:
+This approach breaks the DRM protection of the Audiobooks.
+Please make sure that this is legal in your country for the intended purpose.&lt;/p&gt;
+&lt;h2 id="downloading-audiobooks"&gt;&lt;a class="markdownIt-Anchor" href="#downloading-audiobooks"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Downloading Audiobooks&lt;/h2&gt;
+&lt;p&gt;Audiobooks that you have bought from Audible can be downloaded from your &lt;a href="https://www.audible.de/library/titles"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;library&lt;/a&gt;.
+Execute this script in your &lt;a href="https://developer.mozilla.org/en-US/docs/Tools/Browser_Console"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;browser's console&lt;/a&gt; to copy all relevant download links into the clipboard.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;&lt;span class="hljs-keyword"&gt;let&lt;/span&gt; zip = &lt;span class="hljs-function"&gt;(&lt;span class="hljs-params"&gt;a, b&lt;/span&gt;) =&amp;gt;&lt;/span&gt; a.map(&lt;span class="hljs-function"&gt;(&lt;span class="hljs-params"&gt;v, i&lt;/span&gt;) =&amp;gt;&lt;/span&gt; [v, b[i]]);
+
+&lt;span class="hljs-keyword"&gt;let&lt;/span&gt; links = &lt;span class="hljs-built_in"&gt;Array&lt;/span&gt;.from(&lt;span class="hljs-built_in"&gt;document&lt;/span&gt;.querySelectorAll(&lt;span class="hljs-string"&gt;&amp;#x27;.adbl-lib-action-download &amp;gt; a[href^=&amp;quot;https://cds.audible.de/download&amp;quot;]&amp;#x27;&lt;/span&gt;))
+    .map(&lt;span class="hljs-function"&gt;&lt;span class="hljs-params"&gt;el&lt;/span&gt; =&amp;gt;&lt;/span&gt; el.attributes[&lt;span class="hljs-string"&gt;&amp;#x27;href&amp;#x27;&lt;/span&gt;].nodeValue);
+&lt;span class="hljs-keyword"&gt;let&lt;/span&gt; titles = &lt;span class="hljs-built_in"&gt;Array&lt;/span&gt;.from(&lt;span class="hljs-built_in"&gt;document&lt;/span&gt;.querySelectorAll(&lt;span class="hljs-string"&gt;&amp;#x27;#adbl-library-content-main .bc-list a.bc-link[href^=&amp;quot;/pd&amp;quot;]&amp;#x27;&lt;/span&gt;))
+    .map(&lt;span class="hljs-function"&gt;&lt;span class="hljs-params"&gt;el&lt;/span&gt; =&amp;gt;&lt;/span&gt; el.innerText);
+
+copy(zip(links, titles));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This creates a valid JSON object in your clipboard which contains a list of records with the keys &lt;code&gt;href&lt;/code&gt; and &lt;code&gt;title&lt;/code&gt; for each audiobook.
+&lt;strong&gt;Don't share the document with anyone as the download links contain your private key.&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;wl-paste &amp;gt; /tmp/audible.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here I'm using the &lt;a href="https://github.com/bugaevc/wl-clipboard"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;wl-paste&lt;/a&gt; (wayland only) command to get the content from the system's clipboard.
+If you're using X11 you might want to replace &lt;code&gt;wl-paste&lt;/code&gt; with &lt;code&gt;xsel&lt;/code&gt; or whatever you have installed.
+In a second I will also use &lt;a href="https://stedolan.github.io/jq/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;jq&lt;/a&gt; to filter the JSON file, make sure to install it also.&lt;/p&gt;
+&lt;p&gt;If everything worked out, the temporary file you have created should look like this:&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;[
+  {
+    &lt;span class="hljs-attr"&gt;&amp;quot;href&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;https://cds.audible.de/download?asin=B08KQJ469F&amp;amp;cust_id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;amp;codec=LC_128_44100_Stereo&amp;amp;source=Audible&amp;amp;type=AUDI&amp;quot;&lt;/span&gt;,
+    &lt;span class="hljs-attr"&gt;&amp;quot;title&amp;quot;&lt;/span&gt;: &lt;span class="hljs-string"&gt;&amp;quot;Stille Nacht in der Provence&amp;quot;&lt;/span&gt;
+  },
+  &lt;span class="hljs-comment"&gt;// ....&lt;/span&gt;
+]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;small&gt;
+&lt;p&gt;Note that the param &lt;code&gt;asin&lt;/code&gt; in the link refers to the book and &lt;code&gt;cust_id&lt;/code&gt; is a customer specific identifier that gives access to the book and should not be shared with anyone.&lt;/p&gt;
+&lt;/small&gt;
+&lt;p&gt;Now let's kick off &lt;code&gt;wget&lt;/code&gt; and download our audiobooks.
+Please note that audiobooks are large (~1-2GB per file).
+Make sure that you have enough storage available.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;mkdir -p /tmp/audible &amp;amp;&amp;amp; &lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; &lt;span class="hljs-variable"&gt;$_&lt;/span&gt;
+
+jq -c &lt;span class="hljs-string"&gt;&amp;#x27;.[]&amp;#x27;&lt;/span&gt; /tmp/audible.json | &lt;span class="hljs-keyword"&gt;while&lt;/span&gt; &lt;span class="hljs-built_in"&gt;read&lt;/span&gt; i; &lt;span class="hljs-keyword"&gt;do&lt;/span&gt;
+    href=$(&lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-variable"&gt;$i&lt;/span&gt; | jq -r &lt;span class="hljs-string"&gt;&amp;#x27;.href&amp;#x27;&lt;/span&gt;)
+    title=$(&lt;span class="hljs-built_in"&gt;echo&lt;/span&gt; &lt;span class="hljs-variable"&gt;$i&lt;/span&gt; | jq -r &lt;span class="hljs-string"&gt;&amp;#x27;.title&amp;#x27;&lt;/span&gt;)
+    wget -O &lt;span class="hljs-string"&gt;&amp;quot;&lt;span class="hljs-variable"&gt;$title&lt;/span&gt;.aax&amp;quot;&lt;/span&gt; &lt;span class="hljs-string"&gt;&amp;quot;&lt;span class="hljs-variable"&gt;$href&lt;/span&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="hljs-keyword"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;small&gt;
+&lt;p&gt;In case you want to download the audiobooks in chunks you can also use &lt;a href="https://www.systutorials.com/docs/linux/man/1-jq/#lbBX"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;jq ranges&lt;/a&gt;, e.g. &lt;code&gt;jq -c '.[:3]'&lt;/code&gt;.&lt;/p&gt;
+&lt;/small&gt;
+&lt;p&gt;This will place all your audiobooks as &lt;code&gt;*.aax&lt;/code&gt; files in the &lt;code&gt;/tmp/audible&lt;/code&gt; folder.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note: If you have a lot audiobooks you might want to consider a different approach that parallelizes the download queries.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="convert-from-aax-to-m4a"&gt;&lt;a class="markdownIt-Anchor" href="#convert-from-aax-to-m4a"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Convert from aax to m4a&lt;/h2&gt;
+&lt;p&gt;The files contain a DRM protection which prevents users from sharing the files with others.
+In this step you will remove the DRM protection.
+&lt;strong&gt;Please make sure that this step is allowed by law in your country before proceeding.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;To remove the DRM protection &lt;a href="https://github.com/ryanfb/docker_inaudible_rainbowcrack"&gt;&lt;i class="lab la-github" title="This link refers to an external site"&gt;&lt;/i&gt;this respository&lt;/a&gt; can be used.
+It contains a docker file that comes pre-installed with all dependencies to break the DRM encryption and decrypt the files.
+Make sure to have &lt;a href="https://docs.docker.com/get-docker/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;docker&lt;/a&gt; pre-installed to be able to follow the next steps.&lt;/p&gt;
+&lt;pre class="hljs"&gt;&lt;code&gt;mkdir -p /tmp/inaudible &amp;amp;&amp;amp; &lt;span class="hljs-variable"&gt;$_&lt;/span&gt;
+git &lt;span class="hljs-built_in"&gt;clone&lt;/span&gt; https://github.com/ryanfb/docker_inaudible_rainbowcrack .
+docker build -t inaudible .
+
+&lt;span class="hljs-built_in"&gt;cd&lt;/span&gt; /tmp/audible
+docker run --rm -v $(&lt;span class="hljs-built_in"&gt;pwd&lt;/span&gt;):/data inaudible
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will read in all aax files, restore the encryption key via brute-force and then decrypt all aax files.
+The result will be one m4a and one png artwork file for each aax file.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note that this will take additional storage on your disk - approximately the same amount that is needed for the aax files.&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="listen-on-android"&gt;&lt;a class="markdownIt-Anchor" href="#listen-on-android"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Listen on Android&lt;/h2&gt;
+&lt;p&gt;To listen to m4a files from an Android device I can highly recommend the &lt;a href="https://f-droid.org/en/packages/de.ph1b.audiobook/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Voice&lt;/a&gt; app from the F-Droid store.
+The interface is super clean, the application remembers the playback location and simply does its job - without tracking the user's behavior.
+Kudos to Paul Woitaschek for this piece of software!&lt;/p&gt;
+&lt;p&gt;Upload both, the m4a and png artwork file, to a folder on your device and add this folder to the list of folders that are scanned by Voice and you're done.&lt;/p&gt;
+&lt;h2 id="mission-completed"&gt;&lt;a class="markdownIt-Anchor" href="#mission-completed"&gt;&lt;span class="hidden sm:inline-block x-headline-anchor"&gt;#&lt;/span&gt;&lt;/a&gt; Mission completed 🥳&lt;/h2&gt;
+&lt;p&gt;So these few steps allow you to create a private copy of the audiobooks that you own.
+By using m4a files it's up to you to choose what player you want to use.
+Using an open source player such as &lt;a href="https://f-droid.org/en/packages/de.ph1b.audiobook/"&gt;&lt;i class="las la-external-link-alt" title="This link refers to an external site"&gt;&lt;/i&gt;Voice&lt;/a&gt; helps to be sure that noone is tracking how you read your books.
+Let's take our privacy back - step by step.&lt;/p&gt;
+&lt;p&gt;Oh and since award badges seem to be relevant these days, here is your nerds-love-privacy badge&lt;/p&gt;
+&lt;p&gt;&lt;span style="font-size: 4em;"&gt;🤓&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Have fun with it or throw it away, I don't care.&lt;/p&gt;
+</content><author><name>dotcs</name></author><category term="drm"/><category term="linux"/><category term="tech"/></entry></feed>
