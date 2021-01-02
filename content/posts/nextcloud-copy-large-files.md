@@ -41,7 +41,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 After the files have been copied, Nextcloud must be forced to re-index all files within this directory:
 
-```bash
+```console
 $ docker-compose exec -u www-data nextcloud ./occ files:scan --path="/my-user/files/my-folder"
 Starting scan for user 1 out of 1 (my-user)
 +---------+-------+--------------+
