@@ -8,7 +8,7 @@ keywords:
 authors:
   - dotcs
 published_at: "2020-12-30T22:46:05+01:00"
-updated_at: "2020-12-30T22:46:05+01:00"
+updated_at: "2021-01-02T19:35:15+01:00"
 ---
 
 Audible has a lot books available as audiobooks and I think a price of about 10 EUR per book is more than justified.
@@ -48,14 +48,13 @@ Audiobooks that you have bought from Audible can be downloaded from your [librar
 Execute this script in your [browser's console][firefox-execute-console-cmd] to copy all relevant download links into the clipboard.
 
 ```js
-let zip = (a, b) => a.map((v, i) => [v, b[i]]);
-
 let links = Array.from(document.querySelectorAll('.adbl-lib-action-download > a[href^="https://cds.audible.de/download"]'))
     .map(el => el.attributes['href'].nodeValue);
 let titles = Array.from(document.querySelectorAll('#adbl-library-content-main .bc-list a.bc-link[href^="/pd"]'))
     .map(el => el.innerText);
 
-copy(zip(links, titles));
+let data = links.map((href, i) => ({ href, title: titles[i]}));
+copy(data);
 ```
 
 This creates a valid JSON object in your clipboard which contains a list of records with the keys `href` and `title` for each audiobook.
