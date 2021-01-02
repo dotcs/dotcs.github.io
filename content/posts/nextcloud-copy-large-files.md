@@ -1,6 +1,6 @@
 ---
-title: Copy large files to nextcloud
-excerpt: Copying large files to nextcloud can be time consuming as a lot overhead is involved in passing the files through the LAMP stack. This blog post shows how files can be copied directly in the underlying file system and how Nextcloud's caches can be invalidated to inform Nextcloud about the new files.
+title: Copy large files to Nextcloud
+excerpt: Copying large files to Nextcloud can be time consuming as a lot overhead is involved in passing the files through the LAMP stack. This blog post shows how files can be copied directly in the underlying file system and how Nextcloud's caches can be invalidated to inform Nextcloud about the new files.
 keywords:
   - linux
   - tech
@@ -9,7 +9,7 @@ keywords:
 authors:
   - dotcs
 published_at: "2021-01-02T16:49:22+01:00"
-updated_at: "2021-01-02T16:49:22+01:00"
+updated_at: "2021-01-02T19:35:57+01:00"
 ---
 
 I'm running my own Nextcloud instance in a [docker container][nc-docker] with the `data` directory mounted from a local folder on my disk.
@@ -35,7 +35,7 @@ See also the [Nextcloud documentation][nc-file-operations].
 Details:
 
 ```console
-$ docker-compose exec nextcloud id wwwk-data
+$ docker-compose exec nextcloud id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 ```
 
