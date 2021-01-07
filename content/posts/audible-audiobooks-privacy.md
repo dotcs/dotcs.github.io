@@ -8,7 +8,7 @@ keywords:
 authors:
   - dotcs
 published_at: "2020-12-30T22:46:05+01:00"
-updated_at: "2021-01-02T19:35:15+01:00"
+updated_at: "2021-01-07T11:38:05+01:00"
 ---
 
 Audible has a lot books available as audiobooks and I think a price of about 10 EUR per book is more than justified.
@@ -156,6 +156,10 @@ Oh and since award badges seem to be relevant these days, here is your nerds-lov
 
 Have fun with it or throw it away, I don't care.
 
+**Update**:
+Oh, and if you're interested in an ETL pipeline that integrates well with a Nextcloud instance to serve the `m4a` files, have a look into [this repository][luigi-etl].
+
+
 [inaudible]: https://github.com/ryanfb/docker_inaudible_rainbowcrack
 [docker]: https://docs.docker.com/get-docker/
 [wl-paste]: https://github.com/bugaevc/wl-clipboard
@@ -164,3 +168,4 @@ Have fun with it or throw it away, I don't care.
 [Voice]: https://f-droid.org/en/packages/de.ph1b.audiobook/
 [Audible Privacy Information]: https://help.audible.com/s/article/audible-privacy-information?language=en_US
 [firefox-execute-console-cmd]: https://developer.mozilla.org/en-US/docs/Tools/Browser_Console
+[luigi-etl]: https://git.home.dotcs.me/dotcs/audible-nextcloud-etl
