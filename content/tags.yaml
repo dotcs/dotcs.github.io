@@ -1,0 +1,41 @@
+data-pipeline:
+  description: |
+    A data pipeline is a series of processes that migrate data from a source to a destination data store (often a database).
+docker:
+  description: |
+    [Docker](https://www.docker.com/) uses operating system level virtualization to isolate software in packages called containers.
+drm:
+  description: |
+    [Digital Right Management](https://en.wikipedia.org/wiki/Digital_rights_management) is a way to protect data from being copied.
+    Posts focus on how to get rid of DRM for the purpose of a private copy of the content.
+elasticsearch:
+  description: |
+    [Elasticsearch](https://www.elastic.co/) is a powerful NoSQL document data base that is aimed to analyze text based content.
+    It is developed under the [open-core business model](https://en.wikipedia.org/wiki/Open-core_model).
+kibana:
+  description: |
+    [Kibana](https://www.elastic.co/kibana) is a front-end for Elasticsearch.
+linux:
+  description: |
+    The linux tag is a container for all posts that focus on a linux based operating system, such as [Ubuntu](https://ubuntu.com/) or [Manjaro](https://manjaro.org/).
+machine-learning:
+  description: |
+    Machine Learning posts focus on computer algorithms that improve automatically through experience.
+next.js:
+  description: |
+    [Next.js](https://nextjs.org/) is a framework that is written in Javascript and uses the [React](https://reactjs.org/) framework to render HTML pages.
+    It is extremly flexible and can be used to render pages on the client, the server (static pages) and everything in between.
+nextcloud:
+  description: |
+    [Nextcloud](https://nextcloud.com) allows users to set up a set of tools to save and share data privately.
+    It is not tied to the public cloud, so that users can spin up instances on their own private hardware and keep their data privately.
+notes:
+  description: |
+    Generic tag that I use to tag (short) blog entries, in which I mainly document stuff for myself but expose those notes as they might be of interest for others as well.
+pihole:
+  description: |
+    [Pi-hole](https://pi-hole.net/) is a lightweight nextwork-level ad- and tracking blocking application, which allows to block content for all devices in the network.
+    It acts as a DNS sinkhole and optionally as a DHCP server.
+tech:
+  description: |
+    Generic tag that I use to tag posts that cover tech topics (which are most of my posts).
