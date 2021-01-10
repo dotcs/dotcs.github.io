@@ -2,8 +2,9 @@ import fm from 'front-matter';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
+import yaml from 'js-yaml';
 
-import { ContentType, ParsedPost, TagCount } from '../types';
+import { ContentType, ParsedPost, TagCount, TagInfo, TagInfoMap } from '../types';
 
 // TODO: relative paths
 const posts_dir = path.join('content', 'posts');
@@ -55,6 +56,12 @@ export const getAllPostSlugs = (): string[] => {
 
 export const getAllPageSlugs = (): string[] => {
     return _getAllSlugs('page');
+};
+
+export const getTagInfo = (): TagInfoMap => {
+    const content = fs.readFileSync('content/tags.yaml').toString('utf-8');
+    const tags = yaml.load(content) as TagInfoMap;
+    return tags;
 };
 
 export const getTagCounts = (): TagCount[] => {

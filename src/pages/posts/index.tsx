@@ -30,8 +30,8 @@ export const Page: FC<PageProps> = (props) => (
             <meta property="og:description" content={props.settings.description} />
             <title>{props.settings.title} - Weblog</title>
             <script
-                type="application/ld+json" 
-                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getPostsWebPage()))}}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(wrapSchmeaContext(getPostsWebPage())) }}
             />
         </Head>
         <PageCmp settings={props.settings}>

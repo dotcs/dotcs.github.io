@@ -5,18 +5,21 @@ import { GetStaticProps } from 'next';
 import Link from 'next/link';
 
 import PageCmp from '../../components/Page';
-import { TagCount, PageSettings } from '../../types';
-import { getTagCounts } from '../../utils/parser';
+import { TagCount, PageSettings, TagInfoMap } from '../../types';
+import { getTagCounts, getTagInfo } from '../../utils/parser';
 import { pageSettings } from '../../settings';
+import Markdown from '../../components/Markdown';
 
 export interface TagsPageProps {
     tags: TagCount[];
+    tagInfoMap: TagInfoMap;
     settings: PageSettings;
 }
 
 export const getStaticProps: GetStaticProps<TagsPageProps> = async () => {
     const tags = getTagCounts();
-    return { props: { tags, settings: pageSettings } };
+    const tagInfoMap = getTagInfo();
+    return { props: { tags, tagInfoMap, settings: pageSettings } };
 };
 
 export const TagsPage: FC<TagsPageProps> = (props) => (
@@ -25,12 +28,16 @@ export const TagsPage: FC<TagsPageProps> = (props) => (
             <h1 className="text-2xl md:text-3xl font-semibold mb-4">Tags</h1>
             <ul className="list-disc pl-8">
                 {props.tags.map((tag) => (
-                    <li key={tag.slug}>
-                        <Link href="/tags/[slug]" as={'/tags/' + tag.slug}>
-                            <a className="x-link">
-                                {tag.slug} ({tag.count})
-                            </a>
-                        </Link>
+                    <li key={tag.slug} className="my-8">
+                        <h3 className="mb-2">
+                            <Link href="/tags/[slug]" as={'/tags/' + tag.slug}>
+                                <a className="x-link mr-1 text-lg font-semibold">{tag.slug}</a>
+                            </Link>
+                            <span className="bg-gray-300 rounded-full px-1">{tag.count}</span>
+                        </h3>
+                        {props.tagInfoMap[tag.slug] && (
+                            <Markdown text={props.tagInfoMap[tag.slug].description} className="x-post" />
+                        )}
                     </li>
                 ))}
             </ul>

@@ -20,7 +20,8 @@ const MetaTime: FC<MetaTimeProps> = (props) => (
             'dt-published': props.type === 'published',
             'dt-updated': props.type === 'updated',
         })}
-        dateTime={props.time}>
+        dateTime={props.time}
+    >
         {props.time.substring(0, '2020-01-01'.length)}
     </time>
 );
@@ -30,9 +31,9 @@ const DateMeta: FC<DateMetaProps> = (props) => {
 
     return (
         <p className={props.className}>
-            posted on <MetaTime time={props.published_at} type="published" /> by 
-            <span className="ml-1" style={{display: 'inline'}}>
-                {props.authors.map(author => (
+            posted on <MetaTime time={props.published_at} type="published" /> by
+            <span className="ml-1" style={{ display: 'inline' }}>
+                {props.authors.map((author) => (
                     <span key={author} className="p-author h-card inline-block">
                         <Link href="/">
                             <a className="u-url">
@@ -45,7 +46,7 @@ const DateMeta: FC<DateMetaProps> = (props) => {
             </span>
             {isUpdated && (
                 <>
-                    , last updated on <MetaTime time={props.updated_at} type='updated' />
+                    , last updated on <MetaTime time={props.updated_at} type="updated" />
                 </>
             )}
         </p>

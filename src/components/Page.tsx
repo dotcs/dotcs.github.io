@@ -36,12 +36,13 @@ const Page: FC<PageProps> = (props) => {
                 ></link>
                 <link rel="me" href={'https://github.com/' + props.settings.githubUserHandle} />
                 <link rel="me" href={'https://twitter.com/' + props.settings.twitterUserHandle} />
-                {props.settings.mastodonHandles.map(v => 
-                    <link 
-                        key={v.instanceBaseUrl + v.userHandle} 
+                {props.settings.mastodonHandles.map((v) => (
+                    <link
+                        key={v.instanceBaseUrl + v.userHandle}
                         rel="me"
-                        href={`${v.instanceBaseUrl}/@${v.userHandle}`} />
-                )}
+                        href={`${v.instanceBaseUrl}/@${v.userHandle}`}
+                    />
+                ))}
                 <link rel="webmention" href={props.settings.webmentionUrl} />
                 <link rel="pingback" href={props.settings.pingbackUrl} />
                 <script async defer data-domain="dotcs.me" src="https://analytics.home.dotcs.me/js/plausible.js" />

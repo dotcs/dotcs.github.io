@@ -6,12 +6,10 @@ export const pageSettings: PageSettings = {
     description: "dotcs's personal weblog",
     twitterUserHandle: 'dotcsDE',
     githubUserHandle: 'dotcs',
-    mastodonHandles: [
-        { instanceBaseUrl: 'https://fosstodon.org', userHandle: 'dotcs' }
-    ],
+    mastodonHandles: [{ instanceBaseUrl: 'https://fosstodon.org', userHandle: 'dotcs' }],
     themeColor: '#38b2ac',
     webmentionUrl: 'https://webmention.io/dotcs.me/webmention',
-    pingbackUrl: 'https://webmention.io/dotcs.me/xmlrpc'
+    pingbackUrl: 'https://webmention.io/dotcs.me/xmlrpc',
 };
 
 export const mainHCard: HCard = {

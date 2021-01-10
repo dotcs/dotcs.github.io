@@ -8,10 +8,11 @@ import { ParsedUrlQuery } from 'querystring';
 
 import PageCmp from '../../components/Page';
 import { PostItem } from '../../components/PostItem';
-import { PageSettings, ParsedPost } from '../../types';
-import { getAllTags, getPostsByTag } from '../../utils/parser';
+import { PageSettings, ParsedPost, TagInfo } from '../../types';
+import { getAllTags, getPostsByTag, getTagInfo } from '../../utils/parser';
 import { pageSettings } from '../../settings';
 import { getBreadcrumbTag, wrapSchmeaContext } from '../../utils/schema';
+import Markdown from '../../components/Markdown';
 
 interface StaticParams extends ParsedUrlQuery {
     slug: string;
@@ -19,6 +20,7 @@ interface StaticParams extends ParsedUrlQuery {
 
 export interface TagPageProps {
     tag: string;
+    tagInfo: TagInfo;
     posts: ParsedPost[];
     settings: PageSettings;
 }
@@ -34,8 +36,9 @@ export const getStaticPaths: GetStaticPaths<StaticParams> = async () => {
 export const getStaticProps: GetStaticProps<TagPageProps, StaticParams> = async ({ params }) => {
     const posts = getPostsByTag(params!.slug);
     posts.reverse();
+    const tagInfo = getTagInfo()[params!.slug];
     return {
-        props: { tag: params!.slug, posts, settings: pageSettings },
+        props: { tag: params!.slug, tagInfo, posts, settings: pageSettings },
     };
 };
 
@@ -53,14 +56,17 @@ export const TagPage: FC<TagPageProps> = (props) => {
                     Tag: {props.tag} - {props.settings.title}
                 </title>
                 <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBreadcrumbTag(props.tag)))}} />
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(wrapSchmeaContext(getBreadcrumbTag(props.tag))) }}
+                />
             </Head>
             <PageCmp settings={props.settings}>
                 <div className="px-4 lg:px-24 py-4">
-                    <h1 className="text-xl mt-2 mb-8">
-                        Tag: <span className="font-bold">{props.tag}</span>
+                    <h1 className="text-xl mt-2 mb-2">
+                        <span className="mr-2 text-gray-700">Tag:</span>{' '}
+                        <span className="bg-gray-300 p-1 rounded font-bold">{props.tag}</span>
                     </h1>
+                    <Markdown text={props.tagInfo.description} className="x-post mb-8 italic" />
                     {props.posts.map((post) => (
                         <PostItem key={post.attributes.slug} {...post} />
                     ))}

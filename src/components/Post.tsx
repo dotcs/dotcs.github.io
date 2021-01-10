@@ -16,20 +16,22 @@ export interface PostProps {
 
 /**
  * Helper method to replace template variables.
- * 
+ *
  * Currently the following variables are replaced:
  * - `<post_slug>` => slug of the post
  */
 const replaceTemplateVars = (slug: string, text: string) => {
     return text.replace(/<post_slug>/g, slug);
-}
+};
 
 const Post: FC<PostProps> = (props) => (
-    <div className={cx("h-entry", props.className)}>
+    <div className={cx('h-entry', props.className)}>
         <Head>
             <script
-                type="application/ld+json" 
-                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBlogPostJsonLd(props.post.attributes)))}}
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(wrapSchmeaContext(getBlogPostJsonLd(props.post.attributes))),
+                }}
             />
         </Head>
         <Link href={`/posts/${props.post.attributes.slug}`}>
@@ -46,7 +48,10 @@ const Post: FC<PostProps> = (props) => (
             <TagList tags={props.post.attributes.keywords} />
         </div>
         <div className="p-summary hidden">{props.post.attributes.excerpt}</div>
-        <Markdown className="x-post e-content" text={replaceTemplateVars(props.post.attributes.slug, props.post.body)} />
+        <Markdown
+            className="x-post e-content"
+            text={replaceTemplateVars(props.post.attributes.slug, props.post.body)}
+        />
     </div>
 );
 

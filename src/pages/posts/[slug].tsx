@@ -48,7 +48,10 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
             </title>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{__html: JSON.stringify(wrapSchmeaContext(getBreadcrumbPost(post.attributes)))}} />
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(wrapSchmeaContext(getBreadcrumbPost(post.attributes))),
+                }}
+            />
         </Head>
         <PageCmp settings={settings}>
             <Post className="px-4 lg:px-24 py-4" post={post} />

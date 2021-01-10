@@ -33,6 +33,14 @@ export interface TagCount {
     count: number;
 }
 
+export interface TagInfo {
+    description: string;
+}
+
+export interface TagInfoMap {
+    [key: string]: TagInfo;
+}
+
 export interface PageSettings {
     /**
      * Title of the website.
