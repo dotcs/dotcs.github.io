@@ -12,6 +12,7 @@
     "feeds:atom": "TS_NODE_PROJECT=tsconfig.feed.json node --experimental-modules --es-module-specifier-resolution=node --loader ts-node/esm ./src/feed/atom.ts"
   },
   "dependencies": {
+    "@types/js-yaml": "^4.0.0",
     "@zeit/next-css": "^1.0.1",
     "body-parser": "^1.19.0",
     "classnames": "^2.2.6",
