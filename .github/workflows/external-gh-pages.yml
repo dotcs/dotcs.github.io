@@ -1,0 +1,47 @@
+name: Build and Deploy (external trigger)
+on:
+  repository_dispatch:
+    types: [deploy]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - run: |
+          eval `ssh-agent -s`
+          mkdir -p ~/.ssh && echo '${{secrets.GITEA_SSH_KEY}}' > ~/.ssh/gitea && chmod 600 ~/.ssh/gitea
+          ssh-add ~/.ssh/gitea
+          touch ~/.ssh/known_hosts
+          ssh-keyscan -t rsa git.home.dotcs.me >> ~/.ssh/known_hosts
+      - run: |
+          cd $GITHUB_WORKSPACE
+          export GIT_SSH_COMMAND='/usr/bin/ssh -i ~/.ssh/gitea -o StrictHostKeyChecking=no -o CheckHostIP=no -o "UserKnownHostsFile=~/.ssh/known_hosts"'
+          /usr/bin/git init $GITHUB_WORKSPACE
+          /usr/bin/git remote add origin ssh://git@git.home.dotcs.me:2222/dotcs/blog.git
+          /usr/bin/git config --local gc.auto 0
+          /usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/master*:refs/remotes/origin/master* +refs/tags/master*:refs/tags/master*
+          /usr/bin/git checkout master
+          ls -ltra
+
+      - name: Install and Build
+        uses: actions/setup-node@v1
+        with:
+          always-auth: false
+          node-version: 13.x
+      - run: npm install
+      - run: npm run build
+      - run: npm run export
+        env:
+          CI: true
+          DEPLOY_TARGET: gh-pages
+      - run: "npm run feeds:atom"
+        env:
+          NODE_ENV: production
+      - run: touch out/.nojekyll
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages  # The branch the action should deploy to.
+          FOLDER: out       # The folder the action should deploy.
+          CLEAN: true       # Automatically remove deleted files from the deploy branch
