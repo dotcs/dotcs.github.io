@@ -489,6 +489,12 @@ img {
   background-color: rgba(247, 250, 252, var(--bg-opacity));
 }
 
+.bg-gray-300 {
+  --bg-opacity: 1;
+  background-color: #e2e8f0;
+  background-color: rgba(226, 232, 240, var(--bg-opacity));
+}
+
 .bg-teal-500 {
   --bg-opacity: 1;
   background-color: #38b2ac;
@@ -967,6 +973,10 @@ img {
   font-size: 0.875rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+}
+
 .text-xl {
   font-size: 1.25rem;
 }
@@ -995,6 +1005,11 @@ img {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .mx-auto {
@@ -1128,6 +1143,10 @@ img {
 
 .overflow-x-auto {
   overflow-x: auto;
+}
+
+.p-1 {
+  padding: 0.25rem;
 }
 
 .p-2 {
