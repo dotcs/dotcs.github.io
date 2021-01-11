@@ -33,7 +33,7 @@ Jobs in the past included:
 
 - Working as a front-end web developer
 - Working as a full-stack web developer
-- Working as a data engineer
+- Working as a data engineer trainer
 
 The best part about my job is that I love it so much that I also do it privately.
 I love to operate my own web-server on which I host many tools that I love and use on a daily basis.
@@ -42,6 +42,7 @@ These include:
 - [Gitea][gitea]: I host my private git server and I love it!
 - [Elasticsearch][elasticsearch]: I use Elasticsearch for some side-projects in which I require a full-text based search engine.
   It's my document store for any kind of (un-/semi-structured) documents that I want to crawl through later.
+  See my posts about [Elasticsearch][tags-elasticsearch].
 - [Miniflux][miniflux]: My personal RSS reader.
   While most people consume most of their news through social media channels, which have their recommender systems doing it's (influential) work in the background, I try to stay away from social media and consume hand-picked channels instead.
   Miniflux is an awesome web-based RSS reader that supports me in this endeavor.
@@ -49,6 +50,7 @@ These include:
   This is why I don't use public cloud storage but have a self-hosted Nextcloud instance.
   I'm quite happy with it.
   Of course it does not offer as much as many public cloud providers offer, but I think it's a good compromise between functionality and privacy.
+  See my posts about [Nextcloud][tags-nextcloud].
 - [Organice][organice]: Great tool that translated the Emacs org-mode into a web-based interface.
   I use it to maintain a simple text file where I brain-dump my ideas and organize many aspects of my life.
   Strictly speaking it would not be necessary to host Organice myself but I like to have control over the version and any (potentially breaking) changes of the tools that I heavily use on a daily basis.
@@ -57,8 +59,11 @@ These include:
 - [Pi-hole][pihole]: Ads and tracking scripts – the web has become an ugly space in some aspects.
   Pi-hole helps to remove a huge portion of this ugliness and makes the web a friendlier place again – for all devices in my network.
   Nice. 
+  See my posts about [Pi-hole][tags-pihole].
 - [Nginx][nginx]: I use Nginx as a reverse proxy for various services on my web-server.
   It's such a great and reliable piece of software. ♥
+- [Plausible Analytics][plausible]: I use a self-hosted Plausible Analytics instance to gain a few insights into this blog.
+  I can highly recommend it as an alternative to Google Analytics in case you care about the privacy of your users.
 
 I would like to thank all the developers involved in creating these wonderful tools and sharing them with the public.
 They are my (silent) heroes.
@@ -115,3 +120,7 @@ Well, I guess I have way too many of them right now. But these are the main devi
 [mastodon]: https://joinmastodon.org/
 [me-on-mastrodon]: https://fosstodon.org/@dotcs
 [fosstodon]: https://fosstodon.org/
+[plausible]: https://plausible.io/
+[tags-nextcloud]: /tags/nextcloud
+[tags-pihole]: /tags/pihole
+[tags-elasticsearch]: /tags/elasticsearch
