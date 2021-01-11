@@ -50,7 +50,7 @@ const Page: FC<PageProps> = (props) => {
             <div className="flex flex-col h-screen">
                 <Header />
                 <Container className="bg-white flex-grow">{props.children}</Container>
-                <Footer />
+                <Footer buildTimestamp={props.settings.buildInformation.timestamp} />
             </div>
         </>
     );

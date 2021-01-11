@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:pub": "next dev -- --hostname 0.0.0.0",
+    "prebuild": "echo \"BUILD_TIMESTAMP=$(date -Iseconds)\" > .env.local",
     "build": "next build",
     "start": "next start",
     "export": "next export",

@@ -10,6 +10,9 @@ export const pageSettings: PageSettings = {
     themeColor: '#38b2ac',
     webmentionUrl: 'https://webmention.io/dotcs.me/webmention',
     pingbackUrl: 'https://webmention.io/dotcs.me/xmlrpc',
+    buildInformation: {
+        timestamp: (process.env.BUILD_TIMESTAMP as string) || 'unknown',
+    },
 };
 
 export const mainHCard: HCard = {

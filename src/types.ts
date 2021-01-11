@@ -85,6 +85,12 @@ export interface PageSettings {
 
     /** URL to service that handles pingbacks. */
     pingbackUrl: string;
+
+    buildInformation: BuildInformation;
+}
+
+interface BuildInformation {
+    timestamp: string;
 }
 
 interface MastodonHandle {
