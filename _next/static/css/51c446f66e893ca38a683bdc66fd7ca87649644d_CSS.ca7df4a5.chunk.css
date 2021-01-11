@@ -1381,6 +1381,30 @@ html {
   border-color: rgba(246, 173, 85, var(--border-opacity));
 }
 
+.x-link-alt {
+  --text-opacity: 1;
+  color: #38b2ac;
+  color: rgba(56, 178, 172, var(--text-opacity));
+}
+
+.x-link-alt:visited {
+  --text-opacity: 1;
+  color: #b794f4;
+  color: rgba(183, 148, 244, var(--text-opacity));
+}
+
+.x-link-alt:focus {
+  --text-opacity: 1;
+  color: #f6ad55;
+  color: rgba(246, 173, 85, var(--text-opacity));
+}
+
+.x-link-alt:hover {
+  --text-opacity: 1;
+  color: #f6ad55;
+  color: rgba(246, 173, 85, var(--text-opacity));
+}
+
 .x-post {
   line-height: 1.75rem;
 }
