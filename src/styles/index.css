@@ -32,6 +32,18 @@ html {
 .x-link:hover {
   @apply border-orange-400;
 }
+.x-link-alt {
+  @apply text-teal-500;
+}
+.x-link-alt:visited {
+  @apply text-purple-400;
+}
+.x-link-alt:focus {
+  @apply text-orange-400;
+}
+.x-link-alt:hover {
+  @apply text-orange-400;
+}
 
 .x-post {
   @apply leading-7;
