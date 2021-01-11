@@ -54,7 +54,9 @@ export const Page: FC<PageProps> = ({ post, settings }) => (
             />
         </Head>
         <PageCmp settings={settings}>
-            <Post className="px-4 lg:px-24 py-4" post={post} />
+            <main className="px-4 lg:px-24 py-4">
+                <Post post={post} />
+            </main>
         </PageCmp>
     </>
 );

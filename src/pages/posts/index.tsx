@@ -35,11 +35,11 @@ export const Page: FC<PageProps> = (props) => (
             />
         </Head>
         <PageCmp settings={props.settings}>
-            <div className="px-4 lg:px-24 py-4">
+            <main className="px-4 lg:px-24 py-4">
                 {props.posts.map((post) => (
                     <PostItem key={post.attributes.slug} {...post} />
                 ))}
-            </div>
+            </main>
         </PageCmp>
     </>
 );

@@ -25,7 +25,7 @@ const replaceTemplateVars = (slug: string, text: string) => {
 };
 
 const Post: FC<PostProps> = (props) => (
-    <div className={cx('h-entry', props.className)}>
+    <article className={cx('h-entry', props.className)}>
         <Head>
             <script
                 type="application/ld+json"
@@ -52,7 +52,7 @@ const Post: FC<PostProps> = (props) => (
             className="x-post e-content"
             text={replaceTemplateVars(props.post.attributes.slug, props.post.body)}
         />
-    </div>
+    </article>
 );
 
 export default Post;

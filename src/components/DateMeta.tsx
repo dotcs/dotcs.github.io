@@ -30,7 +30,7 @@ const DateMeta: FC<DateMetaProps> = (props) => {
     const isUpdated = props.updated_at !== props.published_at;
 
     return (
-        <p className={props.className}>
+        <aside className={props.className}>
             posted on <MetaTime time={props.published_at} type="published" /> by
             <span className="ml-1" style={{ display: 'inline' }}>
                 {props.authors.map((author) => (
@@ -49,7 +49,7 @@ const DateMeta: FC<DateMetaProps> = (props) => {
                     , last updated on <MetaTime time={props.updated_at} type="updated" />
                 </>
             )}
-        </p>
+        </aside>
     );
 };
 

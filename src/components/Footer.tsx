@@ -5,7 +5,7 @@ import HCard from './HCard';
 import { mainHCard } from '../settings';
 
 const Footer: FC = () => (
-    <div className="p-4 mt-8 bg-white text-center antialiased text text-gray-700 border-t-2">
+    <footer className="p-4 mt-8 bg-white text-center antialiased text text-gray-700 border-t-2">
         <div className="container mx-auto">
             <p>
                 All work licensed under
@@ -57,7 +57,7 @@ const Footer: FC = () => (
         </div>
         {/* Do not show card to users, but leave it in the DOM for machine parsing. */}
         <HCard {...mainHCard} className="max-w-xl mx-auto my-4 hidden" />
-    </div>
+    </footer>
 );
 
 export default Footer;

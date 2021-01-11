@@ -46,10 +46,10 @@ export const Page: FC<PageProps> = ({ page, settings }) => (
             </title>
         </Head>
         <PageCmp settings={settings}>
-            <div className="px-4 lg:px-24 py-4">
+            <main className="px-4 lg:px-24 py-4">
                 <h1 className="text-3xl font-bold mb-4">{page.attributes.title}</h1>
                 <Markdown className="x-post" text={page.body} />
-            </div>
+            </main>
         </PageCmp>
     </>
 );

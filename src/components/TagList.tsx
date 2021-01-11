@@ -7,7 +7,7 @@ export interface TagListProps {
 }
 
 const TagList: FC<TagListProps> = (props) => (
-    <p className={props.className}>
+    <aside className={props.className}>
         <i className="las la-tags inline-block mr-2 relative" style={{ top: 2 }}></i>
         <ul className="inline-block">
             {props.tags.map((item) => (
@@ -18,7 +18,7 @@ const TagList: FC<TagListProps> = (props) => (
                 </li>
             ))}
         </ul>
-    </p>
+    </aside>
 );
 
 export default TagList;

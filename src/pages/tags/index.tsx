@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps<TagsPageProps> = async () => {
 
 export const TagsPage: FC<TagsPageProps> = (props) => (
     <PageCmp settings={props.settings}>
-        <div className="px-4 lg:px-24 py-4">
+        <main className="px-4 lg:px-24 py-4">
             <h1 className="text-2xl md:text-3xl font-semibold mb-4">Tags</h1>
             <ul className="list-disc pl-8">
                 {props.tags.map((tag) => (
@@ -42,7 +42,7 @@ export const TagsPage: FC<TagsPageProps> = (props) => (
                     </li>
                 ))}
             </ul>
-        </div>
+        </main>
     </PageCmp>
 );
 

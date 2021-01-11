@@ -10,7 +10,7 @@ export interface PostItemProps {
 }
 
 export const PostItem: FC<PostItemProps> = (props) => (
-    <div className="mb-12" key={props.attributes.slug}>
+    <article className="mb-12" key={props.attributes.slug}>
         <h2 className="text-2xl md:text-3xl font-semibold mb-1">
             <Link href="/posts/[slug]" as={`/posts/${props.attributes.slug}`}>
                 <a className="x-link">{props.attributes.title}</a>
@@ -24,5 +24,5 @@ export const PostItem: FC<PostItemProps> = (props) => (
         />
         <p className="mb-2">{props.attributes.excerpt}</p>
         <TagList tags={props.attributes.keywords} className="text-sm font-light" />
-    </div>
+    </article>
 );

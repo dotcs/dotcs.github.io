@@ -24,7 +24,7 @@ export const BurgerIcon: FC = () => (
 export const Header: FC<HeaderProps> = (props) => {
     const [menuVisible, setMenuVisible] = useState(false);
     return (
-        <div className="bg-teal-500">
+        <header className="bg-teal-500">
             <nav className="flex items-center justify-between flex-wrap container mx-auto py-6 px-4">
                 <Link href="/">
                     <a>
@@ -57,7 +57,7 @@ export const Header: FC<HeaderProps> = (props) => {
                     </div>
                 </div>
             </nav>
-        </div>
+        </header>
     );
 };
 
