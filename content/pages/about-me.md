@@ -87,7 +87,6 @@ But this may change in the future ...
 ## Social Media
 
 I'm not really interested in social media.
-I do have a Twitter account but I don't really make use of it.
 I don't think it does any good if single providers get too large which is why I try to stay away from any of the major players in the social media context.
 I do make use of [Mastodon][mastodon] where you can find me on the [Fosstodon][fosstodon] instance.
 
