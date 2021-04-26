@@ -16,6 +16,6 @@ const Markdown: FC<MarkdownProps> = (props) => {
 
 Markdown.defaultProps = {
     rootEl: 'div',
-}
+};
 
 export default Markdown;

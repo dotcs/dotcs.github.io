@@ -34,7 +34,9 @@ export const TagsPage: FC<TagsPageProps> = (props) => (
                                 <a className="x-link mr-1 text-lg font-semibold">{tag.slug}</a>
                             </Link>
                             <span className="bg-gray-300 rounded-full px-1 mr-2">{tag.count}</span>
-                            <a href={`/feeds/tags/${tag.slug}.xml`} title="Link to atom feed" className="x-link-alt"><i className="las la-rss" /></a>
+                            <a href={`/feeds/tags/${tag.slug}.xml`} title="Link to atom feed" className="x-link-alt">
+                                <i className="las la-rss" />
+                            </a>
                         </h3>
                         {props.tagInfoMap[tag.slug] && (
                             <Markdown text={props.tagInfoMap[tag.slug].description} className="x-post" />

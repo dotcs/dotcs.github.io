@@ -66,7 +66,7 @@ export const TagPage: FC<TagPageProps> = (props) => {
                         <span className="mr-2 text-gray-700">Tag:</span>{' '}
                         <span className="bg-gray-300 p-1 rounded font-bold">{props.tag}</span>
                     </h1>
-                    <Markdown rootEl='aside' text={props.tagInfo.description} className="x-post mb-8 italic" />
+                    <Markdown rootEl="aside" text={props.tagInfo.description} className="x-post mb-8 italic" />
                     {props.posts.map((post) => (
                         <PostItem key={post.attributes.slug} {...post} />
                     ))}
