@@ -12,7 +12,7 @@ jobs:
           mkdir -p ~/.ssh && echo '${{secrets.GITEA_SSH_KEY}}' > ~/.ssh/gitea && chmod 600 ~/.ssh/gitea
           ssh-add ~/.ssh/gitea
           touch ~/.ssh/known_hosts
-          ssh-keyscan -t rsa git.home.dotcs.me >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa -p 2222 git.home.dotcs.me >> ~/.ssh/known_hosts
       - name: 'Clone repository from external server'
         run: |
           cd $GITHUB_WORKSPACE
