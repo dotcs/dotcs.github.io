@@ -10,10 +10,12 @@ updated_at: "2020-01-01T01:00:00Z"
 
 Imprint after [§ 5 Abs. 1 Telemediengesetz (TMG)][tmg-paragraph-5]
 
-> Fabian Mueller  
-> Baedergasse 7  
-> 71296 Heimsheim  
-> GERMANY
+<address>
+Fabian Grisanti<br />
+Calwer Str. 41<br />
+75391 Gechingen<br />
+GERMANY
+</address>
 
 Contact for any questions related to this website.
 I prefer encrypted emails, please use the GPG key listed below.
