@@ -1,10 +1,10 @@
 import { PageSettings, HCard } from './types';
 
 export const pageSettings: PageSettings = {
-    title: 'dotcs.me',
-    baseUrl: 'https://dotcs.me',
+    title: 'blog.dotcs.me',
+    baseUrl: 'https://blog.dotcs.me',
     description: "dotcs's personal weblog",
-    twitterUserHandle: 'dotcsDE',
+    twitterUserHandle: null,
     githubUserHandle: 'dotcs',
     mastodonHandles: [{ instanceBaseUrl: 'https://fosstodon.org', userHandle: 'dotcs' }],
     themeColor: '#38b2ac',
@@ -17,10 +17,10 @@ export const pageSettings: PageSettings = {
 
 export const mainHCard: HCard = {
     main: true,
-    name: 'Fabian Mueller',
+    name: 'Fabian Grisanti',
     honorificPrefix: 'Mr.',
     givenName: 'Fabian',
-    familyName: 'Mueller',
+    familyName: 'Grisanti',
     nickname: 'dotcs',
     photoRef: '/about/dotcs-profile.png',
     url: pageSettings.baseUrl,

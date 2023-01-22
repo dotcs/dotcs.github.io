@@ -70,7 +70,7 @@ export interface PageSettings {
      * E.g. for the linux foundation (https://twitter.com/linuxfoundation)
      * the twitter handle would be `linuxfoundation`.
      */
-    twitterUserHandle: string;
+    twitterUserHandle: string | null;
 
     /** Reference to a GitHub user handle. */
     githubUserHandle: string;
