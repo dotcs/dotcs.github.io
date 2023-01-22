@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date -Im)"
+        run: echo "date=$(date -Im)" >> GITHUB_OUTPUT
       - name: Checkout
         uses: actions/checkout@v3
       - name: Detect package manager
