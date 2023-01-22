@@ -75,12 +75,12 @@ jobs:
           BUILD_TIMESTAMP: ${{ steps.date.outputs.date }}
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
+      - name: Create Atom feed
+        run: ${{ steps.detect-package-manager.outputs.manager }} run feeds:atom
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./out
-      - name: Create Atom feed
-        run: ${{ steps.detect-package-manager.outputs.manager }} run feeds:atom
 
   # Deployment job
   deploy:
