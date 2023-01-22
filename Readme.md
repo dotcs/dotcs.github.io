@@ -1,6 +1,6 @@
 # Blog
 
-dotcs's private blog build with Jamstack.
+[dotcs's private blog][blog] build with Jamstack.
 
 ## Getting started
 
@@ -19,11 +19,7 @@ $ npm run dev
 
 ## Deployment
 
-First copy the env variable template and fill in your values:
+Deployment happens automatically through a GitHub Actions pipeline that will publish the static page to GitHub pages.
 
-```bash
-cp .env.deploy.template .env.deploy.local
-vim .env.deploy.local  # fill in your values
-```
 
-Deployment is then as simple as running `./admin/deploy-gh-pages.sh`.
+[blog]: https://blog.dotcs.me
