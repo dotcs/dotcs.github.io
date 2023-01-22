@@ -24,12 +24,12 @@ However…
 
 An acceptable attribution license would be something similar to the following:
 
-> Credit to [Fabian Mueller](https://dotcs.me/) for the original work.
+> Credit to [Fabian Grisanti](https://blog.dotcs.me/) for the original work.
 
 With the plain text HTML looking like the following:
 
 ```
-Credit to <a href="https://dotcs.me">Fabian Mueller</a> for the original work.
+Credit to <a href="https://blog.dotcs.me">Fabian Mueller</a> for the original work.
 ```
 
 [cc-by-sa-4.0]: https://creativecommons.org/licenses/by-sa/4.0/

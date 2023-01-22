@@ -21,4 +21,4 @@ You do not have to agree to any terms of service in order to access, view, read,
 Please note that any content on this site is licensed under the Creative Commons Share Alike 4.0 License – unless stated otherwise.
 More information can be found on the [License Information][license] page.
 
-[license]: http://dotcs.me/pages/license-information
+[license]: http://blog.dotcs.me/pages/license-information
