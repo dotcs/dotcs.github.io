@@ -1,3 +1,7 @@
+data-extraction:
+  description: |
+    Data extraction is the process of collecting data from a variety of sources, often poorly organized or unstructured.
+    It is the first step in both, ETL (extract, transform, load) and ELT (extract, load, transform) pipelines.
 data-pipeline:
   description: |
     A data pipeline is a series of processes that migrate data from a source to a destination data store (often a database).
@@ -39,3 +43,7 @@ pihole:
 tech:
   description: |
     Generic tag that I use to tag posts that cover tech topics (which are most of my posts).
+web-crawler:
+  description: |
+    A web-crawler, also called a spider or spiderbot or just crawler, is an internet bot that systematically browses the web. 
+    Web-crawlers are often operated by search engines for the purpose of web indexing.
