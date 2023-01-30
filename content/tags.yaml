@@ -42,7 +42,7 @@ pihole:
     It acts as a DNS sinkhole and optionally as a DHCP server.
 tech:
   description: |
-    Generic tag that I use to tag posts that cover tech topics (which are most of my posts).
+    Generic tag which I use to tag posts that cover tech topics (which are most of my posts).
 web-crawler:
   description: |
     A web-crawler, also called a spider or spiderbot or just crawler, is an internet bot that systematically browses the web. 
