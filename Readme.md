@@ -4,12 +4,7 @@
 
 ## Getting started
 
-Create a conda environment first
-
-```bash
-conda create --prefix ./.conda-env --file conda.txt
-npm install
-```
+Use nvm to setup a node environment according to [`.nvmrc`](./.nvmrc).
 
 Then start the development server
 
