@@ -19,6 +19,24 @@ const md: MarkdownIt = new MarkdownIt({
         return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
     },
 })
+    // Render mermaid code fences and avoid default code rendering/highlighting
+    // in there.
+    .use((md) => {
+        const currentRenderer = md.renderer.rules.fence;
+        // Watch for "```mermaid" code blocks and render them as a div with the
+        // class mermaid instead of a code block.
+        md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+            const token = tokens[idx];
+            const info = token.info ? md.utils.unescapeAll(token.info).trim() : '';
+            if (info === 'mermaid') {
+                return `<div class="mermaid">${md.utils.escapeHtml(token.content)}</div>`;
+            }
+            if (currentRenderer) {
+                return currentRenderer(tokens, idx, options, env, self);
+            }
+            return self.renderToken(tokens, idx, options);
+        };
+    })
     .use(markdownItTocAndAnchor, {
         anchorLinkSymbol: '#',
         anchorLinkSymbolClassName: 'hidden sm:inline-block x-headline-anchor',
