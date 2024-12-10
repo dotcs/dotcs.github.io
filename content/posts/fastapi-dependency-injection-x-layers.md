@@ -259,7 +259,7 @@ This approach allows us to easily test the controller layer in isolation by mock
 ## Vizualizing the Dependency Injection Chain
 
 If the application is more complex and has more dependencies, it can be helpful to visualize the dependency injection chain.
-Unfortunately I was not able to find a tool that can automatically generate a diagram from the code, so I wrote a Python library that can do this.
+Unfortunately I was not able to find a tool that can automatically generate a diagram from the code, so I wrote a Python library that can do this and published it on PyPI as an open-source project.
 
 The library works by inspecting the application code and generating a graph in the DOT language, which can then be rendered to an image using Graphviz.
 Alternatively the library provides to output mermaid diagrams, which can be used in markdown files, e.g., on GitHub.
@@ -267,4 +267,3 @@ Alternatively the library provides to output mermaid diagrams, which can be used
 The library is called [fastapi-di-viz](https://pypi.org/project/fastapi-di-viz/) and can be installed into a project with `pip install fastapi-di-viz`.
 It provides a CLI tool that allows to inspect any FastAPI application.
 See the [README](https://github.com/dotcs/fastapi-di-viz/) for more details on how this works.
-
