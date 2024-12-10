@@ -47,6 +47,7 @@ const Page: FC<PageProps> = (props) => {
                 ))}
                 <link rel="webmention" href={props.settings.webmentionUrl} />
                 <link rel="pingback" href={props.settings.pingbackUrl} />
+                <script async src=" https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js "></script>
             </Head>
             <div className="flex flex-col h-screen">
                 <Header />
