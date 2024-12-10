@@ -47,3 +47,25 @@ web-crawler:
   description: |
     A web-crawler, also called a spider or spiderbot or just crawler, is an internet bot that systematically browses the web. 
     Web-crawlers are often operated by search engines for the purpose of web indexing.
+testing:
+  description: |
+    Testing is the process of evaluating a system or its component(s) with the intent to find whether it satisfies the specified requirements or not.
+    It is a process of executing a system in order to identify any gaps, errors, or missing requirements in contrary to the actual requirements.
+    This tag is used for posts that focus on testing software.
+dependency-injection:
+  description: |
+    Dependency Injection is a technique in which an object receives other objects that it depends on.
+    This tag is used for posts that focus on dependency injection in software development.
+architecture:
+  description: |
+    Architecture is the art and science of designing and building large structures.
+    This tag is used for posts that focus on software architecture.
+fastapi:
+  description: |
+    [FastAPI](https://fastapi.tiangolo.com/) is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.
+    It is based on [Starlette](https://www.starlette.io/) for the web parts and [Pydantic](https://pydantic-docs.helpmanual.io/) for the data parts.
+    It is one of the fastest web frameworks for Python.
+python:
+  description: |
+    Python is an interpreted, high-level, general-purpose programming language.
+    This tag is used for posts that focus on Python.

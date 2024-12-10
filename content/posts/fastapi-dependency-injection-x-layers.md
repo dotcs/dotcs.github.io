@@ -1,7 +1,7 @@
 ---
 title: Combining FastAPI Dependency Injection with Service and Repository Layers
 excerpt: Learn how to integrate FastAPI's DI system across multiple layers of your application to build a robust and testable application.
-keywords: [FastAPI, Dependency Injection, Service Layer, Repository Layer, Testing, Pytest]
+keywords: [tech, python, fastapi, dependency-injection, testing, architecture]
 authors:
   - dotcs
 published_at: "2024-11-11T21:50:16+01:00"
