@@ -120,6 +120,7 @@ from fastapi import Depends
 
 class Service:
     def __init__(self, settings: Settings, repository: Repository):
+        self.settings = settings
         self.repository = repository
 
     def app_name_upper(self):
@@ -147,17 +148,16 @@ def get_settings():
     """Returns the application settings."""
     return Settings()
 
-def get_service(settings: Annotated[Settings, Depends(get_settings)]):
-    """Returns the service layer."""
-    return Service(settings)
-
-def get_repository(settings: Annotated[Settings, Depends(get_settings)], db: Annotated[Database, Depends(get_db)]):
-    return Repository(settings, db)
-
 def get_db(settings: Annotated[Settings, Depends(get_settings)]):
     """Returns the database connection."""
     return Database(connection_string=settings.db_connection_string).connect()
 
+def get_repository(settings: Annotated[Settings, Depends(get_settings)], db: Annotated[Database, Depends(get_db)]):
+    return Repository(settings, db)
+
+def get_service(settings: Annotated[Settings, Depends(get_settings), repository: Annotated[Repository, Depends(get_repository)]):
+    """Returns the service layer."""
+    return Service(settings, repository)
 ```
 
 Finally, we define the controller layer, which consists of the FastAPI endpoints.
@@ -208,11 +208,15 @@ class MockSettings(Settings):
 
 class MockRepository(Repository):
     def get_sample_data(self):
-        return [{"name": "Alice"}, {"name": "Bob"}]
+        return [{"name": "Foo"}, {"name": "Bar"}]
 
 def test_app_name_upper():
     service = Service(MockSettings(), MockRepository())
     assert service.app_name_upper() == "MY APP UNDER TEST"
+
+def test_get_sample_data_with_upper_names():
+    service = Service(MockSettings(), MockRepository())
+    assert service.get_sample_data_with_upper_names() == [{"name": "FOO"}, {"name": "BAR"}]
 ```
 
 But the real power of this approach becomes apparent when testing the controller layer.
@@ -253,12 +257,16 @@ def test_read_root():
     assert response.json() == [{"name": "FOO"}, {"name": "BAR"}]
 ```
 
-This approach allows us to easily test the controller layer in isolation by mocking the service and repository layers.
+This approach allows us to easily test the controller layer by injecting mock objects at any level of the dependency chain.
+
+Note that we only need to override the dependency injection functions that we want to mock.
+This makes the tests more focused and easier to understand.
+In this case the full application logic can be tested without the need to start a real database or to mock the database connection by just mocking the repository layer.
 
 
 ## Vizualizing the Dependency Injection Chain
 
-If the application is more complex and has more dependencies, it can be helpful to visualize the dependency injection chain.
+If the application is built like this and gets more complex over time because of many dependencies, it can be helpful to visualize the dependency injection chain.
 Unfortunately I was not able to find a tool that can automatically generate a diagram from the code, so I wrote a Python library that can do this and published it on PyPI as an open-source project.
 
 The library works by inspecting the application code and generating a graph in the DOT language, which can then be rendered to an image using Graphviz.
