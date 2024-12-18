@@ -69,3 +69,6 @@ python:
   description: |
     Python is an interpreted, high-level, general-purpose programming language.
     This tag is used for posts that focus on Python.
+sqlalchemy:
+  description: |
+    SQLAlchemy is an open-source SQL toolkit and object-relational mapping (ORM) library for the Python programming language.
